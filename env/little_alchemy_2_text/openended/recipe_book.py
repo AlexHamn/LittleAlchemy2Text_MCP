@@ -6,7 +6,7 @@ import random
 import timeit
 import copy
 import numpy as np
-from gym.utils import seeding
+from gymnasium.utils import seeding
 
 
 

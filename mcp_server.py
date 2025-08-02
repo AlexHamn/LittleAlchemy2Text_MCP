@@ -1,0 +1,529 @@
+#!/usr/bin/env python3
+"""
+Little Alchemy 2 Text MCP Server
+
+This MCP server exposes the Little Alchemy 2 text game as tools that can be called
+by LLM clients. Players can start games, view their inventory, combine items, and 
+see the results of their combinations.
+
+The game works like Little Alchemy 2:
+- Start with basic elements (air, earth, fire, water)
+- Combine two items to create new items
+- Discover as many combinations as possible
+- See valid and invalid combinations from previous attempts
+"""
+
+import asyncio
+import sys
+import os
+import json
+from typing import Dict, Any, List, Optional
+
+# Add paths for the game modules
+sys.path.append(os.getcwd())
+sys.path.append("env/wordcraft")
+
+# Import MCP server modules
+from mcp.server import Server
+from mcp.types import Resource, Tool, TextContent
+import mcp.server.stdio
+
+# Import game modules
+import gymnasium as gym
+import env.little_alchemy_2_text.openended.env
+import env.little_alchemy_2_text.targeted.env
+from box import Box
+import numpy as np
+
+# Global game state storage
+game_sessions: Dict[str, Dict[str, Any]] = {}
+
+def create_game_session(session_id: str, targeted: bool = False, max_rounds: int = 10) -> Dict[str, Any]:
+    """Create a new game session with the specified parameters."""
+    
+    # Set up game arguments
+    args = {
+        'targeted': targeted,
+        'distractors': 3,
+        'depth': 1,
+        'rounds': max_rounds,
+        'seed': np.random.randint(0, 10000),
+        'encoded': False
+    }
+    args = Box(args)
+    
+    # Create environment
+    if targeted:
+        env = gym.make("LittleAlchemy2TextTargeted-v0",
+                       max_mix_steps=args.rounds,
+                       num_distractors=args.distractors,
+                       max_depth=args.depth,
+                       encoded=args.encoded)
+    else:
+        env = gym.make("LittleAlchemy2TextOpen-v0",
+                       max_mix_steps=args.rounds,
+                       encoded=args.encoded)
+    
+    # Reset environment
+    env.reset(seed=args.seed)
+    
+    # Create session data
+    session = {
+        'env': env,
+        'unwrapped_env': env.unwrapped,  # Store unwrapped for custom methods
+        'args': args,
+        'rounds_played': 0,
+        'max_rounds': max_rounds,
+        'done': False,
+        'targeted': targeted
+    }
+    
+    return session
+
+def get_game_state(session: Dict[str, Any]) -> str:
+    """Get the current state of the game as a formatted string."""
+    unwrapped_env = session['unwrapped_env']
+    
+    # Get basic game info
+    inventory = unwrapped_env.get_inventory()
+    rounds_left = session['max_rounds'] - session['rounds_played']
+    
+    # Get valid and invalid combinations
+    valid_combs, past_invalid_combs = unwrapped_env._print_valid_and_invalid_combs()
+    
+    # Format the state
+    state = f"""=== LITTLE ALCHEMY 2 TEXT ===
+Game Mode: {'Targeted' if session['targeted'] else 'Open-ended'}
+Rounds Remaining: {rounds_left}
+Items Discovered: {len(inventory)}
+
+CURRENT INVENTORY:
+{', '.join([f"'{item}'" for item in inventory])}
+
+VALID COMBINATIONS DISCOVERED:
+{valid_combs if valid_combs else 'None yet'}
+
+INVALID COMBINATIONS TRIED:
+{past_invalid_combs if past_invalid_combs else 'None yet'}
+
+To make a move, combine two items from your inventory using the make_move tool.
+Example: make_move('air', 'fire') might create 'energy'
+"""
+    
+    if session['done']:
+        state += f"\n🎉 GAME COMPLETED!\nFinal Score: {len(inventory)} items discovered"
+    
+    return state
+
+# Create MCP server instance
+app = Server("little-alchemy-2-text")
+
+@app.list_resources()
+async def list_resources() -> List[Resource]:
+    """List available game resources."""
+    return [
+        Resource(
+            uri="game://rules",
+            name="Little Alchemy 2 Rules",
+            mimeType="text/plain",
+        ),
+        Resource(
+            uri="game://combinations",
+            name="Common Combinations Guide",
+            mimeType="text/plain",
+        )
+    ]
+
+@app.read_resource()
+async def read_resource(uri: str) -> str:
+    """Read game resources."""
+    if uri == "game://rules":
+        return """LITTLE ALCHEMY 2 TEXT - GAME RULES
+
+🎯 OBJECTIVE:
+- Open-ended mode: Discover as many items as possible by combining elements
+- Targeted mode: Find the specific target item
+
+🎮 HOW TO PLAY:
+1. Start with basic elements: air, earth, fire, water
+2. Combine any two items from your inventory to try creating new items
+3. Successful combinations add new items to your inventory
+4. Failed combinations are remembered to avoid repetition
+5. You have limited rounds to discover items
+
+💡 TIPS:
+- Try logical combinations (fire + water = steam)
+- Experiment with basic elements first
+- Build on your discoveries (steam + air might make cloud)
+- Pay attention to previous valid combinations for patterns
+
+🔄 GAME FLOW:
+1. Use start_game to begin
+2. Use get_game_state to see your inventory and progress
+3. Use make_move to combine two items
+4. Repeat until rounds are exhausted or target found
+"""
+    
+    elif uri == "game://combinations":
+        return """COMMON LITTLE ALCHEMY 2 COMBINATIONS
+
+🔥 BASIC ELEMENT COMBINATIONS:
+- air + fire = energy
+- earth + water = mud
+- fire + water = steam
+- air + water = rain
+- earth + fire = lava
+
+⚡ ENERGY-BASED:
+- energy + air = wind
+- energy + earth = earthquake
+- energy + water = tsunami
+
+🌍 NATURE COMBINATIONS:
+- rain + earth = plant
+- plant + fire = ash
+- water + earth = mud
+- mud + fire = brick
+
+🏗️ BUILDING MATERIALS:
+- earth + earth = land
+- water + water = sea
+- fire + fire = sun
+- air + air = pressure
+
+💨 WEATHER & ATMOSPHERE:
+- steam + air = cloud
+- cloud + cloud = rain
+- wind + water = wave
+
+Remember: These are just examples! The game has hundreds of possible combinations.
+Experiment and discover new ones!
+"""
+    
+    else:
+        raise ValueError(f"Unknown resource: {uri}")
+
+@app.list_tools()
+async def list_tools() -> List[Tool]:
+    """List available game tools."""
+    return [
+        Tool(
+            name="start_game",
+            description="Start a new Little Alchemy 2 game session. You can choose between open-ended mode (discover as many items as possible) or targeted mode (find a specific target item).",
+            inputSchema={
+                "type": "object",
+                "properties": {
+                    "session_id": {
+                        "type": "string",
+                        "description": "Unique identifier for this game session"
+                    },
+                    "game_mode": {
+                        "type": "string",
+                        "enum": ["open-ended", "targeted"],
+                        "description": "Game mode: 'open-ended' to discover items freely, 'targeted' to find a specific target",
+                        "default": "open-ended"
+                    },
+                    "max_rounds": {
+                        "type": "integer",
+                        "description": "Maximum number of combination attempts allowed",
+                        "default": 10,
+                        "minimum": 1,
+                        "maximum": 50
+                    }
+                },
+                "required": ["session_id"]
+            }
+        ),
+        
+        Tool(
+            name="get_game_state",
+            description="Get the current state of your Little Alchemy 2 game, including your inventory, discovered combinations, and remaining rounds.",
+            inputSchema={
+                "type": "object",
+                "properties": {
+                    "session_id": {
+                        "type": "string",
+                        "description": "Game session identifier"
+                    }
+                },
+                "required": ["session_id"]
+            }
+        ),
+        
+        Tool(
+            name="make_move",
+            description="Combine two items from your inventory to try creating a new item. The items must be in your current inventory.",
+            inputSchema={
+                "type": "object",
+                "properties": {
+                    "session_id": {
+                        "type": "string",
+                        "description": "Game session identifier"
+                    },
+                    "item1": {
+                        "type": "string",
+                        "description": "First item to combine (must be in inventory)"
+                    },
+                    "item2": {
+                        "type": "string",
+                        "description": "Second item to combine (must be in inventory)"
+                    }
+                },
+                "required": ["session_id", "item1", "item2"]
+            }
+        ),
+        
+        Tool(
+            name="list_active_sessions",
+            description="List all active game sessions.",
+            inputSchema={
+                "type": "object",
+                "properties": {},
+                "required": []
+            }
+        ),
+        
+        Tool(
+            name="end_game",
+            description="End a game session and get the final summary.",
+            inputSchema={
+                "type": "object",
+                "properties": {
+                    "session_id": {
+                        "type": "string",
+                        "description": "Game session identifier to end"
+                    }
+                },
+                "required": ["session_id"]
+            }
+        )
+    ]
+
+@app.call_tool()
+async def call_tool(name: str, arguments: dict) -> List[TextContent]:
+    """Handle tool calls for the Little Alchemy 2 game."""
+    
+    if name == "start_game":
+        session_id = arguments["session_id"]
+        game_mode = arguments.get("game_mode", "open-ended")
+        max_rounds = arguments.get("max_rounds", 10)
+        
+        # Check if session already exists
+        if session_id in game_sessions:
+            return [TextContent(
+                type="text",
+                text=f"❌ Game session '{session_id}' already exists. Please choose a different session_id or end the existing session first."
+            )]
+        
+        try:
+            # Create new game session
+            targeted = (game_mode == "targeted")
+            session = create_game_session(session_id, targeted, max_rounds)
+            game_sessions[session_id] = session
+            
+            # Get initial state
+            initial_state = get_game_state(session)
+            
+            return [TextContent(
+                type="text",
+                text=f"🎮 NEW GAME STARTED!\nSession ID: {session_id}\nMode: {game_mode.title()}\nMax Rounds: {max_rounds}\n\n{initial_state}"
+            )]
+            
+        except Exception as e:
+            return [TextContent(
+                type="text",
+                text=f"❌ Error starting game: {str(e)}"
+            )]
+    
+    elif name == "get_game_state":
+        session_id = arguments["session_id"]
+        
+        if session_id not in game_sessions:
+            return [TextContent(
+                type="text",
+                text=f"❌ Game session '{session_id}' not found. Use start_game to create a new session."
+            )]
+        
+        try:
+            session = game_sessions[session_id]
+            state = get_game_state(session)
+            
+            return [TextContent(
+                type="text",
+                text=state
+            )]
+            
+        except Exception as e:
+            return [TextContent(
+                type="text",
+                text=f"❌ Error getting game state: {str(e)}"
+            )]
+    
+    elif name == "make_move":
+        session_id = arguments["session_id"]
+        item1 = arguments["item1"].strip().lower()
+        item2 = arguments["item2"].strip().lower()
+        
+        if session_id not in game_sessions:
+            return [TextContent(
+                type="text",
+                text=f"❌ Game session '{session_id}' not found. Use start_game to create a new session."
+            )]
+        
+        try:
+            session = game_sessions[session_id]
+            env = session['env']
+            unwrapped_env = session['unwrapped_env']
+            
+            if session['done']:
+                return [TextContent(
+                    type="text",
+                    text="🎮 This game session has already ended. Start a new game to continue playing."
+                )]
+            
+            # Check if items are in inventory
+            inventory = [item.lower() for item in unwrapped_env.get_inventory()]
+            if item1 not in inventory:
+                available_items = ', '.join([f"'{item}'" for item in unwrapped_env.get_inventory()])
+                return [TextContent(
+                    type="text",
+                    text=f"❌ '{item1}' is not in your inventory. Available items: {available_items}"
+                )]
+            
+            if item2 not in inventory:
+                available_items = ', '.join([f"'{item}'" for item in unwrapped_env.get_inventory()])
+                return [TextContent(
+                    type="text",
+                    text=f"❌ '{item2}' is not in your inventory. Available items: {available_items}"
+                )]
+            
+            # Create action string (the game expects this format)
+            action = f"Combination: '{item1}' and '{item2}'"
+            
+            # Perform the action
+            obs, reward, done, info = env.step(action)
+            
+            # Update session state
+            session['rounds_played'] += 1
+            if done or session['rounds_played'] >= session['max_rounds']:
+                session['done'] = True
+            
+            # Create response message
+            if info.get("repeat", False):
+                response = f"❌ Invalid combination: '{item1}' and '{item2}' cannot be combined or are not in your inventory."
+            else:
+                if reward and reward > 0:
+                    # Get the latest item added (successful combination)
+                    current_inventory = unwrapped_env.get_inventory()
+                    new_item = None
+                    for comb, result_idx in unwrapped_env.past_valid_combs.items():
+                        result = unwrapped_env.index_to_word(result_idx)
+                        if result in current_inventory:
+                            new_item = result
+                    
+                    response = f"✅ SUCCESS! '{item1}' + '{item2}' = '{new_item}'"
+                    if new_item:
+                        response += f"\n🎉 '{new_item}' has been added to your inventory!"
+                else:
+                    response = f"❌ No result: '{item1}' and '{item2}' don't combine into anything."
+            
+            # Add current state
+            response += f"\n\nRounds used: {session['rounds_played']}/{session['max_rounds']}"
+            response += f"\nItems discovered: {len(unwrapped_env.get_inventory())}"
+            
+            if session['done']:
+                response += f"\n\n🎮 GAME COMPLETED!"
+                response += unwrapped_env.summarise()
+            
+            return [TextContent(
+                type="text",
+                text=response
+            )]
+            
+        except Exception as e:
+            return [TextContent(
+                type="text",
+                text=f"❌ Error making move: {str(e)}"
+            )]
+    
+    elif name == "list_active_sessions":
+        if not game_sessions:
+            return [TextContent(
+                type="text",
+                text="📋 No active game sessions. Use start_game to create a new session."
+            )]
+        
+        session_list = "📋 ACTIVE GAME SESSIONS:\n\n"
+        for session_id, session in game_sessions.items():
+            mode = "Targeted" if session['targeted'] else "Open-ended"
+            status = "Completed" if session['done'] else "Active"
+            rounds = f"{session['rounds_played']}/{session['max_rounds']}"
+            items = len(session['unwrapped_env'].get_inventory())
+            
+            session_list += f"🎮 Session: {session_id}\n"
+            session_list += f"   Mode: {mode} | Status: {status} | Rounds: {rounds} | Items: {items}\n\n"
+        
+        return [TextContent(
+            type="text",
+            text=session_list
+        )]
+    
+    elif name == "end_game":
+        session_id = arguments["session_id"]
+        
+        if session_id not in game_sessions:
+            return [TextContent(
+                type="text",
+                text=f"❌ Game session '{session_id}' not found."
+            )]
+        
+        try:
+            session = game_sessions[session_id]
+            unwrapped_env = session['unwrapped_env']
+            
+            # Generate final summary
+            final_summary = f"🎮 GAME SESSION '{session_id}' ENDED\n\n"
+            final_summary += f"Mode: {'Targeted' if session['targeted'] else 'Open-ended'}\n"
+            final_summary += f"Rounds Used: {session['rounds_played']}/{session['max_rounds']}\n"
+            final_summary += f"Final Score: {len(unwrapped_env.get_inventory())} items discovered\n\n"
+            
+            inventory_list = ', '.join([f"'{item}'" for item in unwrapped_env.get_inventory()])
+            final_summary += f"FINAL INVENTORY:\n{inventory_list}\n\n"
+            
+            valid_combs, invalid_combs = unwrapped_env._print_valid_and_invalid_combs()
+            if valid_combs:
+                final_summary += f"SUCCESSFUL COMBINATIONS:\n{valid_combs}\n\n"
+            
+            final_summary += "Thanks for playing Little Alchemy 2 Text! 🎉"
+            
+            # Remove session
+            del game_sessions[session_id]
+            
+            return [TextContent(
+                type="text",
+                text=final_summary
+            )]
+            
+        except Exception as e:
+            return [TextContent(
+                type="text",
+                text=f"❌ Error ending game: {str(e)}"
+            )]
+    
+    else:
+        return [TextContent(
+            type="text",
+            text=f"❌ Unknown tool: {name}"
+        )]
+
+async def main():
+    """Run the MCP server."""
+    async with mcp.server.stdio.stdio_server() as (read_stream, write_stream):
+        await app.run(
+            read_stream,
+            write_stream,
+            app.create_initialization_options()
+        )
+
+if __name__ == "__main__":
+    asyncio.run(main())

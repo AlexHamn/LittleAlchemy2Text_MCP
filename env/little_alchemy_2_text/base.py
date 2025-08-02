@@ -1,8 +1,8 @@
 """ Contains the Base class that implements a LittleAlchemy2Text environment the open-ended and targeted tasks inherit."""
 import os
-from utils import seed as utils_seed
-import gym
-from utils.word2feature import FeatureMap
+from env.wordcraft.utils import seed as utils_seed
+import gymnasium as gym
+from env.wordcraft.utils.word2feature import FeatureMap
 import numpy as np
 from env.wordcraft.wordcraft.env import WordCraftEnv
 import random
@@ -76,9 +76,10 @@ class LittleAlchemy2Text(WordCraftEnv):
         self.action_space = gym.spaces.Discrete(
             self.max_table_size)  # Actions correspond to choosing an entity in a table position
 
-    def reset(self, seed):
+    def reset(self, seed=None, options=None):
 
-        self.seed = seed
+        if seed is not None:
+            self.seed = seed
         self.past_invalid_combs = []
         self.past_valid_combs = {}
 
@@ -87,13 +88,15 @@ class LittleAlchemy2Text(WordCraftEnv):
         self.episode_reward = 0
         self.done = False
 
-        self.task = self.recipe_book.sample_task(seed)
+        self.task = self.recipe_book.sample_task(self.seed)
 
         self._reset_selection()
         self._reset_table()
         self._reset_history()
 
-        return self._get_observation()
+        observation = self._get_observation()
+        info = {}
+        return observation, info
 
     def _reset_history(self):
         self.subgoal_history = {}

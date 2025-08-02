@@ -2,9 +2,9 @@ import os
 from enum import IntEnum
 
 import numpy as np
-import gym
-from gym.utils import seeding
-from gym.envs.registration import register
+import gymnasium as gym
+from gymnasium.utils import seeding
+from gymnasium.envs.registration import register
 
 
 NO_RECIPE_PENALTY = 0

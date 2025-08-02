@@ -7,9 +7,9 @@ import timeit
 import copy
 
 import numpy as np
-from gym.utils import seeding
+from gymnasium.utils import seeding
 
-from utils.log import cprint
+from env.wordcraft.utils.log import cprint
 
 
 DEBUG = False

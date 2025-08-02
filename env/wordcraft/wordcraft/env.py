@@ -2,12 +2,12 @@ import os
 from enum import IntEnum
 
 import numpy as np
-import gym
-from gym.utils import seeding
+import gymnasium as gym
+from gymnasium.utils import seeding
 
-from utils import seed as utils_seed
-from utils.word2feature import FeatureMap
-from wordcraft.recipe_book import Recipe, RecipeBook
+from env.wordcraft.utils import seed as utils_seed
+from env.wordcraft.utils.word2feature import FeatureMap
+from env.wordcraft.wordcraft.recipe_book import Recipe, RecipeBook
 
 
 NO_RECIPE_PENALTY = -0.1

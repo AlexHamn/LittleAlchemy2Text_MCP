@@ -12,7 +12,7 @@ sys.path.append("env/wordcraft")
 import env.little_alchemy_2_text.openended.env
 import env.little_alchemy_2_text.targeted.env
 import argparse
-import gym
+import gymnasium as gym
 from players.human import Human
 from players.LLM import LLM
 

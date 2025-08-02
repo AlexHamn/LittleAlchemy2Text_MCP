@@ -1,6 +1,6 @@
 import sys
 import os
-import gym
+import gymnasium as gym
 from flask import Flask, request, jsonify, render_template, make_response
 from flask_cors import CORS
 sys.path.append(os.getcwd())

@@ -1,9 +1,9 @@
 """ Contains the implementation of an open-ended task.
 """
 
-import gym
+import gymnasium as gym
 from env.little_alchemy_2_text.openended.recipe_book import Recipe, RecipeBook
-from gym.envs.registration import register
+from gymnasium.envs.registration import register
 from env.little_alchemy_2_text.base import LittleAlchemy2Text
 
 NO_RECIPE_PENALTY = -0.1
@@ -40,11 +40,11 @@ class LittleAlchemy2TextOpen(LittleAlchemy2Text):
         }
         self.observation_space = gym.spaces.Dict(dspaces)
 
-    def reset(self, seed):
+    def reset(self, seed=None, options=None):
         self.distractors = []
-        super().reset(seed)
+        observation, info = super().reset(seed, options)
 
-        return self._get_observation()
+        return observation, info
 
     def _get_observation(self):
         return super()._get_observation()
