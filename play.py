@@ -1,7 +1,7 @@
-""" An example script that you can use to play LittleAlchemy2Text with humans and LLMs.
+""" An example script that you can use to play LittleAlchemy2Text with human players.
  You can run it directly or call method 'play' from another script.
 
- A game consists of a group of (human and/or LLM) players attempting combinations in the same task one after each other.
+ A game consists of a group of human players attempting combinations in the same task one after each other.
  Players in a group do not share inventories but can observe the valid and invalid combinations of others.
  """
 
@@ -14,7 +14,7 @@ import env.little_alchemy_2_text.targeted.env
 import argparse
 import gymnasium as gym
 from players.human import Human
-from players.LLM import LLM
+
 
 ENV_DIR = os.getcwd()
 
@@ -22,25 +22,11 @@ def setup(args):
 
     input_incorrect = True
     while input_incorrect:
-
         try:
             nhuman = int(input('How many human players are there?'))
             input_incorrect = False
         except ValueError:
             print("Wrong input, pick an integer.")
-
-    input_incorrect = True
-    while input_incorrect:
-        try:
-            nLLM = int(input('How many LLM players are there?'))
-            input_incorrect = False
-        except ValueError:
-            print("Wrong input, pick an integer.")
-
-    if nLLM:
-        import subprocess
-        print("Pulling ollama agent")
-        subprocess.run(['ollama', 'pull', 'llama3'], capture_output=True, text=True)
 
     group = []
     for i in range(nhuman):
@@ -57,20 +43,6 @@ def setup(args):
                            max_mix_steps=args.rounds,
                            encoded=args.encoded)
         group.append(Human(i, env, task_descript, seed=args.seed))
-
-    for i in range(nhuman, nhuman + nLLM):
-        if args.targeted:
-            env = gym.make("LittleAlchemy2TextTargeted-v0",
-                           max_mix_steps=args.rounds,
-                           num_distractors=args.distractors,
-                           max_depth=args.depth,
-                           encoded=args.encoded)
-        else:
-            env = gym.make("LittleAlchemy2TextOpen-v0",
-                           max_mix_steps=args.rounds,
-                           encoded=args.encoded)
-
-        group.append(LLM(i, env, targeted=args.targeted, multiagent=(nLLM - 1), seed=args.seed))
 
     return group
 

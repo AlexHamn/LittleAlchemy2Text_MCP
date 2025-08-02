@@ -1,18 +1,16 @@
+# What is LittleAlchemy2Text?
 
-## What is LittleAlchemy2Text?
-
-This is a text-based version of the game Little Alchemy 2 that can be played both by humans and Large Language Models.
+This is a text-based version of the game Little Alchemy 2 that can be played by humans via command line interface or through MCP (Model Context Protocol).
 We have implemented it by extending [Wordcraft](https://github.com/minqi/wordcraft), a python-based implementation of Little
 Alchemy 2 that enabled playing the game with reinforcement learning agents.
 
-
 How did we extend Wordcraft?
 
-* added open-ended tasks. These start with the same items that Little Alchemy 2 starts with and have no target item
-* added support for multiple agents. The agents are not in the same environment but receive information about the actions of others
-* added ability to encode words into random stringsollama
-* engineered prompts for instructing LLMs to play the task
-* some bug fixes (eg ensuring that tasks are set deterministically by the seed, dealing with items missing from the data base)
+- added open-ended tasks. These start with the same items that Little Alchemy 2 starts with and have no target item
+- added support for multiple agents. The agents are not in the same environment but receive information about the actions of others
+- added ability to encode words into random strings
+- added MCP (Model Context Protocol) support for integration with LLM clients
+- some bug fixes (eg ensuring that tasks are set deterministically by the seed, dealing with items missing from the data base)
 
 ## How to use
 
@@ -24,33 +22,32 @@ To install all necessary package dependencies you can run:
 
     conda env create -f environment.yml
 
-### Playing with humans and LLMs
+### Playing the game
 
-To enable the use of LLMs we are using the [ollama](https://github.com/ollama/ollama-python) library.
-This is an API to various opensource LLMs, such as LLama 3, Phi 3 Mistral and Gemma 2.
+This game supports two main interfaces:
 
-We have provided a script for illustrating how humans and LLMs can play a game. Upon running:
+#### Command Line Interface
+
+To play via command line with human players, run:
 
     python play.py
 
-you will be asked how many human and LLM players there will be. Human players will need to perform actions through the command line.
+You will be asked how many human players there will be. Human players perform actions through the command line interface.
 
+#### MCP (Model Context Protocol) Interface
 
+The game can also be played through MCP, which allows LLM clients to interact with the game using structured tools.
 
+To start the MCP server:
 
-## Cite this work
+    python mcp_server.py
 
-If you use this code in your work, please cite our paper:
+Then configure your MCP client to connect and use the available tools:
 
-    @article{nisioti_2024, 
-    title={Collective Innovation in Groups of Large Language Models},
-    author={Eleni Nisioti and Sebastian Risi and Ida Momennejad and Pierre-Yves Oudeyer and Clément Moulin-Frier},
-    year={2024},
-    booktitle = {The 2023 {Conference} on {Artificial} {Life}},
-    publisher = {MIT Press},
-    }
-    
+- `start_game` - Begin a new game session
+- `get_game_state` - View current inventory and game status
+- `make_move` - Combine two items to create new ones
+- `list_active_sessions` - Show all active games
+- `end_game` - Finish with a summary
 
-
-
-
+See `README_MCP.md` for detailed MCP setup instructions.

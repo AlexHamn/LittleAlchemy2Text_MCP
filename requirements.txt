@@ -4,9 +4,5 @@ gymnasium>=1.0.0
 numpy>=1.20.0
 python-box>=6.0.0
 
-# Flask dependencies (for the existing web app)
-Flask>=2.0.0
-Flask-CORS>=3.0.0
-
 # Additional dependencies from the original project
 # Note: Install these with conda using environment.yml for best compatibility
