@@ -17,6 +17,8 @@ import asyncio
 import sys
 import os
 import json
+import signal
+import argparse
 from typing import Dict, Any, List, Optional
 
 # Add paths for the game modules
@@ -55,14 +57,14 @@ def create_game_session(session_id: str, targeted: bool = False, max_rounds: int
     # Create environment
     if targeted:
         env = gym.make("LittleAlchemy2TextTargeted-v0",
-                       max_mix_steps=args.rounds,
-                       num_distractors=args.distractors,
-                       max_depth=args.depth,
-                       encoded=args.encoded)
+                        max_mix_steps=args.rounds,
+                        num_distractors=args.distractors,
+                        max_depth=args.depth,
+                        encoded=args.encoded)
     else:
         env = gym.make("LittleAlchemy2TextOpen-v0",
-                       max_mix_steps=args.rounds,
-                       encoded=args.encoded)
+                        max_mix_steps=args.rounds,
+                        encoded=args.encoded)
     
     # Reset environment
     env.reset(seed=args.seed)
@@ -135,10 +137,12 @@ async def list_resources() -> List[Resource]:
     ]
 
 @app.read_resource()
-async def read_resource(uri: str) -> str:
+async def read_resource(uri: str) -> TextContent:
     """Read game resources."""
     if uri == "game://rules":
-        return """LITTLE ALCHEMY 2 TEXT - GAME RULES
+        return TextContent(
+            type="text",
+            text="""LITTLE ALCHEMY 2 TEXT - GAME RULES
 
 🎯 OBJECTIVE:
 - Open-ended mode: Discover as many items as possible by combining elements
@@ -163,9 +167,12 @@ async def read_resource(uri: str) -> str:
 3. Use make_move to combine two items
 4. Repeat until rounds are exhausted or target found
 """
+        )
     
     elif uri == "game://combinations":
-        return """COMMON LITTLE ALCHEMY 2 COMBINATIONS
+        return TextContent(
+            type="text",
+            text="""COMMON LITTLE ALCHEMY 2 COMBINATIONS
 
 🔥 BASIC ELEMENT COMBINATIONS:
 - air + fire = energy
@@ -199,6 +206,7 @@ async def read_resource(uri: str) -> str:
 Remember: These are just examples! The game has hundreds of possible combinations.
 Experiment and discover new ones!
 """
+        )
     
     else:
         raise ValueError(f"Unknown resource: {uri}")
@@ -518,12 +526,114 @@ async def call_tool(name: str, arguments: dict) -> List[TextContent]:
 
 async def main():
     """Run the MCP server."""
-    async with mcp.server.stdio.stdio_server() as (read_stream, write_stream):
-        await app.run(
-            read_stream,
-            write_stream,
-            app.create_initialization_options()
-        )
+    
+    # Set up signal handlers for graceful shutdown
+    shutdown_event = asyncio.Event()
+    
+    def signal_handler():
+        print("\n🛑 Received shutdown signal, closing server...", file=sys.stderr)
+        shutdown_event.set()
+    
+    # Register signal handlers
+    for sig in (signal.SIGTERM, signal.SIGINT):
+        if hasattr(signal, sig.name):
+            signal.signal(sig, lambda s, f: signal_handler())
+    
+    try:
+        async with mcp.server.stdio.stdio_server() as (read_stream, write_stream):
+            print("🎮 Little Alchemy 2 Text MCP Server started", file=sys.stderr)
+            print("💡 Press Ctrl+C to stop the server", file=sys.stderr)
+            
+            # Create a task for the server
+            server_task = asyncio.create_task(
+                app.run(
+                    read_stream,
+                    write_stream,
+                    app.create_initialization_options()
+                )
+            )
+            
+            # Wait for either the server to complete or shutdown signal
+            done, pending = await asyncio.wait(
+                [server_task, asyncio.create_task(shutdown_event.wait())],
+                return_when=asyncio.FIRST_COMPLETED
+            )
+            
+            # Cancel any pending tasks
+            for task in pending:
+                task.cancel()
+                try:
+                    await task
+                except asyncio.CancelledError:
+                    pass
+                    
+    except KeyboardInterrupt:
+        print("\n🛑 Server interrupted by user", file=sys.stderr)
+    except Exception as e:
+        print(f"\n❌ Server error: {e}", file=sys.stderr)
+        raise
+    finally:
+        print("✅ Server stopped cleanly", file=sys.stderr)
+
+def parse_args():
+    """Parse command line arguments."""
+    parser = argparse.ArgumentParser(
+        description="Little Alchemy 2 Text MCP Server",
+        formatter_class=argparse.RawDescriptionHelpFormatter,
+        epilog="""
+This MCP server exposes the Little Alchemy 2 text game as tools that can be called
+by LLM clients. Players can start games, view their inventory, combine items, and 
+see the results of their combinations.
+
+The server communicates over stdio and is designed to be used with MCP-compatible
+clients like Claude Desktop or other AI assistants.
+
+Example usage in Claude Desktop mcp_servers config:
+{
+  "little-alchemy-2-text": {
+    "command": "python",
+    "args": ["/path/to/mcp_server.py"]
+  }
+}
+        """
+    )
+    
+    parser.add_argument(
+        "--version",
+        action="version",
+        version="Little Alchemy 2 Text MCP Server v1.0"
+    )
+    
+    parser.add_argument(
+        "--info",
+        action="store_true",
+        help="Show server information and available tools"
+    )
+    
+    return parser.parse_args()
 
 if __name__ == "__main__":
-    asyncio.run(main())
+    args = parse_args()
+    
+    if args.info:
+        print("🎮 Little Alchemy 2 Text MCP Server")
+        print("=" * 50)
+        print("This server provides the following tools:")
+        print("• start_game - Start a new game session")
+        print("• get_game_state - View current game state")
+        print("• make_move - Combine two items")
+        print("• list_active_sessions - List all game sessions")
+        print("• end_game - End a game session")
+        print()
+        print("Game modes:")
+        print("• Open-ended: Discover as many items as possible")
+        print("• Targeted: Find a specific target item")
+        print()
+        print("Use with MCP-compatible clients like Claude Desktop.")
+        sys.exit(0)
+    
+    try:
+        asyncio.run(main())
+    except KeyboardInterrupt:
+        print("\n👋 Goodbye!", file=sys.stderr)
+        sys.exit(0)
