@@ -236,7 +236,7 @@ async def list_tools() -> List[Tool]:
                         "description": "Maximum number of combination attempts allowed",
                         "default": 10,
                         "minimum": 1,
-                        "maximum": 50
+                        "maximum": 200
                     }
                 },
                 "required": ["session_id"]
