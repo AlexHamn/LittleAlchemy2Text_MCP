@@ -40,6 +40,31 @@ import numpy as np
 # Global game state storage
 game_sessions: Dict[str, Dict[str, Any]] = {}
 
+# Load final items data
+def load_final_items() -> set:
+    """Load the list of final items that cannot be combined further."""
+    try:
+        with open('final_items.json', 'r') as f:
+            data = json.load(f)
+            return set(data['final_items'])
+    except (FileNotFoundError, KeyError, json.JSONDecodeError):
+        # Fallback to empty set if file doesn't exist or is invalid
+        print("⚠️ Warning: Could not load final items data", file=sys.stderr)
+        return set()
+
+# Initialize final items set
+final_items = load_final_items()
+
+def is_final_item(item_name: str) -> bool:
+    """Check if an item is final (cannot be combined further)."""
+    return item_name.lower() in final_items
+
+def get_final_item_message(item_name: str) -> str:
+    """Get a message indicating if an item is final."""
+    if is_final_item(item_name):
+        return f"🔒 '{item_name}' is a final item and cannot be combined with other items."
+    return ""
+
 def create_game_session(session_id: str, targeted: bool = False, max_rounds: int = 10) -> Dict[str, Any]:
     """Create a new game session with the specified parameters."""
     
@@ -462,6 +487,11 @@ async def call_tool(name: str, arguments: dict) -> List[TextContent]:
                 repeated_result = info.get("repeated_result")
                 if repeated_result:
                     response = f"🔄 You've already used this combination! '{item1}' + '{item2}' = '{repeated_result}' (already in your inventory)"
+                    
+                    # Check if the repeated result is final and inform the user
+                    final_message = get_final_item_message(repeated_result)
+                    if final_message:
+                        response += f"\n{final_message}"
                 else:
                     response = f"🔄 You've already tried this combination. '{item1}' and '{item2}' don't combine into anything."
             else:
@@ -477,6 +507,11 @@ async def call_tool(name: str, arguments: dict) -> List[TextContent]:
                     response = f"✅ SUCCESS! '{item1}' + '{item2}' = '{new_item}'"
                     if new_item:
                         response += f"\n🎉 '{new_item}' has been added to your inventory!"
+                        
+                        # Check if the new item is final and inform the user
+                        final_message = get_final_item_message(new_item)
+                        if final_message:
+                            response += f"\n{final_message}"
                 else:
                     response = f"❌ No result: '{item1}' and '{item2}' don't combine into anything."
             
