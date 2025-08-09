@@ -47,12 +47,9 @@ def load_final_items() -> set:
         # Use absolute path based on script location
         script_dir = os.path.dirname(os.path.abspath(__file__))
         final_items_path = os.path.join(script_dir, 'final_items.json')
-        print(f"🔧 DEBUG: Looking for final_items.json at: {final_items_path}", file=sys.stderr)
-        
         with open(final_items_path, 'r') as f:
             data = json.load(f)
             final_items_set = set(data['final_items'])
-            print(f"🔧 DEBUG: Successfully loaded {len(final_items_set)} final items from {final_items_path}", file=sys.stderr)
             return final_items_set
     except (FileNotFoundError, KeyError, json.JSONDecodeError) as e:
         # Fallback to empty set if file doesn't exist or is invalid
@@ -61,22 +58,16 @@ def load_final_items() -> set:
 
 # Initialize final items set
 final_items = load_final_items()
-print(f"🔧 DEBUG: Loaded {len(final_items)} final items. Sample: {list(final_items)[:10] if final_items else 'None'}", file=sys.stderr)
 
 def is_final_item(item_name: str) -> bool:
     """Check if an item is final (cannot be combined further)."""
     global final_items
-    print(f"🔧 DEBUG: is_final_item called with '{item_name}', final_items size: {len(final_items)}", file=sys.stderr)
     
     # If final_items is empty, try reloading it
     if not final_items:
-        print(f"🔧 DEBUG: final_items is empty, reloading...", file=sys.stderr)
         final_items = load_final_items()
-        print(f"🔧 DEBUG: Reloaded {len(final_items)} final items", file=sys.stderr)
     
-    result = item_name.lower() in final_items
-    print(f"🔧 DEBUG: '{item_name.lower()}' in final_items: {result}", file=sys.stderr)
-    return result
+    return item_name.lower() in final_items
 
 def get_final_item_message(item_name: str) -> str:
     """Get a message indicating if an item is final."""
@@ -495,30 +486,18 @@ async def call_tool(name: str, arguments: dict) -> List[TextContent]:
                     # Get the new item from subgoal_history (more reliable than inventory comparison)
                     new_item = None
                     if reward and reward > 0 and hasattr(unwrapped_env, 'subgoal_history'):
-                        print(f"🔧 DEBUG: Reward > 0, checking subgoal_history", file=sys.stderr)
-                        print(f"🔧 DEBUG: subgoal_history type: {type(unwrapped_env.subgoal_history)}", file=sys.stderr)
-                        print(f"🔧 DEBUG: subgoal_history contents: {dict(unwrapped_env.subgoal_history) if hasattr(unwrapped_env.subgoal_history, 'items') else unwrapped_env.subgoal_history}", file=sys.stderr)
-                        
                         # Try multiple approaches to find the new item
                         combination_key1 = f"'{item1}' and '{item2}'"
                         combination_key2 = f"'{item2}' and '{item1}'"  # Try reverse order
                         
                         if combination_key1 in unwrapped_env.subgoal_history:
                             new_item = unwrapped_env.subgoal_history[combination_key1]
-                            print(f"🔧 DEBUG: Found new item '{new_item}' with key '{combination_key1}'", file=sys.stderr)
                         elif combination_key2 in unwrapped_env.subgoal_history:
                             new_item = unwrapped_env.subgoal_history[combination_key2]
-                            print(f"🔧 DEBUG: Found new item '{new_item}' with key '{combination_key2}'", file=sys.stderr)
                         else:
                             # Get the most recent addition to subgoal_history
-                            if unwrapped_env.subgoal_history:
-                                if isinstance(unwrapped_env.subgoal_history, dict):
-                                    # Get the last added item (most recent)
-                                    new_item = list(unwrapped_env.subgoal_history.values())[-1]
-                                    print(f"🔧 DEBUG: Using most recent item from subgoal_history: '{new_item}'", file=sys.stderr)
-                            print(f"🔧 DEBUG: Neither combination key found. Tried: '{combination_key1}', '{combination_key2}'", file=sys.stderr)
-                    else:
-                        print(f"🔧 DEBUG: No reward or no subgoal_history. Reward: {reward}, has subgoal_history: {hasattr(unwrapped_env, 'subgoal_history')}", file=sys.stderr)
+                            if unwrapped_env.subgoal_history and isinstance(unwrapped_env.subgoal_history, dict):
+                                new_item = list(unwrapped_env.subgoal_history.values())[-1]
                     
             except (ValueError, IndexError):
                 # If there's an issue with finding indices, proceed with normal step
@@ -529,30 +508,22 @@ async def call_tool(name: str, arguments: dict) -> List[TextContent]:
                 # Get the new item from subgoal_history (fallback case)
                 new_item = None
                 if reward and reward > 0 and hasattr(unwrapped_env, 'subgoal_history'):
-                    print(f"🔧 DEBUG (fallback): Reward > 0, checking subgoal_history", file=sys.stderr)
                     combination_key1 = f"'{item1}' and '{item2}'"
                     combination_key2 = f"'{item2}' and '{item1}'"
                     
                     if combination_key1 in unwrapped_env.subgoal_history:
                         new_item = unwrapped_env.subgoal_history[combination_key1]
-                        print(f"🔧 DEBUG (fallback): Found new item '{new_item}' with key '{combination_key1}'", file=sys.stderr)
                     elif combination_key2 in unwrapped_env.subgoal_history:
                         new_item = unwrapped_env.subgoal_history[combination_key2]
-                        print(f"🔧 DEBUG (fallback): Found new item '{new_item}' with key '{combination_key2}'", file=sys.stderr)
                     elif unwrapped_env.subgoal_history and isinstance(unwrapped_env.subgoal_history, dict):
                         new_item = list(unwrapped_env.subgoal_history.values())[-1]
-                        print(f"🔧 DEBUG (fallback): Using most recent item from subgoal_history: '{new_item}'", file=sys.stderr)
             
             # Update session state
             session['rounds_played'] += 1
             if done or session['rounds_played'] >= session['max_rounds']:
                 session['done'] = True
             
-            # Debug output for troubleshooting
-            print(f"🔧 DEBUG: Processing combination '{item1}' + '{item2}', repeat={info.get('repeat', False)}", file=sys.stderr)
-            if not info.get("repeat", False) and reward and reward > 0:
-                print(f"🔧 DEBUG: New item created: '{new_item}', is_final: {is_final_item(new_item) if new_item else 'N/A'}", file=sys.stderr)
-                print(f"🔧 DEBUG: Final items set size: {len(final_items)}, contains granite: {'granite' in final_items}", file=sys.stderr)
+
             
             # Create response message
             if info.get("repeat", False):
@@ -575,7 +546,6 @@ async def call_tool(name: str, arguments: dict) -> List[TextContent]:
                         
                         # Check if the new item is final and inform the user
                         final_message = get_final_item_message(new_item)
-                        print(f"🔧 DEBUG: Final message for '{new_item}': '{final_message}'", file=sys.stderr)
                         if final_message:
                             response += f"\n{final_message}"
                     else:
