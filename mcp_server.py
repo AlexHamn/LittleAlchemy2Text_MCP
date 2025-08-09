@@ -93,13 +93,13 @@ def get_current_streak(session_id: str) -> Tuple[str, int]:
         return "none", 0
     
     # Check the most recent attempts to determine current streak
-    current_streak_type = "success" if logs[-1]["Success"] else "failure"
+    current_streak_type = "success" if logs[-1]["ok"] else "failure"
     current_streak_length = 1
     
     # Count backwards to find the length of the current streak
     for i in range(len(logs) - 2, -1, -1):
-        if (logs[i]["Success"] and current_streak_type == "success") or \
-           (not logs[i]["Success"] and current_streak_type == "failure"):
+        if (logs[i]["ok"] and current_streak_type == "success") or \
+           (not logs[i]["ok"] and current_streak_type == "failure"):
             current_streak_length += 1
         else:
             break
@@ -115,7 +115,7 @@ def get_time_since_last_success(session_id: str, current_time: float) -> Optiona
     
     # Find the most recent successful attempt
     for log in reversed(logs):
-        if log["Success"]:
+        if log["ok"]:
             return current_time - log["_timestamp"]
     
     return None  # No previous success
@@ -129,8 +129,8 @@ def is_novel_combination(session_id: str, element1: str, element2: str) -> bool:
     
     # Check both orderings of the combination
     for log in logs:
-        if ((log["Element_1"].lower() == element1.lower() and log["Element_2"].lower() == element2.lower()) or
-            (log["Element_1"].lower() == element2.lower() and log["Element_2"].lower() == element1.lower())):
+        if ((log["e1"].lower() == element1.lower() and log["e2"].lower() == element2.lower()) or
+            (log["e1"].lower() == element2.lower() and log["e2"].lower() == element1.lower())):
             return False
     
     return True
@@ -144,18 +144,18 @@ def log_attempt(session_id: str, attempt_number: int, element1: str, element2: s
         attempt_logs[session_id] = []
     
     log_entry = {
-        "Session_ID": session_id,
-        "Attempt_Number": attempt_number,
-        "Element_1": element1,
-        "Element_2": element2,
-        "Success": success,
-        "Result_Element": result_element,
-        "Inventory_Size_Before": inventory_size_before,
-        "Reasoning_Explanation": reasoning_explanation,
-        "Is_Novel_Combination": is_novel,
-        "Current_Streak_Type": streak_type,
-        "Current_Streak_Length": streak_length,
-        "Time_Since_Last_Success": time_since_last_success,
+        "sid": session_id,
+        "att_n": attempt_number,
+        "e1": element1,
+        "e2": element2,
+        "ok": success,
+        "res": result_element,
+        "inv_b4": inventory_size_before,
+        "reason": reasoning_explanation,
+        "novel": is_novel,
+        "str_typ": streak_type,
+        "str_len": streak_length,
+        "t_since": time_since_last_success,
         "_timestamp": time.time(),  # Internal timestamp for calculations
         "_datetime": datetime.now().isoformat()  # Human-readable timestamp
     }
@@ -165,21 +165,21 @@ def log_attempt(session_id: str, attempt_number: int, element1: str, element2: s
 def initialize_session_log(session_id: str, reasoning_type: str) -> None:
     """Initialize session log with starting parameters."""
     session_logs[session_id] = {
-        'Session_ID': session_id,
-        'Reasoning_Type': reasoning_type,
-        'Start_Time': datetime.now().isoformat(),
-        'Start_Timestamp': time.time(),
-        'End_Time': None,
-        'End_Timestamp': None,
-        'Total_Attempts': 0,
-        'Successful_Attempts': 0,
-        'Elements_Discovered': 4,  # Starting elements: air, earth, fire, water
-        'Final_Inventory_Size': 0,
-        'Discovery_Rate': 0.0,
-        'Longest_Success_Streak': 0,
-        'Longest_Failure_Streak': 0,
-        'Plateau_Count': 0,
-        'Last_Discovery_Time': time.time()
+        'sid': session_id,
+        'r_typ': reasoning_type,
+        'start': datetime.now().isoformat(),
+        'start_ts': time.time(),
+        'end': None,
+        'end_ts': None,
+        'tot_att': 0,
+        'succ_att': 0,
+        'elem_disc': 4,  # Starting elements: air, earth, fire, water
+        'final_inv': 0,
+        'disc_rate': 0.0,
+        'max_succ': 0,
+        'max_fail': 0,
+        'plateaus': 0,
+        'last_disc_t': time.time()
     }
 
 def calculate_streaks(session_id: str) -> Tuple[int, int]:
@@ -194,7 +194,7 @@ def calculate_streaks(session_id: str) -> Tuple[int, int]:
     current_failure_streak = 0
     
     for log in logs:
-        if log["Success"]:
+        if log["ok"]:
             current_success_streak += 1
             current_failure_streak = 0
             max_success_streak = max(max_success_streak, current_success_streak)
@@ -215,7 +215,7 @@ def calculate_plateau_count(session_id: str, plateau_threshold: int = 5) -> int:
     attempts_since_discovery = 0
     
     for log in logs:
-        if log["Success"]:
+        if log["ok"]:
             if attempts_since_discovery >= plateau_threshold:
                 plateau_count += 1
             attempts_since_discovery = 0
@@ -234,24 +234,24 @@ def update_session_log(session_id: str, successful_attempt: bool, new_elements_c
         return
     
     session_log = session_logs[session_id]
-    session_log['Total_Attempts'] += 1
+    session_log['tot_att'] += 1
     
     if successful_attempt:
-        session_log['Successful_Attempts'] += 1
-        session_log['Elements_Discovered'] += new_elements_count
-        session_log['Last_Discovery_Time'] = time.time()
+        session_log['succ_att'] += 1
+        session_log['elem_disc'] += new_elements_count
+        session_log['last_disc_t'] = time.time()
     
     # Calculate discovery rate
-    if session_log['Total_Attempts'] > 0:
-        session_log['Discovery_Rate'] = session_log['Successful_Attempts'] / session_log['Total_Attempts']
+    if session_log['tot_att'] > 0:
+        session_log['disc_rate'] = session_log['succ_att'] / session_log['tot_att']
     
     # Update streaks
     max_success, max_failure = calculate_streaks(session_id)
-    session_log['Longest_Success_Streak'] = max_success
-    session_log['Longest_Failure_Streak'] = max_failure
+    session_log['max_succ'] = max_success
+    session_log['max_fail'] = max_failure
     
     # Update plateau count
-    session_log['Plateau_Count'] = calculate_plateau_count(session_id)
+    session_log['plateaus'] = calculate_plateau_count(session_id)
 
 def finalize_session_log(session_id: str, final_inventory_size: int) -> None:
     """Finalize session log when game ends."""
@@ -259,15 +259,15 @@ def finalize_session_log(session_id: str, final_inventory_size: int) -> None:
         return
     
     session_log = session_logs[session_id]
-    session_log['End_Time'] = datetime.now().isoformat()
-    session_log['End_Timestamp'] = time.time()
-    session_log['Final_Inventory_Size'] = final_inventory_size
+    session_log['end'] = datetime.now().isoformat()
+    session_log['end_ts'] = time.time()
+    session_log['final_inv'] = final_inventory_size
     
     # Final calculation of all metrics
     max_success, max_failure = calculate_streaks(session_id)
-    session_log['Longest_Success_Streak'] = max_success
-    session_log['Longest_Failure_Streak'] = max_failure
-    session_log['Plateau_Count'] = calculate_plateau_count(session_id)
+    session_log['max_succ'] = max_success
+    session_log['max_fail'] = max_failure
+    session_log['plateaus'] = calculate_plateau_count(session_id)
 
 def create_game_session(session_id: str, targeted: bool = False, max_rounds: int = 10, reasoning_type: str = "Unknown") -> Dict[str, Any]:
     """Create a new game session with the specified parameters."""
@@ -981,10 +981,10 @@ async def call_tool(name: str, arguments: dict) -> List[TextContent]:
                     return [TextContent(type="text", text="No logs available")]
                 
                 # Create CSV header
-                headers = ["Session_ID", "Attempt_Number", "Element_1", "Element_2", "Success", 
-                          "Result_Element", "Inventory_Size_Before", "Reasoning_Explanation", 
-                          "Is_Novel_Combination", "Current_Streak_Type", "Current_Streak_Length", 
-                          "Time_Since_Last_Success"]
+                headers = ["sid", "att_n", "e1", "e2", "ok", 
+                          "res", "inv_b4", "reason", 
+                          "novel", "str_typ", "str_len", 
+                          "t_since"]
                 
                 csv_lines = [",".join(headers)]
                 
@@ -1009,8 +1009,8 @@ async def call_tool(name: str, arguments: dict) -> List[TextContent]:
                 summary = f"📊 ATTEMPT LOGS SUMMARY - Session: {session_id}\n"
                 summary += f"Total Attempts: {len(logs)}\n\n"
                 
-                successful_attempts = [log for log in logs if log["Success"]]
-                failed_attempts = [log for log in logs if not log["Success"]]
+                successful_attempts = [log for log in logs if log["ok"]]
+                failed_attempts = [log for log in logs if not log["ok"]]
                 
                 summary += f"✅ Successful Attempts: {len(successful_attempts)}\n"
                 summary += f"❌ Failed Attempts: {len(failed_attempts)}\n"
@@ -1019,10 +1019,10 @@ async def call_tool(name: str, arguments: dict) -> List[TextContent]:
                 # Show recent attempts
                 summary += "🕐 RECENT ATTEMPTS:\n"
                 for log in logs[-5:]:  # Show last 5 attempts
-                    status = "✅" if log["Success"] else "❌"
-                    result = f" -> {log['Result_Element']}" if log["Result_Element"] else ""
-                    reasoning = f" | Reasoning: {log['Reasoning_Explanation']}" if log['Reasoning_Explanation'] else ""
-                    summary += f"{status} #{log['Attempt_Number']}: {log['Element_1']} + {log['Element_2']}{result}{reasoning}\n"
+                    status = "✅" if log["ok"] else "❌"
+                    result = f" -> {log['res']}" if log["res"] else ""
+                    reasoning = f" | Reasoning: {log['reason']}" if log['reason'] else ""
+                    summary += f"{status} #{log['att_n']}: {log['e1']} + {log['e2']}{result}{reasoning}\n"
                 
                 if len(logs) > 5:
                     summary += f"\n... and {len(logs) - 5} more attempts. Use format='json' or format='csv' for complete data.\n"
@@ -1057,8 +1057,8 @@ async def call_tool(name: str, arguments: dict) -> List[TextContent]:
                     debug_info += f"  • Session '{session_id}': {len(logs)} attempts\n"
                     if logs:
                         latest_log = logs[-1]
-                        debug_info += f"    Last attempt: {latest_log['Element_1']} + {latest_log['Element_2']} "
-                        debug_info += f"= {'✅' if latest_log['Success'] else '❌'}\n"
+                        debug_info += f"    Last attempt: {latest_log['e1']} + {latest_log['e2']} "
+                        debug_info += f"= {'✅' if latest_log['ok'] else '❌'}\n"
                         debug_info += f"    Last logged: {latest_log['_datetime']}\n"
             
             # Check active game sessions
@@ -1120,10 +1120,10 @@ async def call_tool(name: str, arguments: dict) -> List[TextContent]:
                     return [TextContent(type="text", text="No session logs available")]
                 
                 # Define CSV headers based on the required parameters
-                headers = ["Session_ID", "Reasoning_Type", "Start_Time", "End_Time", 
-                          "Total_Attempts", "Successful_Attempts", "Elements_Discovered", 
-                          "Final_Inventory_Size", "Discovery_Rate", "Longest_Success_Streak", 
-                          "Longest_Failure_Streak", "Plateau_Count"]
+                headers = ["sid", "r_typ", "start", "end", 
+                          "tot_att", "succ_att", "elem_disc", 
+                          "final_inv", "disc_rate", "max_succ", 
+                          "max_fail", "plateaus"]
                 
                 csv_lines = [",".join(headers)]
                 
@@ -1134,7 +1134,7 @@ async def call_tool(name: str, arguments: dict) -> List[TextContent]:
                         if value is None:
                             value = ""
                         # Format discovery rate as percentage and handle commas
-                        if header == "Discovery_Rate" and isinstance(value, (int, float)):
+                        if header == "disc_rate" and isinstance(value, (int, float)):
                             value_str = f"{value*100:.1f}%"
                         else:
                             value_str = str(value).replace(",", ";").replace("\n", " ")
@@ -1152,25 +1152,25 @@ async def call_tool(name: str, arguments: dict) -> List[TextContent]:
                 summary += "=" * 50 + "\n\n"
                 
                 for log in logs_data:
-                    summary += f"🎮 Session: {log['Session_ID']}\n"
-                    summary += f"   Reasoning Type: {log['Reasoning_Type']}\n"
-                    summary += f"   Duration: {log['Start_Time']} → {log['End_Time'] or 'In Progress'}\n"
-                    summary += f"   Attempts: {log['Successful_Attempts']}/{log['Total_Attempts']} "
+                    summary += f"🎮 Session: {log['sid']}\n"
+                    summary += f"   Reasoning Type: {log['r_typ']}\n"
+                    summary += f"   Duration: {log['start']} → {log['end'] or 'In Progress'}\n"
+                    summary += f"   Attempts: {log['succ_att']}/{log['tot_att']} "
                     
-                    if log['Total_Attempts'] > 0:
-                        success_rate = log['Discovery_Rate'] * 100
+                    if log['tot_att'] > 0:
+                        success_rate = log['disc_rate'] * 100
                         summary += f"({success_rate:.1f}% success rate)\n"
                     else:
                         summary += "(0% success rate)\n"
                     
-                    summary += f"   Elements: {log['Elements_Discovered']} discovered"
-                    if log['Final_Inventory_Size'] > 0:
-                        summary += f", {log['Final_Inventory_Size']} final inventory\n"
+                    summary += f"   Elements: {log['elem_disc']} discovered"
+                    if log['final_inv'] > 0:
+                        summary += f", {log['final_inv']} final inventory\n"
                     else:
                         summary += "\n"
                     
-                    summary += f"   Streaks: {log['Longest_Success_Streak']} success, {log['Longest_Failure_Streak']} failure\n"
-                    summary += f"   Plateaus: {log['Plateau_Count']}\n\n"
+                    summary += f"   Streaks: {log['max_succ']} success, {log['max_fail']} failure\n"
+                    summary += f"   Plateaus: {log['plateaus']}\n\n"
                 
                 summary += f"Total Sessions: {len(logs_data)}\n"
                 summary += "\n💡 Use format='json' or format='csv' for machine-readable data."

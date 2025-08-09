@@ -141,22 +141,24 @@ Every attempt (successful or failed) is automatically logged with comprehensive 
 
 ### Logged Parameters
 
+⚠️ **Note**: All parameter keys are shortened to minimize character usage in logs due to size constraints.
+
 Each attempt captures the following 12 parameters:
 
-| Parameter                 | Description                            | Example                                |
-| ------------------------- | -------------------------------------- | -------------------------------------- |
-| `Session_ID`              | Unique game session identifier         | `"my-game-1"`                          |
-| `Attempt_Number`          | Sequential attempt number (1, 2, 3...) | `5`                                    |
-| `Element_1`               | First element in combination           | `"fire"`                               |
-| `Element_2`               | Second element in combination          | `"water"`                              |
-| `Success`                 | Whether the combination succeeded      | `true`                                 |
-| `Result_Element`          | Created element(s) if successful       | `"steam"` or `"granite, eruption"`     |
-| `Inventory_Size_Before`   | Number of items before this attempt    | `8`                                    |
-| `Reasoning_Explanation`   | Player's reasoning for the attempt     | `"Fire and water should create steam"` |
-| `Is_Novel_Combination`    | First time trying this combination     | `true`                                 |
-| `Current_Streak_Type`     | Current streak type                    | `"success"` or `"failure"`             |
-| `Current_Streak_Length`   | Length of current streak               | `3`                                    |
-| `Time_Since_Last_Success` | Seconds since last successful attempt  | `45.2` or `null`                       |
+| Parameter | Description                            | Example                                |
+| --------- | -------------------------------------- | -------------------------------------- |
+| `sid`     | Unique game session identifier         | `"my-game-1"`                          |
+| `att_n`   | Sequential attempt number (1, 2, 3...) | `5`                                    |
+| `e1`      | First element in combination           | `"fire"`                               |
+| `e2`      | Second element in combination          | `"water"`                              |
+| `ok`      | Whether the combination succeeded      | `true`                                 |
+| `res`     | Created element(s) if successful       | `"steam"` or `"granite, eruption"`     |
+| `inv_b4`  | Number of items before this attempt    | `8`                                    |
+| `reason`  | Player's reasoning for the attempt     | `"Fire and water should create steam"` |
+| `novel`   | First time trying this combination     | `true`                                 |
+| `str_typ` | Current streak type                    | `"success"` or `"failure"`             |
+| `str_len` | Length of current streak               | `3`                                    |
+| `t_since` | Seconds since last successful attempt  | `45.2` or `null`                       |
 
 ### Accessing Logs
 
@@ -273,19 +275,19 @@ Beyond individual attempt logging, the system now tracks comprehensive **session
 
 Every game session automatically logs **12 key parameters**:
 
-| Parameter                  | Description                              | Research Value                          |
-| -------------------------- | ---------------------------------------- | --------------------------------------- |
-| **Session_ID**             | Unique identifier for each session       | Multi-session comparison and tracking   |
-| **Reasoning_Type**         | Cognitive approach categorization        | Strategy effectiveness analysis         |
-| **Start_Time / End_Time**  | Session duration and timing              | Time-based performance correlation      |
-| **Total_Attempts**         | All combination attempts made            | Activity and engagement measurement     |
-| **Successful_Attempts**    | Number of successful combinations        | Success rate and learning effectiveness |
-| **Elements_Discovered**    | Total unique items found                 | Discovery capability assessment         |
-| **Final_Inventory_Size**   | Items remaining at session end           | End-state achievement analysis          |
-| **Discovery_Rate**         | Success percentage (successful/total)    | Overall performance metric              |
-| **Longest_Success_Streak** | Maximum consecutive successes            | Peak performance identification         |
-| **Longest_Failure_Streak** | Maximum consecutive failures             | Challenge and difficulty assessment     |
-| **Plateau_Count**          | Periods of 5+ attempts without discovery | Learning curve and stagnation analysis  |
+| Parameter     | Description                              | Research Value                          |
+| ------------- | ---------------------------------------- | --------------------------------------- |
+| **sid**       | Unique identifier for each session       | Multi-session comparison and tracking   |
+| **r_typ**     | Cognitive approach categorization        | Strategy effectiveness analysis         |
+| **start/end** | Session duration and timing              | Time-based performance correlation      |
+| **tot_att**   | All combination attempts made            | Activity and engagement measurement     |
+| **succ_att**  | Number of successful combinations        | Success rate and learning effectiveness |
+| **elem_disc** | Total unique items found                 | Discovery capability assessment         |
+| **final_inv** | Items remaining at session end           | End-state achievement analysis          |
+| **disc_rate** | Success percentage (successful/total)    | Overall performance metric              |
+| **max_succ**  | Maximum consecutive successes            | Peak performance identification         |
+| **max_fail**  | Maximum consecutive failures             | Challenge and difficulty assessment     |
+| **plateaus**  | Periods of 5+ attempts without discovery | Learning curve and stagnation analysis  |
 
 ### Accessing Session Logs
 
