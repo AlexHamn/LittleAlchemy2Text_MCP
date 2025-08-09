@@ -405,20 +405,65 @@ async def call_tool(name: str, arguments: dict) -> List[TextContent]:
                     text=f"❌ '{item2}' is not in your inventory. Available items: {available_items}"
                 )]
             
-            # Create action string (the game expects this format)
-            action = f"Combination: '{item1}' and '{item2}'"
-            
-            # Perform the action
-            obs, reward, done, info = env.step(action)
+            # Check if this combination was already attempted before calling env.step()
+            try:
+                item1_idx = unwrapped_env.table.index(item1)
+                item2_idx = unwrapped_env.table.index(item2)
+                
+                # Check both possible orderings of the combination
+                combination_tuple = (item1_idx, item2_idx)
+                reverse_combination_tuple = (item2_idx, item1_idx)
+                
+                # Check if this was a previously successful combination
+                is_repeated_successful = False
+                repeated_result = None
+                if combination_tuple in unwrapped_env.past_valid_combs:
+                    result_idx = unwrapped_env.past_valid_combs[combination_tuple]
+                    repeated_result = unwrapped_env.index_to_word(result_idx)
+                    is_repeated_successful = True
+                elif reverse_combination_tuple in unwrapped_env.past_valid_combs:
+                    result_idx = unwrapped_env.past_valid_combs[reverse_combination_tuple]
+                    repeated_result = unwrapped_env.index_to_word(result_idx)
+                    is_repeated_successful = True
+                
+                # Check if this was a previously failed combination
+                is_repeated_failed = (combination_tuple in unwrapped_env.past_invalid_combs or 
+                                    reverse_combination_tuple in unwrapped_env.past_invalid_combs)
+                
+                if is_repeated_successful or is_repeated_failed:
+                    # Handle repeated combination without calling env.step()
+                    obs = unwrapped_env._get_observation()
+                    reward = 0
+                    done = unwrapped_env.done
+                    info = {"repeat": True, "repeated_result": repeated_result if is_repeated_successful else None}
+                else:
+                    # Create action string (the game expects this format)
+                    action = f"Combination: '{item1}' and '{item2}'"
+                    
+                    # Perform the action
+                    obs, reward, done, info = env.step(action)
+                    
+            except (ValueError, IndexError):
+                # If there's an issue with finding indices, proceed with normal step
+                action = f"Combination: '{item1}' and '{item2}'"
+                obs, reward, done, info = env.step(action)
             
             # Update session state
             session['rounds_played'] += 1
             if done or session['rounds_played'] >= session['max_rounds']:
                 session['done'] = True
             
+            # Debug output for troubleshooting
+            print(f"🔧 DEBUG: Processing combination '{item1}' + '{item2}', repeat={info.get('repeat', False)}", file=sys.stderr)
+            
             # Create response message
             if info.get("repeat", False):
-                response = f"❌ Invalid combination: '{item1}' and '{item2}' cannot be combined or are not in your inventory."
+                # Check if we have a repeated result from our custom detection
+                repeated_result = info.get("repeated_result")
+                if repeated_result:
+                    response = f"🔄 You've already used this combination! '{item1}' + '{item2}' = '{repeated_result}' (already in your inventory)"
+                else:
+                    response = f"🔄 You've already tried this combination. '{item1}' and '{item2}' don't combine into anything."
             else:
                 if reward and reward > 0:
                     # Get the latest item added (successful combination)
@@ -541,7 +586,7 @@ async def main():
     
     try:
         async with mcp.server.stdio.stdio_server() as (read_stream, write_stream):
-            print("🎮 Little Alchemy 2 Text MCP Server started", file=sys.stderr)
+            print("🎮 Little Alchemy 2 Text MCP Server started - VERSION WITH IMPROVED FEEDBACK", file=sys.stderr)
             print("💡 Press Ctrl+C to stop the server", file=sys.stderr)
             
             # Create a task for the server

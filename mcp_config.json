@@ -1,10 +1,12 @@
 {
   "mcpServers": {
     "little-alchemy-2-text": {
-      "command": "python",
-      "args": ["mcp_server.py"],
+      "command": "/opt/anaconda3/envs/LittleAlchemy2Text/bin/python",
+      "args": [
+        "/Users/alex/Documents/UE/thesis/LittleAlchemy2Text_MCP/mcp_server.py"
+      ],
       "env": {
-        "PYTHONPATH": "."
+        "PYTHONPATH": "/Users/alex/Documents/UE/thesis/LittleAlchemy2Text_MCP"
       }
     }
   }
