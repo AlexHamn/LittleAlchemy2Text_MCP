@@ -16,9 +16,9 @@ def demonstrate_mcp_tools():
     tools_demo = [
         {
             "tool": "start_game",
-            "args": {"session_id": "my-game", "game_mode": "open-ended", "max_rounds": 10},
+            "args": {"sid": "123456", "mode": "open-ended", "rounds": 10},
             "response": """🎮 NEW GAME STARTED!
-Session ID: my-game
+Session ID: 123456
 Mode: Open-ended
 Max Rounds: 10
 
@@ -42,7 +42,7 @@ Example: make_move('air', 'fire') might create 'energy'"""
         
         {
             "tool": "make_move",
-            "args": {"session_id": "my-game", "item1": "air", "item2": "fire"},
+            "args": {"sid": "123456", "i1": "air", "i2": "fire"},
             "response": """✅ SUCCESS! 'air' + 'fire' = 'energy'
 🎉 'energy' has been added to your inventory!
 
@@ -52,7 +52,7 @@ Items discovered: 5"""
         
         {
             "tool": "make_move", 
-            "args": {"session_id": "my-game", "item1": "earth", "item2": "water"},
+            "args": {"sid": "123456", "i1": "earth", "i2": "water"},
             "response": """✅ SUCCESS! 'earth' + 'water' = 'mud'
 🎉 'mud' has been added to your inventory!
 
@@ -62,7 +62,7 @@ Items discovered: 6"""
         
         {
             "tool": "make_move",
-            "args": {"session_id": "my-game", "item1": "fire", "item2": "water"},
+            "args": {"sid": "123456", "i1": "fire", "i2": "water"},
             "response": """✅ SUCCESS! 'fire' + 'water' = 'steam'
 🎉 'steam' has been added to your inventory!
 
@@ -72,7 +72,7 @@ Items discovered: 7"""
         
         {
             "tool": "get_game_state",
-            "args": {"session_id": "my-game"},
+            "args": {"sid": "123456"},
             "response": """=== LITTLE ALCHEMY 2 TEXT ===
 Game Mode: Open-ended
 Rounds Remaining: 7
@@ -93,7 +93,7 @@ Example: make_move('air', 'fire') might create 'energy'"""
         
         {
             "tool": "make_move",
-            "args": {"session_id": "my-game", "item1": "air", "item2": "earth"},
+            "args": {"sid": "123456", "i1": "air", "i2": "earth"},
             "response": """❌ No result: 'air' and 'earth' don't combine into anything.
 
 Rounds used: 4/10
@@ -102,8 +102,8 @@ Items discovered: 7"""
         
         {
             "tool": "end_game",
-            "args": {"session_id": "my-game"},
-            "response": """🎮 GAME SESSION 'my-game' ENDED
+            "args": {"sid": "123456"},
+            "response": """🎮 GAME SESSION '123456' ENDED
 
 Mode: Open-ended
 Rounds Used: 4/10
@@ -136,12 +136,12 @@ Thanks for playing Little Alchemy 2 Text! 🎉"""
     print("✅ Combination history tracking")
     print("✅ Built-in help and documentation")
     print("✅ Error handling for invalid moves")
-    print("\n🎯 AVAILABLE MCP TOOLS:")
-    print("   • start_game    - Begin new game session")
-    print("   • get_game_state - View current status")
-    print("   • make_move     - Combine two items")
+    print("\n🎯 AVAILABLE MCP TOOLS (with super-short params):")
+    print("   • start_game(sid, mode, rounds, type)    - Begin new game session")
+    print("   • get_game_state(sid) - View current status")
+    print("   • make_move(sid, i1, i2, r)     - Combine two items")
     print("   • list_active_sessions - Show all games")
-    print("   • end_game      - Finish with summary")
+    print("   • end_game(sid)      - Finish with summary")
     print("\n📚 AVAILABLE RESOURCES:")
     print("   • game://rules  - How to play guide")
     print("   • game://combinations - Common combinations")

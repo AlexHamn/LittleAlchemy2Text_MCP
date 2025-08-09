@@ -30,7 +30,7 @@ def demo_mcp_functionality():
     
     # Simulate starting a game
     print("📞 Tool Call: start_game")
-    print("Arguments: {\"session_id\": \"demo-game\", \"game_mode\": \"open-ended\", \"max_rounds\": 10}")
+    print("Arguments: {\"sid\": \"123456\", \"mode\": \"open-ended\", \"rounds\": 10}")
     print()
     
     # Create a game session (simulating what the MCP server does)
@@ -60,7 +60,7 @@ def demo_mcp_functionality():
     
     # Show initial state
     print("📞 Tool Call: get_game_state")
-    print("Arguments: {\"session_id\": \"demo-game\"}")
+    print("Arguments: {\"sid\": \"123456\"}")
     print()
     
     inventory = unwrapped_env.get_inventory()
@@ -82,7 +82,7 @@ def demo_mcp_functionality():
     rounds_played = 0
     for i, (item1, item2) in enumerate(moves, 1):
         print(f"📞 Tool Call #{i}: make_move")
-        print(f"Arguments: {{\"session_id\": \"demo-game\", \"item1\": \"{item1}\", \"item2\": \"{item2}\"}}")
+        print(f"Arguments: {{\"sid\": \"123456\", \"i1\": \"{item1}\", \"i2\": \"{item2}\", \"r\": \"testing combination\"}}")
         print()
         
         # Check if items are in inventory
@@ -122,7 +122,7 @@ def demo_mcp_functionality():
     
     # Show final state
     print("📞 Tool Call: end_game")
-    print("Arguments: {\"session_id\": \"demo-game\"}")
+    print("Arguments: {\"sid\": \"123456\"}")
     print()
     
     final_inventory = unwrapped_env.get_inventory()

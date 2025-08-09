@@ -109,23 +109,23 @@ Use natural language with your LLM client:
 ```
 LLM: I want to play Little Alchemy 2!
 
-Tool: start_game("my-session", "open-ended", 15)
+Tool: start_game("123456", "open-ended", 15)
 → ✅ Game started with air, earth, fire, water
 
 LLM: Let me try combining air and fire
 
-Tool: make_move("my-session", "air", "fire")
+Tool: make_move("123456", "air", "fire")
 → ✅ SUCCESS! air + fire = energy
 
 LLM: What else can I make with energy?
 
-Tool: get_game_state("my-session")
+Tool: get_game_state("123456")
 → Current inventory: air, earth, fire, water, energy
 → 14 rounds remaining
 
 LLM: Let me try energy and earth
 
-Tool: make_move("my-session", "energy", "earth")
+Tool: make_move("123456", "energy", "earth")
 → ✅ SUCCESS! energy + earth = earthquake
 ```
 

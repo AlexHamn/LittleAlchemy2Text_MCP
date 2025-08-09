@@ -78,7 +78,7 @@ This version includes major improvements to the original game engine:
    {
      "tool": "start_game",
      "arguments": {
-       "session_id": "my-game-1",
+       "session_id": "123456",
        "game_mode": "open-ended",
        "max_rounds": 15,
        "reasoning_type": "logical"
@@ -103,7 +103,7 @@ This version includes major improvements to the original game engine:
    {
      "tool": "make_move",
      "arguments": {
-       "session_id": "my-game-1",
+       "session_id": "123456",
        "item1": "air",
        "item2": "fire",
        "reasoning_explanation": "Air and fire should create energy through combustion"
@@ -117,7 +117,7 @@ This version includes major improvements to the original game engine:
    {
      "tool": "make_move",
      "arguments": {
-       "session_id": "my-game-1",
+       "session_id": "123456",
        "item1": "pressure",
        "item2": "lava"
      }
@@ -147,7 +147,7 @@ Each attempt captures the following 12 parameters:
 
 | Parameter | Description                            | Example                                |
 | --------- | -------------------------------------- | -------------------------------------- |
-| `sid`     | Unique game session identifier         | `"my-game-1"`                          |
+| `sid`     | Unique 6-digit game session identifier | `"123456"`                             |
 | `att_n`   | Sequential attempt number (1, 2, 3...) | `5`                                    |
 | `e1`      | First element in combination           | `"fire"`                               |
 | `e2`      | Second element in combination          | `"water"`                              |
@@ -337,8 +337,8 @@ Total Sessions: 1
 
 ```csv
 Session_ID,Reasoning_Type,Start_Time,End_Time,Total_Attempts,Successful_Attempts,Elements_Discovered,Final_Inventory_Size,Discovery_Rate,Longest_Success_Streak,Longest_Failure_Streak,Plateau_Count
-"my-game-1","logical","2024-01-15T14:25:30","2024-01-15T14:45:22","20","12","15","13","60.0%","4","3","2"
-"creative-test","creative","2024-01-15T15:10:15","2024-01-15T15:35:45","18","8","12","10","44.4%","3","5","3"
+"123456","logical","2024-01-15T14:25:30","2024-01-15T14:45:22","20","12","15","13","60.0%","4","3","2"
+"654321","creative","2024-01-15T15:10:15","2024-01-15T15:35:45","18","8","12","10","44.4%","3","5","3"
 ```
 
 #### 3. Export Structured Data (JSON)

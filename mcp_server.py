@@ -269,6 +269,12 @@ def finalize_session_log(session_id: str, final_inventory_size: int) -> None:
     session_log['max_fail'] = max_failure
     session_log['plateaus'] = calculate_plateau_count(session_id)
 
+def validate_session_id(session_id: str) -> Optional[str]:
+    """Validate that session ID is exactly 6 digits. Returns error message if invalid, None if valid."""
+    if not session_id.isdigit() or len(session_id) != 6:
+        return f"❌ Session ID must be exactly 6 digits (e.g., '123456'). You provided: '{session_id}'"
+    return None
+
 def create_game_session(session_id: str, targeted: bool = False, max_rounds: int = 10, reasoning_type: str = "Unknown") -> Dict[str, Any]:
     """Create a new game session with the specified parameters."""
     
@@ -456,30 +462,31 @@ async def list_tools() -> List[Tool]:
             inputSchema={
                 "type": "object",
                 "properties": {
-                    "session_id": {
+                    "sid": {
                         "type": "string",
-                        "description": "Unique identifier for this game session"
+                        "description": "Unique 6-digit numeric identifier for this game session (e.g., '123456')",
+                        "pattern": "^[0-9]{6}$"
                     },
-                    "game_mode": {
+                    "mode": {
                         "type": "string",
                         "enum": ["open-ended", "targeted"],
                         "description": "Game mode: 'open-ended' to discover items freely, 'targeted' to find a specific target",
                         "default": "open-ended"
                     },
-                    "max_rounds": {
+                    "rounds": {
                         "type": "integer",
                         "description": "Maximum number of combination attempts allowed",
                         "default": 10,
                         "minimum": 1,
                         "maximum": 200
                     },
-                    "reasoning_type": {
+                    "type": {
                         "type": "string",
                         "description": "Type of reasoning being used (e.g., 'logical', 'creative', 'systematic', 'random', 'heuristic')",
                         "default": "Unknown"
                     }
                 },
-                "required": ["session_id"]
+                "required": ["sid"]
             }
         ),
         
@@ -489,12 +496,13 @@ async def list_tools() -> List[Tool]:
             inputSchema={
                 "type": "object",
                 "properties": {
-                    "session_id": {
+                    "sid": {
                         "type": "string",
-                        "description": "Game session identifier"
+                        "description": "6-digit numeric game session identifier",
+                        "pattern": "^[0-9]{6}$"
                     }
                 },
-                "required": ["session_id"]
+                "required": ["sid"]
             }
         ),
         
@@ -504,24 +512,25 @@ async def list_tools() -> List[Tool]:
             inputSchema={
                 "type": "object",
                 "properties": {
-                    "session_id": {
+                    "sid": {
                         "type": "string",
-                        "description": "Game session identifier"
+                        "description": "6-digit numeric game session identifier",
+                        "pattern": "^[0-9]{6}$"
                     },
-                    "item1": {
+                    "i1": {
                         "type": "string",
                         "description": "First item to combine (must be in inventory)"
                     },
-                    "item2": {
+                    "i2": {
                         "type": "string",
                         "description": "Second item to combine (must be in inventory)"
                     },
-                    "reasoning_explanation": {
+                    "r": {
                         "type": "string",
                         "description": "Explanation of the reasoning behind this combination attempt"
                     }
                 },
-                "required": ["session_id", "item1", "item2", "reasoning_explanation"]
+                "required": ["sid", "i1", "i2", "r"]
             }
         ),
         
@@ -541,12 +550,13 @@ async def list_tools() -> List[Tool]:
             inputSchema={
                 "type": "object",
                 "properties": {
-                    "session_id": {
+                    "sid": {
                         "type": "string",
-                        "description": "Game session identifier to end"
+                        "description": "6-digit numeric game session identifier to end",
+                        "pattern": "^[0-9]{6}$"
                     }
                 },
-                "required": ["session_id"]
+                "required": ["sid"]
             }
         ),
         
@@ -556,18 +566,19 @@ async def list_tools() -> List[Tool]:
             inputSchema={
                 "type": "object",
                 "properties": {
-                    "session_id": {
+                    "sid": {
                         "type": "string",
-                        "description": "Game session identifier"
+                        "description": "6-digit numeric game session identifier",
+                        "pattern": "^[0-9]{6}$"
                     },
-                    "format": {
+                    "fmt": {
                         "type": "string",
                         "enum": ["json", "csv", "summary"],
                         "description": "Output format: 'json' for structured data, 'csv' for tabular format, 'summary' for human-readable summary",
                         "default": "summary"
                     }
                 },
-                "required": ["session_id"]
+                "required": ["sid"]
             }
         ),
         
@@ -587,11 +598,12 @@ async def list_tools() -> List[Tool]:
             inputSchema={
                 "type": "object",
                 "properties": {
-                    "session_id": {
+                    "sid": {
                         "type": "string",
-                        "description": "Game session identifier (optional - if not provided, returns all session logs)"
+                        "description": "6-digit numeric game session identifier (optional - if not provided, returns all session logs)",
+                        "pattern": "^[0-9]{6}$"
                     },
-                    "format": {
+                    "fmt": {
                         "type": "string",
                         "enum": ["json", "csv", "summary"],
                         "description": "Output format: 'json' for structured data, 'csv' for tabular format, 'summary' for human-readable summary",
@@ -608,10 +620,15 @@ async def call_tool(name: str, arguments: dict) -> List[TextContent]:
     """Handle tool calls for the Little Alchemy 2 game."""
     
     if name == "start_game":
-        session_id = arguments["session_id"]
-        game_mode = arguments.get("game_mode", "open-ended")
-        max_rounds = arguments.get("max_rounds", 10)
-        reasoning_type = arguments.get("reasoning_type", "Unknown")
+        session_id = arguments["sid"]
+        game_mode = arguments.get("mode", "open-ended")
+        max_rounds = arguments.get("rounds", 10)
+        reasoning_type = arguments.get("type", "Unknown")
+        
+        # Validate session ID
+        validation_error = validate_session_id(session_id)
+        if validation_error:
+            return [TextContent(type="text", text=validation_error)]
         
         # Check if session already exists
         if session_id in game_sessions:
@@ -629,9 +646,31 @@ async def call_tool(name: str, arguments: dict) -> List[TextContent]:
             # Get initial state
             initial_state = get_game_state(session)
             
+            # Add game explanation
+            explanation = """
+🎯 HOW TO PLAY:
+• Start with 4 basic elements: air, earth, fire, water
+• Combine any 2 items using make_move(sid, i1, i2, r)
+• Successful combinations create new items for your inventory
+• Try logical combinations: fire + water = steam, air + fire = energy
+• Experiment and discover hundreds of possible items!
+• Use get_game_state(sid) to check your progress anytime
+
+💡 PARAMETER GUIDE (super short names):
+• sid = 6-digit session ID (your game identifier, e.g., '123456')
+• i1, i2 = item1, item2 (elements to combine)
+• r = reasoning (explain your combination logic)
+• fmt = format (json/csv/summary for logs)
+
+🔥 TIPS:
+• Build on discoveries: steam + air might make cloud
+• Try basic element combinations first
+• Each attempt uses 1 round, so think strategically!
+"""
+            
             return [TextContent(
                 type="text",
-                text=f"🎮 NEW GAME STARTED!\nSession ID: {session_id}\nMode: {game_mode.title()}\nMax Rounds: {max_rounds}\nReasoning Type: {reasoning_type}\n\n{initial_state}"
+                text=f"🎮 NEW GAME STARTED!\nSession ID: {session_id}\nMode: {game_mode.title()}\nMax Rounds: {max_rounds}\nReasoning Type: {reasoning_type}\n{explanation}\n{initial_state}"
             )]
             
         except Exception as e:
@@ -641,7 +680,12 @@ async def call_tool(name: str, arguments: dict) -> List[TextContent]:
             )]
     
     elif name == "get_game_state":
-        session_id = arguments["session_id"]
+        session_id = arguments["sid"]
+        
+        # Validate session ID
+        validation_error = validate_session_id(session_id)
+        if validation_error:
+            return [TextContent(type="text", text=validation_error)]
         
         if session_id not in game_sessions:
             return [TextContent(
@@ -665,10 +709,15 @@ async def call_tool(name: str, arguments: dict) -> List[TextContent]:
             )]
     
     elif name == "make_move":
-        session_id = arguments["session_id"]
-        item1 = arguments["item1"].strip().lower()
-        item2 = arguments["item2"].strip().lower()
-        reasoning_explanation = arguments["reasoning_explanation"].strip()
+        session_id = arguments["sid"]
+        item1 = arguments["i1"].strip().lower()
+        item2 = arguments["i2"].strip().lower()
+        reasoning_explanation = arguments["r"].strip()
+        
+        # Validate session ID
+        validation_error = validate_session_id(session_id)
+        if validation_error:
+            return [TextContent(type="text", text=validation_error)]
         
         if session_id not in game_sessions:
             return [TextContent(
@@ -904,7 +953,12 @@ async def call_tool(name: str, arguments: dict) -> List[TextContent]:
         )]
     
     elif name == "end_game":
-        session_id = arguments["session_id"]
+        session_id = arguments["sid"]
+        
+        # Validate session ID
+        validation_error = validate_session_id(session_id)
+        if validation_error:
+            return [TextContent(type="text", text=validation_error)]
         
         if session_id not in game_sessions:
             return [TextContent(
@@ -953,8 +1007,13 @@ async def call_tool(name: str, arguments: dict) -> List[TextContent]:
             )]
     
     elif name == "get_attempt_logs":
-        session_id = arguments["session_id"]
-        format_type = arguments.get("format", "summary")
+        session_id = arguments["sid"]
+        format_type = arguments.get("fmt", "summary")
+        
+        # Validate session ID
+        validation_error = validate_session_id(session_id)
+        if validation_error:
+            return [TextContent(type="text", text=validation_error)]
         
         if session_id not in attempt_logs or not attempt_logs[session_id]:
             return [TextContent(
@@ -1081,8 +1140,14 @@ async def call_tool(name: str, arguments: dict) -> List[TextContent]:
             )]
     
     elif name == "get_session_logs":
-        session_id = arguments.get("session_id")
-        format_type = arguments.get("format", "summary")
+        session_id = arguments.get("sid")
+        format_type = arguments.get("fmt", "summary")
+        
+        # Validate session ID if provided
+        if session_id:
+            validation_error = validate_session_id(session_id)
+            if validation_error:
+                return [TextContent(type="text", text=validation_error)]
         
         try:
             if session_id:
