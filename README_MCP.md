@@ -6,6 +6,14 @@ This project now supports playing Little Alchemy 2 Text via the Model Context Pr
 
 The game can now be played through MCP tools, making it accessible to any MCP-compatible LLM client like Claude Desktop, ChatGPT with MCP support, or custom implementations.
 
+### Enhanced Game Engine
+
+This version includes major improvements to the original game engine:
+
+- **🎯 Multi-result combinations** - Fixed a fundamental limitation where combinations like `pressure + lava` now correctly produce **both** `granite` and `eruption` simultaneously
+- **🔒 Final items support** - The game automatically detects and notifies you when you discover final items that cannot be combined further
+- **📊 Enhanced feedback** - Improved combination result detection and reporting through the MCP interface
+
 ## Setup
 
 ### Prerequisites
@@ -95,6 +103,28 @@ The game can now be played through MCP tools, making it accessible to any MCP-co
    }
    ```
 
+4. **Experience multi-result combinations**:
+
+   ```json
+   {
+     "tool": "make_move",
+     "arguments": {
+       "session_id": "my-game-1",
+       "item1": "pressure",
+       "item2": "lava"
+     }
+   }
+   ```
+
+   **Response:**
+
+   ```text
+   ✅ SUCCESS! 'pressure' + 'lava' = 'eruption', 'granite'
+   🎉 2 items have been added to your inventory: 'eruption', 'granite'
+   🔒 'eruption' is a final item and cannot be combined with other items.
+   🔒 'granite' is a final item and cannot be combined with other items.
+   ```
+
 ## Game Modes
 
 - **Open-ended**: Discover as many items as possible with no specific target
@@ -124,15 +154,19 @@ For Claude Desktop, add to your `claude_desktop_config.json`:
 1. Start with basic elements: air, earth, fire, water
 2. Try logical combinations first (fire + water = steam)
 3. Build on your discoveries (steam + air = cloud)
-4. Pay attention to successful combinations from other sessions
-5. Experiment! There are hundreds of possible combinations
+4. Look for **multi-result combinations** - some create multiple items at once!
+5. Pay attention to final item notifications - they help you focus on combinable items
+6. Pay attention to successful combinations from other sessions
+7. Experiment! There are hundreds of possible combinations
 
 ## Game Features via MCP
 
 - ✅ Full game functionality through MCP tools
 - ✅ Multiple concurrent game sessions
 - ✅ Real-time inventory and combination tracking
-- ✅ Success/failure feedback for each move
+- ✅ **Multi-result combinations** - Single combinations can now produce multiple items
+- ✅ **Final items detection** - Automatic notification when discovering final items
+- ✅ Enhanced success/failure feedback for each move with multi-item support
 - ✅ Game state persistence during session
 - ✅ Comprehensive help and guidance resources
 

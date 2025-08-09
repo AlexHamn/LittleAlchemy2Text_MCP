@@ -1,6 +1,6 @@
 # Little Alchemy 2 Text MCP
 
-A text-based version of the  game Little Alchemy 2 that can be played by humans via command line interface or by AI agents through **Model Context Protocol (MCP)**.
+A text-based version of the game Little Alchemy 2 that can be played by humans via command line interface or by AI agents through **Model Context Protocol (MCP)**.
 
 ## Overview
 
@@ -14,6 +14,8 @@ LittleAlchemy2Text itself extended [Wordcraft](https://github.com/minqi/wordcraf
 - **🔧 Professional API design** - Clean, standardized interface following MCP specifications
 - **📱 Multi-session management** - Handle multiple concurrent games with unique session IDs
 - **📊 Enhanced feedback** - Rich game state reporting and real-time combination results
+- **🎯 Multi-result combinations** - Fixed game engine to support combinations that produce multiple items simultaneously
+- **🔒 Final items detection** - Automatic identification and notification of final items that cannot be combined further
 
 ## Game Modes
 
@@ -24,6 +26,31 @@ Start with the four basic elements (`air`, `earth`, `fire`, `water`) and discove
 ### Targeted Mode
 
 Find specific target items within a limited number of rounds. Includes distractors and depth settings for varying difficulty levels.
+
+## Enhanced Game Engine
+
+### Multi-Result Combinations
+
+This version includes a **major improvement** to the original game engine that fixes a fundamental limitation. Some combinations in Little Alchemy 2 should produce multiple items simultaneously, but the original engine could only create one item per combination.
+
+**Fixed Examples:**
+
+- `pressure + lava` → **both** `granite` and `eruption` ✅
+- Previously would only create one of these items ❌
+
+**Technical Details:**
+
+- Modified recipe book to support multiple entities per recipe
+- Updated environment step function to handle multiple new items
+- Enhanced MCP server to detect and report all created items
+
+### Final Items Support
+
+The game now recognizes **final items** - items that cannot be combined with other elements to create new items. When you discover a final item, you'll receive a notification:
+
+🔒 _'granite' is a final item and cannot be combined with other items._
+
+This helps players understand which items they can continue experimenting with and which represent endpoints in the combination tree. There are **170 final items** out of 700 total items in the game.
 
 ## Installation
 
@@ -146,7 +173,9 @@ LittleAlchemy2Text_MCP/
 
 ### 🎮 Enhanced Gameplay
 
-- **Rich combination feedback** - Success/failure with explanations
+- **Multi-result combinations** - Combinations now correctly produce all intended items (e.g., pressure + lava → granite + eruption)
+- **Final items detection** - Automatic identification of items that cannot be combined further
+- **Rich combination feedback** - Success/failure with explanations and multi-item notifications
 - **Progress tracking** - Rounds used, items discovered, combinations tried
 - **Multi-player coordination** - Share discoveries across players
 - **Flexible game settings** - Customizable rounds, difficulty, encoding
