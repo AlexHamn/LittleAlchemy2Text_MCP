@@ -424,8 +424,10 @@ async def call_tool(name: str, arguments: dict) -> List[TextContent]:
                     text="🎮 This game session has already ended. Start a new game to continue playing."
                 )]
             
-            # Check if items are in inventory
+            # Check if items are in inventory and capture current state
             inventory = [item.lower() for item in unwrapped_env.get_inventory()]
+            pre_action_inventory = unwrapped_env.get_inventory().copy()  # Capture inventory before action
+            
             if item1 not in inventory:
                 available_items = ', '.join([f"'{item}'" for item in unwrapped_env.get_inventory()])
                 return [TextContent(
@@ -483,21 +485,9 @@ async def call_tool(name: str, arguments: dict) -> List[TextContent]:
                     # Perform the action
                     obs, reward, done, info = env.step(action)
                     
-                    # Get the new item from subgoal_history (more reliable than inventory comparison)
-                    new_item = None
-                    if reward and reward > 0 and hasattr(unwrapped_env, 'subgoal_history'):
-                        # Try multiple approaches to find the new item
-                        combination_key1 = f"'{item1}' and '{item2}'"
-                        combination_key2 = f"'{item2}' and '{item1}'"  # Try reverse order
-                        
-                        if combination_key1 in unwrapped_env.subgoal_history:
-                            new_item = unwrapped_env.subgoal_history[combination_key1]
-                        elif combination_key2 in unwrapped_env.subgoal_history:
-                            new_item = unwrapped_env.subgoal_history[combination_key2]
-                        else:
-                            # Get the most recent addition to subgoal_history
-                            if unwrapped_env.subgoal_history and isinstance(unwrapped_env.subgoal_history, dict):
-                                new_item = list(unwrapped_env.subgoal_history.values())[-1]
+                    # Get ALL new items by comparing inventories before and after
+                    post_action_inventory = unwrapped_env.get_inventory()
+                    new_items = [item for item in post_action_inventory if item not in pre_action_inventory]
                     
             except (ValueError, IndexError):
                 # If there's an issue with finding indices, proceed with normal step
@@ -505,18 +495,9 @@ async def call_tool(name: str, arguments: dict) -> List[TextContent]:
                 
                 obs, reward, done, info = env.step(action)
                 
-                # Get the new item from subgoal_history (fallback case)
-                new_item = None
-                if reward and reward > 0 and hasattr(unwrapped_env, 'subgoal_history'):
-                    combination_key1 = f"'{item1}' and '{item2}'"
-                    combination_key2 = f"'{item2}' and '{item1}'"
-                    
-                    if combination_key1 in unwrapped_env.subgoal_history:
-                        new_item = unwrapped_env.subgoal_history[combination_key1]
-                    elif combination_key2 in unwrapped_env.subgoal_history:
-                        new_item = unwrapped_env.subgoal_history[combination_key2]
-                    elif unwrapped_env.subgoal_history and isinstance(unwrapped_env.subgoal_history, dict):
-                        new_item = list(unwrapped_env.subgoal_history.values())[-1]
+                # Get ALL new items by comparing inventories (fallback case)
+                post_action_inventory = unwrapped_env.get_inventory()
+                new_items = [item for item in post_action_inventory if item not in pre_action_inventory]
             
             # Update session state
             session['rounds_played'] += 1
@@ -540,14 +521,26 @@ async def call_tool(name: str, arguments: dict) -> List[TextContent]:
                     response = f"🔄 You've already tried this combination. '{item1}' and '{item2}' don't combine into anything."
             else:
                 if reward and reward > 0:
-                    if new_item:
-                        response = f"✅ SUCCESS! '{item1}' + '{item2}' = '{new_item}'"
-                        response += f"\n🎉 '{new_item}' has been added to your inventory!"
-                        
-                        # Check if the new item is final and inform the user
-                        final_message = get_final_item_message(new_item)
-                        if final_message:
-                            response += f"\n{final_message}"
+                    if new_items:
+                        if len(new_items) == 1:
+                            response = f"✅ SUCCESS! '{item1}' + '{item2}' = '{new_items[0]}'"
+                            response += f"\n🎉 '{new_items[0]}' has been added to your inventory!"
+                            
+                            # Check if the new item is final and inform the user
+                            final_message = get_final_item_message(new_items[0])
+                            if final_message:
+                                response += f"\n{final_message}"
+                        else:
+                            # Multiple items created
+                            items_list = "', '".join(new_items)
+                            response = f"✅ SUCCESS! '{item1}' + '{item2}' = '{items_list}'"
+                            response += f"\n🎉 {len(new_items)} items have been added to your inventory: '{items_list}'"
+                            
+                            # Check if any new items are final
+                            for item in new_items:
+                                final_message = get_final_item_message(item)
+                                if final_message:
+                                    response += f"\n{final_message}"
                     else:
                         response = f"✅ SUCCESS! '{item1}' + '{item2}' created a new item, but couldn't identify which one."
                 else:

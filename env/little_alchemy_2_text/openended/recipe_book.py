@@ -54,10 +54,10 @@ class RecipeBook:
         self.entity2recipes = dict(self.entity2recipes)
 
         self.max_recipe_size = 0
-        self.recipe2entity = collections.defaultdict(str)
+        self.recipe2entity = collections.defaultdict(list)  # Changed to list to support multiple entities
         for entity, recipes in self.entity2recipes.items():
             for r in recipes:
-                self.recipe2entity[r] = entity
+                self.recipe2entity[r].append(entity)  # Append instead of overwrite
                 self.max_recipe_size = max(len(r), self.max_recipe_size)
 
 
@@ -98,8 +98,8 @@ class RecipeBook:
         return self.entity2recipes[entity] if entity in self.entity2recipes else None
 
     def evaluate_recipe(self, recipe):
-        e = self.recipe2entity[recipe]
-        return e if e != '' else None
+        entities = self.recipe2entity[recipe]
+        return entities if entities else None
 
     def init_neighbors_combineswith(self):
         self.neighbors_combineswith = collections.defaultdict(set)

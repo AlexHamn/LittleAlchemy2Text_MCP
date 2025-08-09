@@ -200,22 +200,27 @@ class LittleAlchemy2Text(WordCraftEnv):
         return selection, new_comb, actions
 
     def _step(self, recipe, new_comb, actions):
-        result = self.recipe_book.evaluate_recipe(recipe)
+        results = self.recipe_book.evaluate_recipe(recipe)
 
-        if result is None:
+        if results is None:
             reward = 0
+            created_items = []
         else:
             reward = 0
+            created_items = []
 
-            if result not in self.table:
-                self.subgoal_history[new_comb] = result
-                reward = 1
+            # Handle multiple results from the same recipe
+            for result in results:
+                if result not in self.table:
+                    self.subgoal_history[new_comb] = result  # Store the combination result
+                    reward = 1
+                    created_items.append(result)
 
-                result_i = self.recipe_book.entity2index[result]
-                table_size = len(self.table)
-                self.table.append(result)
-                self.table_index[table_size] = result_i
-                self.table_features[table_size, :] = self.feature_map.feature(result)
+                    result_i = self.recipe_book.entity2index[result]
+                    table_size = len(self.table)
+                    self.table.append(result)
+                    self.table_index[table_size] = result_i
+                    self.table_features[table_size, :] = self.feature_map.feature(result)
 
         # Clear selection
         self._reset_selection()
@@ -232,10 +237,13 @@ class LittleAlchemy2Text(WordCraftEnv):
         if not reward:
             if actions not in self.past_invalid_combs:
                 self.past_invalid_combs.append(tuple(actions))
-        if result:
+        if created_items:
             if tuple(actions) not in self.past_valid_combs.keys():
-                self.past_valid_combs[tuple(actions)] = self.table.index(result)
-        return result, obs, reward, self.done, info
+                # Store the first created item's index for compatibility
+                self.past_valid_combs[tuple(actions)] = self.table.index(created_items[0])
+        
+        # Return the list of created items instead of single result
+        return created_items, obs, reward, self.done, info
 
     def index_to_word(self, index):
         return self.table[index]
