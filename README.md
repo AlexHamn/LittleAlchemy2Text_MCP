@@ -16,6 +16,8 @@ LittleAlchemy2Text itself extended [Wordcraft](https://github.com/minqi/wordcraf
 - **📊 Enhanced feedback** - Rich game state reporting and real-time combination results
 - **🎯 Multi-result combinations** - Fixed game engine to support combinations that produce multiple items simultaneously
 - **🔒 Final items detection** - Automatic identification and notification of final items that cannot be combined further
+- **📈 Comprehensive session analytics** - Track 12 key parameters per game session for research and analysis
+- **🧠 Reasoning type tracking** - Categorize and analyze different reasoning approaches (logical, creative, systematic, etc.)
 
 ## Game Modes
 
@@ -107,15 +109,17 @@ python mcp_server.py
 
 #### Available MCP Tools
 
-- **`start_game`** - Create new game sessions with custom settings
+- **`start_game`** - Create new game sessions with custom settings and reasoning type tracking
 - **`get_game_state`** - View inventory, combinations, and progress
-- **`make_move`** - Combine two items to discover new ones
+- **`make_move`** - Combine two items to discover new ones (with reasoning explanation logging)
+- **`get_attempt_logs`** - Retrieve detailed logs of all combination attempts with comprehensive analysis parameters
+- **`get_session_logs`** - Access session-level analytics including discovery rates, streaks, and performance metrics
 - **`list_active_sessions`** - Manage multiple concurrent games
-- **`end_game`** - Complete sessions with detailed summaries
+- **`end_game`** - Complete sessions with detailed summaries and finalized analytics
 
 #### Example MCP Gameplay
 
-```
+```text
 🎮 "Start a new Little Alchemy game"
 → Creates session with air, earth, fire, water
 
@@ -144,7 +148,7 @@ For Claude Desktop, add to your configuration:
 
 ## Project Structure
 
-```
+```text
 LittleAlchemy2Text_MCP/
 ├── env/                    # Game environments
 │   ├── little_alchemy_2_text/  # Core game logic
@@ -170,6 +174,9 @@ LittleAlchemy2Text_MCP/
 - **Comprehensive error handling** with clear feedback
 - **Built-in help resources** (rules, common combinations)
 - **Session management** (start, pause, resume, end)
+- **Advanced session analytics** with 12 tracked parameters per game session
+- **Reasoning type categorization** for analyzing different cognitive approaches
+- **Multi-format data export** (JSON, CSV, summary) for research and analysis
 
 ### 🎮 Enhanced Gameplay
 
@@ -186,6 +193,61 @@ LittleAlchemy2Text_MCP/
 - **Demo scripts** for quick testing and validation
 - **Clean API design** following MCP specifications
 - **Extensive documentation** and examples
+- **Advanced analytics** - Export session data in JSON, CSV, or summary formats for research
+- **Research-ready logging** - Track reasoning types, discovery patterns, streak analysis, and plateau detection
+
+## Session Analytics & Research Features
+
+### Comprehensive Session Logging
+
+Every game session now tracks **12 key parameters** for detailed analysis and research:
+
+| Parameter                  | Description                                                   | Use Cases                       |
+| -------------------------- | ------------------------------------------------------------- | ------------------------------- |
+| **Session_ID**             | Unique identifier for each game session                       | Multi-session comparison        |
+| **Reasoning_Type**         | Cognitive approach used (logical, creative, systematic, etc.) | Strategy effectiveness analysis |
+| **Start_Time / End_Time**  | Session duration tracking                                     | Time-based performance studies  |
+| **Total_Attempts**         | All combination attempts made                                 | Activity level measurement      |
+| **Successful_Attempts**    | Successful combinations only                                  | Success rate calculation        |
+| **Elements_Discovered**    | Total unique items found                                      | Discovery effectiveness         |
+| **Final_Inventory_Size**   | Items in inventory at session end                             | End-state analysis              |
+| **Discovery_Rate**         | Success percentage (successful/total)                         | Performance metrics             |
+| **Longest_Success_Streak** | Maximum consecutive successes                                 | Peak performance analysis       |
+| **Longest_Failure_Streak** | Maximum consecutive failures                                  | Difficulty assessment           |
+| **Plateau_Count**          | Periods without discovery                                     | Learning curve analysis         |
+
+### Reasoning Type Analysis
+
+Track and compare different cognitive approaches:
+
+- **Logical** - Systematic, science-based reasoning
+- **Creative** - Imaginative, associative thinking
+- **Systematic** - Methodical, organized exploration
+- **Random** - Experimental, trial-and-error approach
+- **Heuristic** - Pattern-based, experience-driven decisions
+
+### Data Export Options
+
+Export session data in multiple formats for research and analysis:
+
+```bash
+# Human-readable summary
+get_session_logs(format="summary")
+
+# Machine-readable JSON for programming analysis
+get_session_logs(format="json")
+
+# Spreadsheet-compatible CSV for statistical analysis
+get_session_logs(format="csv")
+```
+
+### Research Applications
+
+- **Educational Psychology** - Study learning patterns and strategy effectiveness
+- **AI Behavior Analysis** - Compare reasoning approaches in artificial agents
+- **Cognitive Science** - Analyze problem-solving strategies and discovery patterns
+- **Game Design** - Optimize difficulty curves and player engagement
+- **Human-Computer Interaction** - Evaluate interface effectiveness and user experience
 
 ## Quick Start
 

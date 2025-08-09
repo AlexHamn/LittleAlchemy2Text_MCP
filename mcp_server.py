@@ -45,6 +45,9 @@ game_sessions: Dict[str, Dict[str, Any]] = {}
 # Global attempt logging storage
 attempt_logs: Dict[str, List[Dict[str, Any]]] = {}  # session_id -> list of attempt logs
 
+# Global session logging storage
+session_logs: Dict[str, Dict[str, Any]] = {}  # session_id -> session log data
+
 # Load final items data
 def load_final_items() -> set:
     """Load the list of final items that cannot be combined further."""
@@ -159,7 +162,114 @@ def log_attempt(session_id: str, attempt_number: int, element1: str, element2: s
     
     attempt_logs[session_id].append(log_entry)
 
-def create_game_session(session_id: str, targeted: bool = False, max_rounds: int = 10) -> Dict[str, Any]:
+def initialize_session_log(session_id: str, reasoning_type: str) -> None:
+    """Initialize session log with starting parameters."""
+    session_logs[session_id] = {
+        'Session_ID': session_id,
+        'Reasoning_Type': reasoning_type,
+        'Start_Time': datetime.now().isoformat(),
+        'Start_Timestamp': time.time(),
+        'End_Time': None,
+        'End_Timestamp': None,
+        'Total_Attempts': 0,
+        'Successful_Attempts': 0,
+        'Elements_Discovered': 4,  # Starting elements: air, earth, fire, water
+        'Final_Inventory_Size': 0,
+        'Discovery_Rate': 0.0,
+        'Longest_Success_Streak': 0,
+        'Longest_Failure_Streak': 0,
+        'Plateau_Count': 0,
+        'Last_Discovery_Time': time.time()
+    }
+
+def calculate_streaks(session_id: str) -> Tuple[int, int]:
+    """Calculate longest success and failure streaks for a session."""
+    if session_id not in attempt_logs or not attempt_logs[session_id]:
+        return 0, 0
+    
+    logs = attempt_logs[session_id]
+    max_success_streak = 0
+    max_failure_streak = 0
+    current_success_streak = 0
+    current_failure_streak = 0
+    
+    for log in logs:
+        if log["Success"]:
+            current_success_streak += 1
+            current_failure_streak = 0
+            max_success_streak = max(max_success_streak, current_success_streak)
+        else:
+            current_failure_streak += 1
+            current_success_streak = 0
+            max_failure_streak = max(max_failure_streak, current_failure_streak)
+    
+    return max_success_streak, max_failure_streak
+
+def calculate_plateau_count(session_id: str, plateau_threshold: int = 5) -> int:
+    """Calculate number of plateaus (periods without discovery) in a session."""
+    if session_id not in attempt_logs or not attempt_logs[session_id]:
+        return 0
+    
+    logs = attempt_logs[session_id]
+    plateau_count = 0
+    attempts_since_discovery = 0
+    
+    for log in logs:
+        if log["Success"]:
+            if attempts_since_discovery >= plateau_threshold:
+                plateau_count += 1
+            attempts_since_discovery = 0
+        else:
+            attempts_since_discovery += 1
+    
+    # Check if we're currently in a plateau
+    if attempts_since_discovery >= plateau_threshold:
+        plateau_count += 1
+    
+    return plateau_count
+
+def update_session_log(session_id: str, successful_attempt: bool, new_elements_count: int = 0) -> None:
+    """Update session log with new attempt data."""
+    if session_id not in session_logs:
+        return
+    
+    session_log = session_logs[session_id]
+    session_log['Total_Attempts'] += 1
+    
+    if successful_attempt:
+        session_log['Successful_Attempts'] += 1
+        session_log['Elements_Discovered'] += new_elements_count
+        session_log['Last_Discovery_Time'] = time.time()
+    
+    # Calculate discovery rate
+    if session_log['Total_Attempts'] > 0:
+        session_log['Discovery_Rate'] = session_log['Successful_Attempts'] / session_log['Total_Attempts']
+    
+    # Update streaks
+    max_success, max_failure = calculate_streaks(session_id)
+    session_log['Longest_Success_Streak'] = max_success
+    session_log['Longest_Failure_Streak'] = max_failure
+    
+    # Update plateau count
+    session_log['Plateau_Count'] = calculate_plateau_count(session_id)
+
+def finalize_session_log(session_id: str, final_inventory_size: int) -> None:
+    """Finalize session log when game ends."""
+    if session_id not in session_logs:
+        return
+    
+    session_log = session_logs[session_id]
+    session_log['End_Time'] = datetime.now().isoformat()
+    session_log['End_Timestamp'] = time.time()
+    session_log['Final_Inventory_Size'] = final_inventory_size
+    
+    # Final calculation of all metrics
+    max_success, max_failure = calculate_streaks(session_id)
+    session_log['Longest_Success_Streak'] = max_success
+    session_log['Longest_Failure_Streak'] = max_failure
+    session_log['Plateau_Count'] = calculate_plateau_count(session_id)
+
+def create_game_session(session_id: str, targeted: bool = False, max_rounds: int = 10, reasoning_type: str = "Unknown") -> Dict[str, Any]:
     """Create a new game session with the specified parameters."""
     
     # Set up game arguments
@@ -196,8 +306,14 @@ def create_game_session(session_id: str, targeted: bool = False, max_rounds: int
         'rounds_played': 0,
         'max_rounds': max_rounds,
         'done': False,
-        'targeted': targeted
+        'targeted': targeted,
+        'reasoning_type': reasoning_type,
+        'start_time': datetime.now().isoformat(),
+        'start_timestamp': time.time()
     }
+    
+    # Initialize session log
+    initialize_session_log(session_id, reasoning_type)
     
     return session
 
@@ -356,6 +472,11 @@ async def list_tools() -> List[Tool]:
                         "default": 10,
                         "minimum": 1,
                         "maximum": 200
+                    },
+                    "reasoning_type": {
+                        "type": "string",
+                        "description": "Type of reasoning being used (e.g., 'logical', 'creative', 'systematic', 'random', 'heuristic')",
+                        "default": "Unknown"
                     }
                 },
                 "required": ["session_id"]
@@ -459,6 +580,27 @@ async def list_tools() -> List[Tool]:
                 "properties": {},
                 "required": []
             }
+        ),
+        
+        Tool(
+            name="get_session_logs",
+            description="Retrieve detailed session logs with all tracked parameters for analysis.",
+            inputSchema={
+                "type": "object",
+                "properties": {
+                    "session_id": {
+                        "type": "string",
+                        "description": "Game session identifier (optional - if not provided, returns all session logs)"
+                    },
+                    "format": {
+                        "type": "string",
+                        "enum": ["json", "csv", "summary"],
+                        "description": "Output format: 'json' for structured data, 'csv' for tabular format, 'summary' for human-readable summary",
+                        "default": "summary"
+                    }
+                },
+                "required": []
+            }
         )
     ]
 
@@ -470,6 +612,7 @@ async def call_tool(name: str, arguments: dict) -> List[TextContent]:
         session_id = arguments["session_id"]
         game_mode = arguments.get("game_mode", "open-ended")
         max_rounds = arguments.get("max_rounds", 10)
+        reasoning_type = arguments.get("reasoning_type", "Unknown")
         
         # Check if session already exists
         if session_id in game_sessions:
@@ -481,7 +624,7 @@ async def call_tool(name: str, arguments: dict) -> List[TextContent]:
         try:
             # Create new game session
             targeted = (game_mode == "targeted")
-            session = create_game_session(session_id, targeted, max_rounds)
+            session = create_game_session(session_id, targeted, max_rounds, reasoning_type)
             game_sessions[session_id] = session
             
             # Get initial state
@@ -489,7 +632,7 @@ async def call_tool(name: str, arguments: dict) -> List[TextContent]:
             
             return [TextContent(
                 type="text",
-                text=f"🎮 NEW GAME STARTED!\nSession ID: {session_id}\nMode: {game_mode.title()}\nMax Rounds: {max_rounds}\n\n{initial_state}"
+                text=f"🎮 NEW GAME STARTED!\nSession ID: {session_id}\nMode: {game_mode.title()}\nMax Rounds: {max_rounds}\nReasoning Type: {reasoning_type}\n\n{initial_state}"
             )]
             
         except Exception as e:
@@ -675,6 +818,10 @@ async def call_tool(name: str, arguments: dict) -> List[TextContent]:
                 time_since_last_success=time_since_last_success
             )
             
+            # Update session log
+            new_elements_count = len(new_items) if success and new_items else 0
+            update_session_log(session_id, success, new_elements_count)
+            
             # Create response message
             if info.get("repeat", False):
                 # Check if we have a repeated result from our custom detection
@@ -770,11 +917,16 @@ async def call_tool(name: str, arguments: dict) -> List[TextContent]:
             session = game_sessions[session_id]
             unwrapped_env = session['unwrapped_env']
             
+            # Finalize session log
+            final_inventory_size = len(unwrapped_env.get_inventory())
+            finalize_session_log(session_id, final_inventory_size)
+            
             # Generate final summary
             final_summary = f"🎮 GAME SESSION '{session_id}' ENDED\n\n"
             final_summary += f"Mode: {'Targeted' if session['targeted'] else 'Open-ended'}\n"
+            final_summary += f"Reasoning Type: {session.get('reasoning_type', 'Unknown')}\n"
             final_summary += f"Rounds Used: {session['rounds_played']}/{session['max_rounds']}\n"
-            final_summary += f"Final Score: {len(unwrapped_env.get_inventory())} items discovered\n\n"
+            final_summary += f"Final Score: {final_inventory_size} items discovered\n\n"
             
             inventory_list = ', '.join([f"'{item}'" for item in unwrapped_env.get_inventory()])
             final_summary += f"FINAL INVENTORY:\n{inventory_list}\n\n"
@@ -783,12 +935,12 @@ async def call_tool(name: str, arguments: dict) -> List[TextContent]:
             if valid_combs:
                 final_summary += f"SUCCESSFUL COMBINATIONS:\n{valid_combs}\n\n"
             
+            final_summary += "📊 Session log finalized. Use 'get_session_logs' to view detailed metrics.\n"
             final_summary += "Thanks for playing Little Alchemy 2 Text! 🎉"
             
-            # Remove session and its logs
+            # Remove session but keep logs for analysis
             del game_sessions[session_id]
-            if session_id in attempt_logs:
-                del attempt_logs[session_id]
+            # Note: We keep attempt_logs and session_logs for analysis purposes
             
             return [TextContent(
                 type="text",
@@ -929,6 +1081,111 @@ async def call_tool(name: str, arguments: dict) -> List[TextContent]:
                 text=f"❌ Error in debug tool: {str(e)}"
             )]
     
+    elif name == "get_session_logs":
+        session_id = arguments.get("session_id")
+        format_type = arguments.get("format", "summary")
+        
+        try:
+            if session_id:
+                # Return logs for specific session
+                if session_id not in session_logs:
+                    return [TextContent(
+                        type="text",
+                        text=f"📋 No session logs found for session '{session_id}'. Make sure the session was properly started and logged."
+                    )]
+                
+                logs_data = [session_logs[session_id]]
+                title = f"SESSION LOGS - Session: {session_id}"
+            else:
+                # Return logs for all sessions
+                if not session_logs:
+                    return [TextContent(
+                        type="text",
+                        text="📋 No session logs found. Start a game session to begin logging."
+                    )]
+                
+                logs_data = list(session_logs.values())
+                title = "SESSION LOGS - All Sessions"
+            
+            if format_type == "json":
+                import json
+                json_output = json.dumps(logs_data, indent=2)
+                return [TextContent(
+                    type="text",
+                    text=f"📊 {title} (JSON)\n\n```json\n{json_output}\n```"
+                )]
+            
+            elif format_type == "csv":
+                if not logs_data:
+                    return [TextContent(type="text", text="No session logs available")]
+                
+                # Define CSV headers based on the required parameters
+                headers = ["Session_ID", "Reasoning_Type", "Start_Time", "End_Time", 
+                          "Total_Attempts", "Successful_Attempts", "Elements_Discovered", 
+                          "Final_Inventory_Size", "Discovery_Rate", "Longest_Success_Streak", 
+                          "Longest_Failure_Streak", "Plateau_Count"]
+                
+                csv_lines = [",".join(headers)]
+                
+                for log in logs_data:
+                    row = []
+                    for header in headers:
+                        value = log.get(header, "")
+                        if value is None:
+                            value = ""
+                        # Format discovery rate as percentage and handle commas
+                        if header == "Discovery_Rate" and isinstance(value, (int, float)):
+                            value_str = f"{value*100:.1f}%"
+                        else:
+                            value_str = str(value).replace(",", ";").replace("\n", " ")
+                        row.append(f'"{value_str}"')
+                    csv_lines.append(",".join(row))
+                
+                csv_output = "\n".join(csv_lines)
+                return [TextContent(
+                    type="text",
+                    text=f"📊 {title} (CSV)\n\n```csv\n{csv_output}\n```"
+                )]
+            
+            else:  # summary format
+                summary = f"📊 {title}\n"
+                summary += "=" * 50 + "\n\n"
+                
+                for log in logs_data:
+                    summary += f"🎮 Session: {log['Session_ID']}\n"
+                    summary += f"   Reasoning Type: {log['Reasoning_Type']}\n"
+                    summary += f"   Duration: {log['Start_Time']} → {log['End_Time'] or 'In Progress'}\n"
+                    summary += f"   Attempts: {log['Successful_Attempts']}/{log['Total_Attempts']} "
+                    
+                    if log['Total_Attempts'] > 0:
+                        success_rate = log['Discovery_Rate'] * 100
+                        summary += f"({success_rate:.1f}% success rate)\n"
+                    else:
+                        summary += "(0% success rate)\n"
+                    
+                    summary += f"   Elements: {log['Elements_Discovered']} discovered"
+                    if log['Final_Inventory_Size'] > 0:
+                        summary += f", {log['Final_Inventory_Size']} final inventory\n"
+                    else:
+                        summary += "\n"
+                    
+                    summary += f"   Streaks: {log['Longest_Success_Streak']} success, {log['Longest_Failure_Streak']} failure\n"
+                    summary += f"   Plateaus: {log['Plateau_Count']}\n\n"
+                
+                summary += f"Total Sessions: {len(logs_data)}\n"
+                summary += "\n💡 Use format='json' or format='csv' for machine-readable data."
+                
+                return [TextContent(
+                    type="text",
+                    text=summary
+                )]
+                
+        except Exception as e:
+            return [TextContent(
+                type="text",
+                text=f"❌ Error retrieving session logs: {str(e)}"
+            )]
+    
     else:
         return [TextContent(
             type="text",
@@ -1030,10 +1287,11 @@ if __name__ == "__main__":
         print("🎮 Little Alchemy 2 Text MCP Server")
         print("=" * 50)
         print("This server provides the following tools:")
-        print("• start_game - Start a new game session")
+        print("• start_game - Start a new game session (now with reasoning_type parameter)")
         print("• get_game_state - View current game state")
-        print("• make_move - Combine two items (now with reasoning_explanation logging)")
+        print("• make_move - Combine two items (with reasoning_explanation logging)")
         print("• get_attempt_logs - Retrieve detailed logs of all attempts")
+        print("• get_session_logs - Retrieve session-level metrics and analysis")
         print("• debug_logging_status - Check logging system status (debug tool)")
         print("• list_active_sessions - List all game sessions")
         print("• end_game - End a game session")

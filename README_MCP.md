@@ -53,15 +53,16 @@ This version includes major improvements to the original game engine:
 
 ### Game Management
 
-- **`start_game`** - Start a new game session
+- **`start_game`** - Start a new game session with reasoning type tracking
 - **`get_game_state`** - View current inventory and game status
-- **`make_move`** - Combine two items to create new ones (now with comprehensive logging)
+- **`make_move`** - Combine two items to create new ones (with comprehensive logging)
 - **`list_active_sessions`** - See all active game sessions
-- **`end_game`** - End a game session and get final summary
+- **`end_game`** - End a game session and get final summary with session analytics
 
 ### Data Analysis & Logging
 
 - **`get_attempt_logs`** - Retrieve detailed logs of all attempts with comprehensive parameters for analysis
+- **`get_session_logs`** - Access session-level analytics with 12 key performance metrics
 - **`debug_logging_status`** - Debug tool to check logging system status across all sessions
 
 ### Resources
@@ -71,7 +72,7 @@ This version includes major improvements to the original game engine:
 
 ## How to Play via MCP
 
-1. **Start a game**:
+1. **Start a game** (now with reasoning type tracking):
 
    ```json
    {
@@ -79,7 +80,8 @@ This version includes major improvements to the original game engine:
      "arguments": {
        "session_id": "my-game-1",
        "game_mode": "open-ended",
-       "max_rounds": 15
+       "max_rounds": 15,
+       "reasoning_type": "logical"
      }
    }
    ```
@@ -261,6 +263,152 @@ Items discovered: 9
 5. **Timing Analysis**: Understand how time pressure affects decision making
 6. **Novel vs. Repeated Attempts**: Compare performance on new vs. familiar combinations
 
+## Session-Level Analytics
+
+### Overview
+
+Beyond individual attempt logging, the system now tracks comprehensive **session-level metrics** that provide insights into overall game performance, learning patterns, and reasoning effectiveness.
+
+### Session Parameters Tracked
+
+Every game session automatically logs **12 key parameters**:
+
+| Parameter                  | Description                              | Research Value                          |
+| -------------------------- | ---------------------------------------- | --------------------------------------- |
+| **Session_ID**             | Unique identifier for each session       | Multi-session comparison and tracking   |
+| **Reasoning_Type**         | Cognitive approach categorization        | Strategy effectiveness analysis         |
+| **Start_Time / End_Time**  | Session duration and timing              | Time-based performance correlation      |
+| **Total_Attempts**         | All combination attempts made            | Activity and engagement measurement     |
+| **Successful_Attempts**    | Number of successful combinations        | Success rate and learning effectiveness |
+| **Elements_Discovered**    | Total unique items found                 | Discovery capability assessment         |
+| **Final_Inventory_Size**   | Items remaining at session end           | End-state achievement analysis          |
+| **Discovery_Rate**         | Success percentage (successful/total)    | Overall performance metric              |
+| **Longest_Success_Streak** | Maximum consecutive successes            | Peak performance identification         |
+| **Longest_Failure_Streak** | Maximum consecutive failures             | Challenge and difficulty assessment     |
+| **Plateau_Count**          | Periods of 5+ attempts without discovery | Learning curve and stagnation analysis  |
+
+### Accessing Session Logs
+
+#### 1. View Session Summary
+
+```json
+{
+  "tool": "get_session_logs",
+  "arguments": {
+    "session_id": "my-game-1",
+    "format": "summary"
+  }
+}
+```
+
+**Response:**
+
+```text
+📊 SESSION LOGS - Session: my-game-1
+==================================================
+
+🎮 Session: my-game-1
+   Reasoning Type: logical
+   Duration: 2024-01-15T14:25:30 → 2024-01-15T14:45:22
+   Attempts: 12/20 (60.0% success rate)
+   Elements: 15 discovered, 13 final inventory
+   Streaks: 4 success, 3 failure
+   Plateaus: 2
+
+Total Sessions: 1
+
+💡 Use format='json' or format='csv' for machine-readable data.
+```
+
+#### 2. Export All Sessions (CSV for Analysis)
+
+```json
+{
+  "tool": "get_session_logs",
+  "arguments": {
+    "format": "csv"
+  }
+}
+```
+
+**Response:**
+
+```csv
+Session_ID,Reasoning_Type,Start_Time,End_Time,Total_Attempts,Successful_Attempts,Elements_Discovered,Final_Inventory_Size,Discovery_Rate,Longest_Success_Streak,Longest_Failure_Streak,Plateau_Count
+"my-game-1","logical","2024-01-15T14:25:30","2024-01-15T14:45:22","20","12","15","13","60.0%","4","3","2"
+"creative-test","creative","2024-01-15T15:10:15","2024-01-15T15:35:45","18","8","12","10","44.4%","3","5","3"
+```
+
+#### 3. Export Structured Data (JSON)
+
+```json
+{
+  "tool": "get_session_logs",
+  "arguments": {
+    "session_id": "my-game-1",
+    "format": "json"
+  }
+}
+```
+
+### Reasoning Type Categories
+
+The system supports multiple reasoning type classifications for comparative analysis:
+
+- **`logical`** - Science-based, cause-and-effect reasoning
+- **`creative`** - Imaginative, associative thinking
+- **`systematic`** - Methodical, organized exploration
+- **`random`** - Experimental, trial-and-error approach
+- **`heuristic`** - Pattern-based, experience-driven decisions
+- **`collaborative`** - Group-based or discussion-informed choices
+- **`intuitive`** - Gut-feeling or instinct-based attempts
+
+### Research Applications
+
+#### Educational Research
+
+- Compare learning effectiveness across different reasoning approaches
+- Analyze correlation between reasoning type and success rates
+- Study plateau patterns and breakthrough moments
+
+#### AI Behavior Analysis
+
+- Evaluate different AI reasoning strategies
+- Compare human vs. AI learning patterns
+- Assess reasoning consistency across sessions
+
+#### Cognitive Science
+
+- Analyze problem-solving strategy evolution
+- Study decision-making patterns under different conditions
+- Evaluate cognitive load and performance correlation
+
+#### Game Design Optimization
+
+- Identify optimal difficulty progression
+- Analyze player engagement patterns
+- Optimize feedback and hint systems
+
+### Multi-Session Analysis
+
+Export data from multiple sessions to compare:
+
+```json
+{
+  "tool": "get_session_logs",
+  "arguments": {
+    "format": "csv"
+  }
+}
+```
+
+This exports all session data for statistical analysis in tools like:
+
+- **Excel/Google Sheets** - Basic statistical analysis and visualization
+- **R/Python** - Advanced statistical modeling and machine learning
+- **SPSS/SAS** - Professional statistical analysis
+- **Tableau/Power BI** - Interactive data visualization and dashboards
+
 ## Game Modes
 
 - **Open-ended**: Discover as many items as possible with no specific target
@@ -292,10 +440,12 @@ For Claude Desktop, add to your `claude_desktop_config.json`:
 3. Build on your discoveries (steam + air = cloud)
 4. Look for **multi-result combinations** - some create multiple items at once!
 5. Pay attention to final item notifications - they help you focus on combinable items
-6. **Add reasoning explanations** to your attempts for better logging and analysis
-7. Use `get_attempt_logs` to review your strategy and success patterns
-8. Pay attention to successful combinations from other sessions
-9. Experiment! There are hundreds of possible combinations
+6. **Specify reasoning types** when starting games to enable cognitive approach analysis
+7. **Add reasoning explanations** to your attempts for better logging and analysis
+8. Use `get_attempt_logs` to review individual attempt patterns and strategies
+9. Use `get_session_logs` to analyze overall performance and learning effectiveness
+10. Pay attention to successful combinations from other sessions
+11. Experiment! There are hundreds of possible combinations
 
 ## Game Features via MCP
 
@@ -305,9 +455,12 @@ For Claude Desktop, add to your `claude_desktop_config.json`:
 - ✅ **Multi-result combinations** - Single combinations can now produce multiple items
 - ✅ **Final items detection** - Automatic notification when discovering final items
 - ✅ **Comprehensive attempt logging** - Every attempt logged with 12 parameters for analysis
+- ✅ **Session-level analytics** - Track 12 key performance metrics per game session
+- ✅ **Reasoning type tracking** - Categorize and analyze different cognitive approaches
 - ✅ **Reasoning explanation capture** - Optional reasoning input for each attempt
 - ✅ **Advanced analytics** - Success rates, streaks, timing, and pattern analysis
 - ✅ **Multiple export formats** - JSON, CSV, and summary formats for data analysis
+- ✅ **Research-ready data** - Export session data for statistical analysis and visualization
 - ✅ Enhanced success/failure feedback for each move with multi-item support
 - ✅ Game state persistence during session
 - ✅ Comprehensive help and guidance resources
