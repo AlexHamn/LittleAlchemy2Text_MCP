@@ -518,11 +518,10 @@ async def list_tools() -> List[Tool]:
                     },
                     "reasoning_explanation": {
                         "type": "string",
-                        "description": "Optional explanation of the reasoning behind this combination attempt",
-                        "default": ""
+                        "description": "Explanation of the reasoning behind this combination attempt"
                     }
                 },
-                "required": ["session_id", "item1", "item2"]
+                "required": ["session_id", "item1", "item2", "reasoning_explanation"]
             }
         ),
         
@@ -669,7 +668,7 @@ async def call_tool(name: str, arguments: dict) -> List[TextContent]:
         session_id = arguments["session_id"]
         item1 = arguments["item1"].strip().lower()
         item2 = arguments["item2"].strip().lower()
-        reasoning_explanation = arguments.get("reasoning_explanation", "").strip()
+        reasoning_explanation = arguments["reasoning_explanation"].strip()
         
         if session_id not in game_sessions:
             return [TextContent(
@@ -1289,7 +1288,7 @@ if __name__ == "__main__":
         print("This server provides the following tools:")
         print("• start_game - Start a new game session (now with reasoning_type parameter)")
         print("• get_game_state - View current game state")
-        print("• make_move - Combine two items (with reasoning_explanation logging)")
+        print("• make_move - Combine two items (reasoning_explanation required)")
         print("• get_attempt_logs - Retrieve detailed logs of all attempts")
         print("• get_session_logs - Retrieve session-level metrics and analysis")
         print("• debug_logging_status - Check logging system status (debug tool)")

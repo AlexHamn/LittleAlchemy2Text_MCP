@@ -443,7 +443,7 @@ For Claude Desktop, add to your `claude_desktop_config.json`:
 4. Look for **multi-result combinations** - some create multiple items at once!
 5. Pay attention to final item notifications - they help you focus on combinable items
 6. **Specify reasoning types** when starting games to enable cognitive approach analysis
-7. **Add reasoning explanations** to your attempts for better logging and analysis
+7. **Include reasoning explanations** with every attempt (required for logging and analysis)
 8. Use `get_attempt_logs` to review individual attempt patterns and strategies
 9. Use `get_session_logs` to analyze overall performance and learning effectiveness
 10. Pay attention to successful combinations from other sessions
@@ -459,7 +459,7 @@ For Claude Desktop, add to your `claude_desktop_config.json`:
 - ✅ **Comprehensive attempt logging** - Every attempt logged with 12 parameters for analysis
 - ✅ **Session-level analytics** - Track 12 key performance metrics per game session
 - ✅ **Reasoning type tracking** - Categorize and analyze different cognitive approaches
-- ✅ **Reasoning explanation capture** - Optional reasoning input for each attempt
+- ✅ **Reasoning explanation capture** - Required reasoning input for each attempt
 - ✅ **Advanced analytics** - Success rates, streaks, timing, and pattern analysis
 - ✅ **Multiple export formats** - JSON, CSV, and summary formats for data analysis
 - ✅ **Research-ready data** - Export session data for statistical analysis and visualization
