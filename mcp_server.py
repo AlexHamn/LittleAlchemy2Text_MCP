@@ -144,17 +144,17 @@ def log_attempt(session_id: str, attempt_number: int, element1: str, element2: s
         attempt_logs[session_id] = []
     
     log_entry = {
-        "S_ID": session_id,
-        "Attmpt_No": attempt_number,
-        "Elem_1": element1,
-        "Elem_2": element2,
+        "Session_ID": session_id,
+        "Attempt_Number": attempt_number,
+        "Element_1": element1,
+        "Element_2": element2,
         "Success": success,
-        "Rslt_Elem": result_element,
-        "Inv_Size_Bef": inventory_size_before,
-        "Reasoning_Expl": reasoning_explanation,
-        "Is_Novel_Combo": is_novel,
-        "Currnt_Strk_Type": streak_type,
-        "Currnt_Strk_Len": streak_length,
+        "Result_Element": result_element,
+        "Inventory_Size_Before": inventory_size_before,
+        "Reasoning_Explanation": reasoning_explanation,
+        "Is_Novel_Combination": is_novel,
+        "Current_Streak_Type": streak_type,
+        "Current_Streak_Length": streak_length,
         "Time_Since_Last_Success": time_since_last_success,
         "_timestamp": time.time(),  # Internal timestamp for calculations
         "_datetime": datetime.now().isoformat()  # Human-readable timestamp
@@ -165,21 +165,21 @@ def log_attempt(session_id: str, attempt_number: int, element1: str, element2: s
 def initialize_session_log(session_id: str, reasoning_type: str) -> None:
     """Initialize session log with starting parameters."""
     session_logs[session_id] = {
-        'S_ID': session_id,
+        'Session_ID': session_id,
         'Reasoning_Type': reasoning_type,
         'Start_Time': datetime.now().isoformat(),
-        'Start_Tmstmp': time.time(),
+        'Start_Timestamp': time.time(),
         'End_Time': None,
-        'End_Tmstmp': None,
-        'Total_Attmpts': 0,
-        'Successful_Attmpts': 0,
-        'Elems_Discovered': 4,  # Starting elements: air, earth, fire, water
-        'Final_Inv_Size': 0,
-        'Discovry_Rate': 0.0,
-        'Longest_Success_Strk': 0,
-        'Longest_Failure_Strk': 0,
-        'Plateau_Cnt': 0,
-        'Last_Discovry_Time': time.time()
+        'End_Timestamp': None,
+        'Total_Attempts': 0,
+        'Successful_Attempts': 0,
+        'Elements_Discovered': 4,  # Starting elements: air, earth, fire, water
+        'Final_Inventory_Size': 0,
+        'Discovery_Rate': 0.0,
+        'Longest_Success_Streak': 0,
+        'Longest_Failure_Streak': 0,
+        'Plateau_Count': 0,
+        'Last_Discovery_Time': time.time()
     }
 
 def calculate_streaks(session_id: str) -> Tuple[int, int]:
