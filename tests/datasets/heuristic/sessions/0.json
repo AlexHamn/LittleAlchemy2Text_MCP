@@ -1,0 +1,19 @@
+[
+  {
+    "sid": "123450",
+    "r_typ": "heuristic",
+    "start": "2025-08-10T08:42:09.227119",
+    "start_ts": 1754808129.2271202,
+    "end": null,
+    "end_ts": null,
+    "tot_att": 144,
+    "succ_att": 54,
+    "elem_disc": 58,
+    "final_inv": 0,
+    "disc_rate": 0.375,
+    "max_succ": 12,
+    "max_fail": 19,
+    "plateaus": 9,
+    "last_disc_t": 1754808539.499617
+  }
+]

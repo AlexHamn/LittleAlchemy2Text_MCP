@@ -1,0 +1,725 @@
+sid,att_n,e1,e2,ok,res,inv_b4,reason,novel,str_typ,str_len,t_since,_timestamp,_datetime
+123450,1,fire,water,True,steam,4,Basic opposites - fire and water often create steam,True,none,0,,1754808131.48738,2025-08-10T08:42:11.487381
+123450,2,air,fire,True,smoke,5,Air feeds fire - should create energy,True,success,1,2.311574935913086,1754808133.799082,2025-08-10T08:42:13.799084
+123450,3,earth,water,True,mud,6,Wet earth makes mud - basic mixing rule,True,success,2,2.2936880588531494,1754808136.092844,2025-08-10T08:42:16.092845
+123450,4,earth,fire,True,lava,7,Heat and earth create lava - geological heuristic,True,success,3,2.5261640548706055,1754808138.6190841,2025-08-10T08:42:18.619085
+123450,5,air,earth,True,dust,8,Wind erosion creates dust - natural process,True,success,4,2.5144996643066406,1754808141.1336691,2025-08-10T08:42:21.133671
+123450,6,air,water,True,mist,9,Water vapor in air creates rain - weather pattern,True,success,5,2.5174007415771484,1754808143.651176,2025-08-10T08:42:23.651178
+123450,7,fire,fire,True,energy,10,More fire makes bigger fire - intensity rule,True,success,6,2.4497132301330566,1754808146.1009579,2025-08-10T08:42:26.100960
+123450,8,water,water,True,puddle,11,More water makes sea/ocean - quantity rule,True,success,7,2.649996042251587,1754808148.751029,2025-08-10T08:42:28.751030
+123450,9,earth,earth,True,land,12,More earth creates land/continent - scaling up,True,success,8,2.4421920776367188,1754808151.1933818,2025-08-10T08:42:31.193383
+123450,10,air,air,True,pressure,13,Air pressure creates wind - atmospheric rule,True,success,9,2.167159080505371,1754808153.360619,2025-08-10T08:42:33.360620
+123450,11,lava,air,True,stone,14,Cool lava hardens into stone - cooling process,True,success,10,2.9456088542938232,1754808156.306324,2025-08-10T08:42:36.306326
+123450,12,lava,water,True,obsidian,15,Lava meets water - rapid cooling creates obsidian,True,success,11,2.281318187713623,1754808158.587726,2025-08-10T08:42:38.587727
+123450,13,steam,air,False,,16,Steam in air forms clouds - condensation rule,True,success,12,2.375030994415283,1754808160.962823,2025-08-10T08:42:40.962824
+123450,14,mist,air,False,,16,Mist with air movement creates cloud,True,failure,1,4.818170785903931,1754808163.40599,2025-08-10T08:42:43.405991
+123450,15,steam,pressure,True,geyser,16,Steam under pressure creates clouds,True,failure,2,7.121043920516968,1754808165.7088609,2025-08-10T08:42:45.708862
+123450,16,energy,air,True,heat,17,Energy through air creates wind,True,success,1,2.229680299758911,1754808167.9386308,2025-08-10T08:42:47.938632
+123450,17,heat,water,False,,18,Heat water creates steam - boiling process,True,success,2,2.534144163131714,1754808170.472841,2025-08-10T08:42:50.472842
+123450,18,heat,earth,False,,18,Heat earth creates lava/molten rock,True,failure,1,5.012380361557007,1754808172.951117,2025-08-10T08:42:52.951119
+123450,19,energy,water,False,,18,Energy in water creates life,True,failure,2,7.448278188705444,1754808175.386983,2025-08-10T08:42:55.386984
+123450,20,mud,fire,True,brick,18,Heat mud to make clay/pottery,True,failure,3,10.028972148895264,1754808177.967687,2025-08-10T08:42:57.967688
+123450,21,stone,fire,False,,19,Heat stone to extract metal,True,success,1,2.287250280380249,1754808180.255008,2025-08-10T08:43:00.255009
+123450,22,stone,pressure,True,granite,19,Pressure on stone creates metamorphic rock,True,failure,1,4.877305030822754,1754808182.845078,2025-08-10T08:43:02.845079
+123450,23,puddle,water,True,pond,20,More water makes pond - size progression,True,success,1,2.4127039909362793,1754808185.257865,2025-08-10T08:43:05.257866
+123450,24,pond,water,True,lake,21,Even more water makes lake,True,success,2,2.3009982109069824,1754808187.5589492,2025-08-10T08:43:07.558950
+123450,25,lake,water,True,sea,22,Lake plus more water makes sea,True,success,3,2.476700782775879,1754808190.035739,2025-08-10T08:43:10.035740
+123450,26,sea,water,True,ocean,23,Sea plus water makes ocean,True,success,4,2.3055930137634277,1754808192.341428,2025-08-10T08:43:12.341430
+123450,27,pressure,air,True,wind,24,Air pressure creates wind,True,success,5,2.1171340942382812,1754808194.458646,2025-08-10T08:43:14.458647
+123450,28,wind,water,False,,25,Wind over water creates waves,True,success,6,2.320943832397461,1754808196.7796822,2025-08-10T08:43:16.779684
+123450,29,wind,dust,False,,25,Wind picks up dust - sandstorm rule,True,failure,1,4.404698848724365,1754808198.863433,2025-08-10T08:43:18.863435
+123450,30,wind,earth,False,,25,Wind erodes earth - creates erosion,True,failure,2,6.844713926315308,1754808201.3034492,2025-08-10T08:43:21.303450
+123450,31,smoke,water,False,,25,Smoke meets water - steam interaction,True,failure,3,9.403015851974487,1754808203.861737,2025-08-10T08:43:23.861738
+123450,32,smoke,wind,False,,25,Wind disperses smoke - creates smog,True,failure,4,12.527318000793457,1754808206.986068,2025-08-10T08:43:26.986069
+123450,33,land,water,False,,25,Land meets water - creates swamp/marsh,True,failure,5,15.783114910125732,1754808210.241838,2025-08-10T08:43:30.241839
+123450,34,land,land,True,continent,25,More land creates continent,True,failure,6,18.737756967544556,1754808213.196516,2025-08-10T08:43:33.196517
+123450,35,continent,ocean,True,planet,26,Continent surrounded by ocean makes planet,True,success,1,3.4051060676574707,1754808216.601704,2025-08-10T08:43:36.601705
+123450,36,heat,stone,False,,27,Heat stone to melt it,True,success,2,3.0506229400634766,1754808219.6524282,2025-08-10T08:43:39.652429
+123450,37,energy,earth,False,,27,Energy in earth creates life/earthquake,True,failure,1,6.156883001327515,1754808222.758668,2025-08-10T08:43:42.758669
+123450,38,energy,heat,False,,27,Energy plus heat makes plasma,True,failure,2,9.19451117515564,1754808225.796292,2025-08-10T08:43:45.796293
+123450,39,mist,wind,False,,27,Mist blown by wind creates clouds,True,failure,3,11.762214183807373,1754808228.3639958,2025-08-10T08:43:48.363997
+123450,40,steam,wind,False,,27,Steam with wind creates cloud,True,failure,4,14.461713314056396,1754808231.063495,2025-08-10T08:43:51.063496
+123450,41,pressure,water,False,,27,Water under pressure creates rain,True,failure,5,18.21489906311035,1754808234.8166778,2025-08-10T08:43:54.816679
+123450,42,pressure,earth,False,,27,Pressure on earth creates coal/diamond,True,failure,6,21.015323162078857,1754808237.617113,2025-08-10T08:43:57.617114
+123450,43,heat,air,True,warmth,27,Hot air rises - creates desert,True,failure,7,23.782565116882324,1754808240.3844879,2025-08-10T08:44:00.384490
+123450,44,warmth,water,False,,28,Warm water creates steam/evaporation,True,success,1,3.7698581218719482,1754808244.15443,2025-08-10T08:44:04.154431
+123450,45,warmth,earth,False,,28,Warm earth creates fertile soil,True,failure,1,6.823085069656372,1754808247.207652,2025-08-10T08:44:07.207653
+123450,46,mud,heat,False,,28,Hot mud creates clay,True,failure,2,9.886055946350098,1754808250.2706282,2025-08-10T08:44:10.270629
+123450,47,mud,pressure,False,,28,Pressure compacts mud into clay,True,failure,3,12.632381916046143,1754808253.016978,2025-08-10T08:44:13.016981
+123450,48,dust,water,False,,28,Dust plus water makes mud,True,failure,4,16.36963725090027,1754808256.764062,2025-08-10T08:44:16.764064
+123450,49,dust,fire,True,gunpowder,28,Burning dust creates ash,True,failure,5,19.228576183319092,1754808259.613173,2025-08-10T08:44:19.613174
+123450,50,gunpowder,fire,True,explosion,29,Gunpowder ignites with fire - explosion,True,success,1,4.174103021621704,1754808263.787392,2025-08-10T08:44:23.787393
+123450,51,explosion,earth,False,,30,Explosion in earth creates earthquake,True,success,2,2.5202109813690186,1754808266.307696,2025-08-10T08:44:26.307697
+123450,52,stone,air,True,sand,30,Stone eroded by air creates sand,True,failure,1,5.180480003356934,1754808268.9679759,2025-08-10T08:44:28.967977
+123450,53,sand,fire,True,glass,31,Heat sand to make glass,True,success,1,3.1050000190734863,1754808272.0730681,2025-08-10T08:44:32.073069
+123450,54,sand,wind,True,dune,32,Wind moves sand - creates dune/sandstorm,True,success,2,2.8990468978881836,1754808274.9721978,2025-08-10T08:44:34.972200
+123450,55,dune,heat,False,,33,Hot sand dunes create desert,True,success,3,2.665727376937866,1754808277.63803,2025-08-10T08:44:37.638031
+123450,56,dune,dune,False,,33,Multiple dunes create desert,True,failure,1,5.801279306411743,1754808280.77358,2025-08-10T08:44:40.773581
+123450,57,sand,water,True,beach,33,Wet sand creates beach/quicksand,True,failure,2,8.610761404037476,1754808283.5830588,2025-08-10T08:44:43.583060
+123450,58,beach,ocean,False,,34,Beach meets ocean - natural coastline,True,success,1,2.5451111793518066,1754808286.1282508,2025-08-10T08:44:46.128252
+123450,59,glass,sand,True,hourglass,34,Glass made from sand - reinforcement,True,failure,1,5.128698110580444,1754808288.7118778,2025-08-10T08:44:48.711879
+123450,60,brick,brick,True,wall,35,Multiple bricks build wall,True,success,1,3.2619283199310303,1754808291.973909,2025-08-10T08:44:51.973910
+123450,61,wall,wall,True,house,36,Walls create house/building,True,success,2,2.7313458919525146,1754808294.705358,2025-08-10T08:44:54.705360
+123450,62,house,house,True,village,37,Multiple houses create village,True,success,3,2.5760369300842285,1754808297.2814798,2025-08-10T08:44:57.281481
+123450,63,village,village,True,city,38,Villages combine to make city,True,success,4,2.6199021339416504,1754808299.9015071,2025-08-10T08:44:59.901508
+123450,64,city,city,False,,39,Cities merge into metropolis,True,success,5,2.506171941757202,1754808302.4077618,2025-08-10T08:45:02.407763
+123450,65,warmth,mud,False,,39,Warm mud supports life,True,failure,1,5.7482218742370605,1754808305.64984,2025-08-10T08:45:05.649841
+123450,66,energy,ocean,False,,39,Energy in ocean creates life,True,failure,2,8.434894800186157,1754808308.336511,2025-08-10T08:45:08.336512
+123450,67,warmth,ocean,False,,39,Warm ocean creates primordial soup,True,failure,3,11.41775107383728,1754808311.3194041,2025-08-10T08:45:11.319406
+123450,68,energy,mud,False,,39,Energy animates mud - creates life,True,failure,4,13.954336881637573,1754808313.855934,2025-08-10T08:45:13.855935
+123450,69,energy,steam,False,,39,Energy powers steam - creates electricity,True,failure,5,16.94538378715515,1754808316.846996,2025-08-10T08:45:16.846997
+123450,70,energy,pressure,False,,39,Energy and pressure create plasma,True,failure,6,19.633601903915405,1754808319.535199,2025-08-10T08:45:19.535200
+123450,71,planet,energy,False,,39,Planet with energy supports life,True,failure,7,22.367945909500122,1754808322.269551,2025-08-10T08:45:22.269552
+123450,72,planet,warmth,False,,39,Warm planet supports life,True,failure,8,24.936580896377563,1754808324.838298,2025-08-10T08:45:24.838300
+123450,73,ocean,warmth,False,,39,Warm ocean creates swamp environment,False,failure,9,27.683923959732056,1754808327.5854778,2025-08-10T08:45:27.585479
+123450,74,lake,warmth,False,,39,Warm lake creates swamp,True,failure,10,30.321630001068115,1754808330.223253,2025-08-10T08:45:30.223254
+123450,75,pond,mud,False,,39,Muddy pond creates swamp,True,failure,11,33.226725816726685,1754808333.128347,2025-08-10T08:45:33.128348
+123450,76,water,mud,False,,39,Water plus mud creates swamp,True,failure,12,36.07916784286499,1754808335.980792,2025-08-10T08:45:35.980793
+123450,77,land,mud,False,,39,Land plus mud creates swamp,True,failure,13,39.01233983039856,1754808338.9139688,2025-08-10T08:45:38.913971
+123450,78,mud,energy,False,,39,Energy in mud creates primordial life,False,failure,14,41.8523268699646,1754808341.753867,2025-08-10T08:45:41.753868
+123450,79,stone,water,False,,39,Water erodes stone - creates sand,True,failure,15,44.53829288482666,1754808344.439913,2025-08-10T08:45:44.439914
+123450,80,stone,wind,False,,39,Wind erodes stone into sand,True,failure,16,47.10967183113098,1754808347.011296,2025-08-10T08:45:47.011297
+123450,81,glass,fire,False,,39,Heat glass to melt it,True,failure,17,49.89079189300537,1754808349.7924092,2025-08-10T08:45:49.792411
+123450,82,glass,heat,False,,39,Heat melts glass,True,failure,18,52.570241928100586,1754808352.471841,2025-08-10T08:45:52.471842
+123450,83,glass,water,True,aquarium,39,Glass container holds water,True,failure,19,57.663479804992676,1754808357.565127,2025-08-10T08:45:57.565128
+123450,84,smoke,heat,False,,40,Hot smoke creates smog,True,success,1,2.70512318611145,1754808360.270367,2025-08-10T08:46:00.270368
+123450,85,smoke,pressure,False,,40,Pressurized smoke creates smog,True,failure,1,5.223606109619141,1754808362.788832,2025-08-10T08:46:02.788833
+123450,86,geyser,heat,False,,40,Hot geyser creates hot spring,True,failure,2,7.827547073364258,1754808365.392791,2025-08-10T08:46:05.392793
+123450,87,explosion,stone,False,,40,Explosion breaks stone into fragments,True,failure,3,10.566587209701538,1754808368.1318212,2025-08-10T08:46:08.131823
+123450,88,mist,heat,False,,40,Heat evaporates mist,True,failure,4,13.632819890975952,1754808371.198067,2025-08-10T08:46:11.198069
+123450,89,mist,pressure,False,,40,Pressure condenses mist into rain,True,failure,5,16.290364265441895,1754808373.8556118,2025-08-10T08:46:13.855614
+123450,90,steam,mist,False,,40,Steam and mist form clouds,True,failure,6,18.935873985290527,1754808376.501121,2025-08-10T08:46:16.501122
+123450,91,wind,mist,False,,40,Wind pushes mist into clouds,False,failure,7,21.716601133346558,1754808379.2817621,2025-08-10T08:46:19.281763
+123450,92,pressure,steam,True,geyser,40,Steam under pressure creates cloud,False,failure,8,26.52999711036682,1754808384.095147,2025-08-10T08:46:24.095148
+123450,93,air,pressure,True,wind,40,Air under pressure creates wind,False,success,1,2.5521512031555176,1754808386.6473339,2025-08-10T08:46:26.647336
+123450,94,mud,sand,True,clay,40,Mud and sand create clay,True,success,2,4.682735204696655,1754808391.330257,2025-08-10T08:46:31.330259
+123450,95,clay,fire,False,,41,Fire hardens clay into pottery,True,success,3,2.752329111099243,1754808394.082735,2025-08-10T08:46:34.082737
+123450,96,clay,heat,False,,41,Heat hardens clay,True,failure,1,5.502496957778931,1754808396.832884,2025-08-10T08:46:36.832885
+123450,97,glass,energy,False,,41,Energy through glass creates lens/optics,True,failure,2,8.685522079467773,1754808400.015913,2025-08-10T08:46:40.015914
+123450,98,wind,heat,False,,41,Hot wind creates desert conditions,True,failure,3,11.619176149368286,1754808402.9495418,2025-08-10T08:46:42.949543
+123450,99,wind,warmth,False,,41,Warm wind creates thermal currents,True,failure,4,14.240760087966919,1754808405.571139,2025-08-10T08:46:45.571140
+123450,100,sand,heat,False,,41,Hot sand creates desert,True,failure,5,16.758284091949463,1754808408.0886579,2025-08-10T08:46:48.088660
+123450,101,sand,warmth,False,,41,Warm sand creates desert,True,failure,6,20.010563135147095,1754808411.340962,2025-08-10T08:46:51.340963
+123450,102,dune,warmth,False,,41,Warm dunes make desert,True,failure,7,22.653343200683594,1754808413.9837,2025-08-10T08:46:53.983701
+123450,103,sand,sand,True,desert,41,More sand creates desert,True,failure,8,25.561381101608276,1754808416.891757,2025-08-10T08:46:56.891758
+123450,104,desert,water,True,oasis,42,Water in desert creates oasis,True,success,1,4.887526035308838,1754808421.779445,2025-08-10T08:47:01.779446
+123450,105,desert,wind,True,sandstorm,43,Wind in desert creates sandstorm,True,success,2,2.6186740398406982,1754808424.3982458,2025-08-10T08:47:04.398247
+123450,106,ocean,wind,True,wave,44,Wind over ocean creates storm,True,success,3,3.268712282180786,1754808427.667104,2025-08-10T08:47:07.667105
+123450,107,wave,energy,False,,45,Wave energy creates tsunami,True,success,4,2.645052909851074,1754808430.312363,2025-08-10T08:47:10.312366
+123450,108,wave,wind,False,,45,Wind creates bigger waves,True,failure,1,5.2466700077056885,1754808432.913903,2025-08-10T08:47:12.913905
+123450,109,wave,beach,False,,45,Waves hit beach - erosion,True,failure,2,8.407971143722534,1754808436.075188,2025-08-10T08:47:16.075189
+123450,110,stone,stone,False,,45,Stones together create boulder,True,failure,3,11.18177604675293,1754808438.849002,2025-08-10T08:47:18.849003
+123450,111,land,pressure,False,,45,Pressure on land creates mountain,True,failure,4,13.791877031326294,1754808441.459101,2025-08-10T08:47:21.459102
+123450,112,earth,pressure,False,,45,Earth under pressure creates mountain,False,failure,5,16.472283840179443,1754808444.139421,2025-08-10T08:47:24.139422
+123450,113,land,energy,False,,45,Energy shapes land into mountains,True,failure,6,19.120157957077026,1754808446.787385,2025-08-10T08:47:26.787386
+123450,114,land,heat,False,,45,Hot land creates desert/volcano,True,failure,7,22.390630960464478,1754808450.057846,2025-08-10T08:47:30.057847
+123450,115,lava,pressure,True,eruption,45,Pressure forces lava up - volcano,True,failure,8,25.146553993225098,1754808452.813838,2025-08-10T08:47:32.813839
+123450,116,lava,earth,True,volcano,46,Lava from earth creates volcano,True,success,1,2.9226808547973633,1754808455.7366662,2025-08-10T08:47:35.736668
+123450,117,volcano,ocean,True,island,47,Underwater volcano creates island,True,success,2,2.825544834136963,1754808458.562403,2025-08-10T08:47:38.562404
+123450,118,island,ocean,True,archipelago,48,Island in ocean creates archipelago,True,success,3,2.6412100791931152,1754808461.2037451,2025-08-10T08:47:41.203746
+123450,119,explosion,air,False,,49,Explosion in air creates shock wave,True,success,4,2.716900110244751,1754808463.920758,2025-08-10T08:47:43.920759
+123450,120,explosion,water,False,,49,Underwater explosion creates tsunami,True,failure,1,6.495468854904175,1754808467.6993668,2025-08-10T08:47:47.699369
+123450,121,warmth,energy,False,,49,Warmth and energy create fire,True,failure,2,9.126402854919434,1754808470.330245,2025-08-10T08:47:50.330246
+123450,122,heat,energy,False,,49,Heat and energy create plasma,False,failure,3,11.732134819030762,1754808472.935909,2025-08-10T08:47:52.935910
+123450,123,warmth,pressure,False,,49,Warm pressure creates steam,True,failure,4,15.52943205833435,1754808476.73327,2025-08-10T08:47:56.733271
+123450,124,heat,pressure,True,plasma,49,Heat and pressure create diamond,True,failure,5,18.222537994384766,1754808479.4264672,2025-08-10T08:47:59.426469
+123450,125,city,energy,False,,50,City with energy creates electricity,True,success,1,2.750783920288086,1754808482.177381,2025-08-10T08:48:02.177382
+123450,126,house,fire,False,,50,House with fire creates hearth,True,failure,1,5.760790824890137,1754808485.187414,2025-08-10T08:48:05.187415
+123450,127,house,warmth,False,,50,Warm house creates home,True,failure,2,8.488343715667725,1754808487.9149399,2025-08-10T08:48:07.914941
+123450,128,aquarium,energy,False,,50,Energy in aquarium creates life,True,failure,3,13.097267866134644,1754808492.523835,2025-08-10T08:48:12.523836
+123450,129,aquarium,warmth,False,,50,Warm aquarium supports life,True,failure,4,15.81812572479248,1754808495.24474,2025-08-10T08:48:15.244741
+123450,130,ocean,energy,False,,50,Ocean with energy creates life,False,failure,5,18.549282789230347,1754808497.9758022,2025-08-10T08:48:17.975803
+123450,131,planet,fire,True,sun,50,Planet with fire creates sun,True,failure,6,21.572558641433716,1754808500.99917,2025-08-10T08:48:20.999172
+123450,132,sun,planet,True,solar system,51,Sun and planet create solar system,True,success,1,2.639838933944702,1754808503.6392698,2025-08-10T08:48:23.639271
+123450,133,sun,water,True,rainbow,52,Sun evaporates water - creates rainbow,True,success,2,3.137904167175293,1754808506.777316,2025-08-10T08:48:26.777318
+123450,134,sun,energy,True,solar cell,53,Sun is pure energy - creates solar power,True,success,3,3.151611804962158,1754808509.92907,2025-08-10T08:48:29.929072
+123450,135,sun,glass,False,,54,Sun through glass creates lens/magnification,True,success,4,3.242074966430664,1754808513.1714292,2025-08-10T08:48:33.171432
+123450,136,sun,air,False,,54,Sun heats air - creates atmosphere,True,failure,1,7.5416789054870605,1754808517.47089,2025-08-10T08:48:37.470891
+123450,137,sun,earth,False,,54,Sun warms earth - creates life,True,failure,2,10.174978017807007,1754808520.1041799,2025-08-10T08:48:40.104181
+123450,138,rainbow,glass,True,prism,54,Rainbow through glass creates prism,True,failure,3,12.807176113128662,1754808522.736404,2025-08-10T08:48:42.736406
+123450,139,prism,sun,False,,55,Prism splits sunlight - creates spectrum,True,success,1,2.704287052154541,1754808525.440793,2025-08-10T08:48:45.440794
+123450,140,solar cell,house,False,,55,Solar cell powers house,True,failure,1,5.454705238342285,1754808528.191227,2025-08-10T08:48:48.191228
+123450,141,solar cell,energy,False,,55,Solar cell generates energy - electricity,True,failure,2,8.192289113998413,1754808530.9288042,2025-08-10T08:48:50.928805
+123450,142,solar system,solar system,True,galaxy,55,Multiple solar systems create galaxy,True,failure,3,11.109094858169556,1754808533.845854,2025-08-10T08:48:53.845857
+123450,143,galaxy,galaxy,True,galaxy cluster,56,Galaxies combine into universe,True,success,1,2.7552108764648438,1754808536.6011882,2025-08-10T08:48:56.601189
+123450,144,galaxy cluster,galaxy cluster,True,universe,57,Galaxy clusters form universe,True,success,2,2.898284673690796,1754808539.499607,2025-08-10T08:48:59.499608
+123450,145,universe,energy,False,,58,Universe powered by energy - big bang,True,success,3,3.0553829669952393,1754808542.5551271,2025-08-10T08:49:02.555129
+123450,146,universe,universe,False,,58,Multiple universes create multiverse,True,failure,1,7.153433799743652,1754808546.65319,2025-08-10T08:49:06.653191
+562841,1,fire,water,True,steam,4,Fire + water is a classic combination that should create steam - basic physics heuristic,True,none,0,,1754833451.264268,2025-08-10T15:44:11.264269
+562841,2,air,earth,True,dust,5,Air moving earth creates dust - natural physics heuristic,True,success,1,4.627192258834839,1754833455.891531,2025-08-10T15:44:15.891532
+562841,3,fire,earth,True,lava,6,Fire melts earth to create lava - basic geological heuristic,True,success,2,3.6151909828186035,1754833459.506794,2025-08-10T15:44:19.506795
+562841,4,air,fire,True,smoke,7,Fire needs air to burn and creates energy - combustion heuristic,True,success,3,4.036961078643799,1754833463.5438259,2025-08-10T15:44:23.543827
+562841,5,water,earth,True,mud,8,Water mixed with earth creates mud - basic mixing heuristic,True,success,4,4.218236207962036,1754833467.762144,2025-08-10T15:44:27.762145
+562841,6,air,water,True,mist,9,Air and water create rain or mist - weather formation heuristic,True,success,5,3.5081887245178223,1754833471.2704241,2025-08-10T15:44:31.270425
+562841,7,steam,air,False,,10,Steam rises into air to form clouds - atmospheric heuristic,True,success,6,3.819795846939087,1754833475.0903711,2025-08-10T15:44:35.090374
+562841,8,lava,water,True,obsidian,10,Lava cools with water to create stone - cooling/solidification heuristic,True,failure,1,7.5029518604278564,1754833478.77353,2025-08-10T15:44:38.773532
+562841,9,fire,dust,True,gunpowder,11,Fire burning dust creates ash - combustion of fine particles heuristic,True,success,1,4.335129976272583,1754833483.108758,2025-08-10T15:44:43.108759
+562841,10,lava,air,True,stone,12,Lava cooling in air creates stone - natural cooling process heuristic,True,success,2,3.8661818504333496,1754833486.975022,2025-08-10T15:44:46.975023
+562841,11,water,dust,False,,13,Water mixed with dust creates mud - similar to water + earth mixing heuristic,True,success,3,3.8283679485321045,1754833490.803453,2025-08-10T15:44:50.803454
+562841,12,fire,smoke,False,,13,More fire with smoke might intensify the combustion - amplification heuristic,True,failure,1,7.320504903793335,1754833494.29559,2025-08-10T15:44:54.295591
+562841,13,stone,water,False,,13,Water erodes stone to create sand - erosion process heuristic,True,failure,2,10.945316791534424,1754833497.920403,2025-08-10T15:44:57.920404
+562841,14,stone,air,True,sand,13,Wind erodes stone to create sand - wind erosion heuristic,True,failure,3,14.714593887329102,1754833501.6897159,2025-08-10T15:45:01.689717
+562841,15,sand,fire,True,glass,14,Heating sand creates glass - glassmaking process heuristic,True,success,1,3.737298011779785,1754833505.427113,2025-08-10T15:45:05.427114
+562841,16,fire,mud,True,brick,15,Baking mud creates brick - ceramic firing process heuristic,True,success,2,4.095375061035156,1754833509.5225909,2025-08-10T15:45:09.522592
+562841,17,water,mist,False,,16,Mist condensing with water creates rain - precipitation heuristic,True,success,3,3.879164934158325,1754833513.401823,2025-08-10T15:45:13.401824
+562841,18,air,mist,False,,16,Mist in air forms clouds - atmospheric condensation heuristic,True,failure,1,8.017157316207886,1754833517.539813,2025-08-10T15:45:17.539814
+562841,19,stone,fire,False,,16,Heating stone extracts metal - smelting process heuristic,True,failure,2,12.201290130615234,1754833521.724042,2025-08-10T15:45:21.724045
+562841,20,gunpowder,fire,True,explosion,16,Gunpowder ignites with fire to create explosion - combustion heuristic,True,failure,3,15.410200119018555,1754833524.9328861,2025-08-10T15:45:24.932888
+562841,21,water,steam,False,,17,Steam with water creates pressure - thermodynamic pressure heuristic,True,success,1,5.413626670837402,1754833530.346582,2025-08-10T15:45:30.346583
+562841,22,earth,steam,True,geyser,17,Steam emerging from earth creates geyser - geothermal activity heuristic,True,failure,1,8.504928827285767,1754833533.43792,2025-08-10T15:45:33.437921
+562841,23,air,smoke,False,,18,Smoke dispersing in air creates wind patterns - convection heuristic,True,success,1,3.800930976867676,1754833537.238919,2025-08-10T15:45:37.238921
+562841,24,water,sand,True,beach,18,Water mixing with sand creates beach or quicksand - geological formation heuristic,True,failure,1,7.057865858078003,1754833540.4958742,2025-08-10T15:45:40.495875
+562841,25,glass,sand,True,hourglass,19,Grinding glass with sand creates lens - optical manufacturing heuristic,True,success,1,3.8263158798217773,1754833544.322293,2025-08-10T15:45:44.322294
+562841,26,dust,air,False,,20,Dust particles in air create dust storm - meteorological heuristic,True,success,2,5.245172023773193,1754833549.5675352,2025-08-10T15:45:49.567537
+562841,27,brick,brick,True,wall,20,Multiple bricks form walls - construction assembly heuristic,True,failure,1,8.432460069656372,1754833552.754854,2025-08-10T15:45:52.754855
+562841,28,stone,stone,False,,21,Many stones form mountains - geological accumulation heuristic,True,success,1,3.6214160919189453,1754833556.3763578,2025-08-10T15:45:56.376359
+562841,29,lava,earth,True,volcano,21,Lava emerging from earth creates volcano - volcanic formation heuristic,True,failure,1,8.788242101669312,1754833561.543173,2025-08-10T15:46:01.543174
+562841,30,wall,wall,True,house,22,Multiple walls form house - architectural construction heuristic,True,success,1,3.794919013977051,1754833565.3381739,2025-08-10T15:46:05.338176
+562841,31,explosion,stone,False,,23,Explosion causing rocks to fall creates avalanche - destructive force heuristic,True,success,2,3.7841100692749023,1754833569.122366,2025-08-10T15:46:09.122368
+562841,32,volcano,air,False,,23,Volcanic ash dispersing in air - volcanic eruption heuristic,True,failure,1,7.120920181274414,1754833572.459163,2025-08-10T15:46:12.459165
+562841,33,water,glass,True,aquarium,23,Glass container for water creates bottle - container formation heuristic,True,failure,2,10.460483074188232,1754833575.798761,2025-08-10T15:46:15.798762
+562841,34,fire,glass,False,,24,Glass with fire creates light bulb - illumination technology heuristic,True,success,1,4.1385321617126465,1754833579.9373639,2025-08-10T15:46:19.937365
+562841,35,geyser,steam,False,,24,Geyser and steam both involve hot water pressure - geothermal amplification heuristic,True,failure,1,8.15619707107544,1754833583.955026,2025-08-10T15:46:23.955027
+562841,36,dust,earth,False,,24,Dust covering earth creates desert - arid landscape heuristic,True,failure,2,11.590409994125366,1754833587.3892422,2025-08-10T15:46:27.389243
+562841,37,air,sand,False,,24,Wind moving sand creates dunes - aeolian process heuristic,True,failure,3,14.8509361743927,1754833590.649811,2025-08-10T15:46:30.649812
+562841,38,sand,sand,True,desert,24,Lots of sand creates desert - accumulation heuristic,True,failure,4,18.090802907943726,1754833593.889666,2025-08-10T15:46:33.889667
+562841,39,desert,water,True,oasis,25,Water in desert creates oasis - desert water source heuristic,True,success,1,5.29298210144043,1754833599.1827998,2025-08-10T15:46:39.182804
+562841,40,smoke,water,False,,26,Smoke particles in water create fog - atmospheric moisture heuristic,True,success,2,4.877591133117676,1754833604.060469,2025-08-10T15:46:44.060470
+562841,41,mud,sand,True,clay,26,Mixing mud with sand creates clay - sediment combination heuristic,True,failure,1,8.164130210876465,1754833607.3470342,2025-08-10T15:46:47.347035
+562841,42,clay,fire,False,,27,Firing clay creates pottery - ceramic firing heuristic,True,success,1,5.018142938613892,1754833612.3652558,2025-08-10T15:46:52.365258
+562841,43,water,clay,False,,27,Water with clay makes workable pottery material - wet clay heuristic,True,failure,1,11.56264591217041,1754833618.909754,2025-08-10T15:46:58.909755
+562841,44,steam,mist,False,,27,Steam and mist are both water vapor forms that create clouds - vapor condensation heuristic,True,failure,2,20.899946928024292,1754833628.247076,2025-08-10T15:47:08.247077
+562841,45,explosion,air,False,,27,Explosive force moves air to create wind or pressure - blast wave heuristic,True,failure,3,26.986090898513794,1754833634.333228,2025-08-10T15:47:14.333229
+562841,46,house,fire,False,,27,Fire in house creates fireplace - domestic heating heuristic,True,failure,4,30.280760765075684,1754833637.627881,2025-08-10T15:47:17.627882
+562841,47,house,brick,False,,27,Adding bricks to house creates larger building - construction expansion heuristic,True,failure,5,33.81647181510925,1754833641.163599,2025-08-10T15:47:21.163600
+562841,48,volcano,water,False,,27,Volcanic activity in water forms islands - volcanic island formation heuristic,True,failure,6,37.128896713256836,1754833644.4760299,2025-08-10T15:47:24.476032
+562841,49,beach,sand,False,,27,Beach with more sand extends the coastline - coastal formation heuristic,True,failure,7,40.852832555770874,1754833648.1999621,2025-08-10T15:47:28.199963
+562841,50,beach,water,False,,27,Beach meets water to create ocean or sea - coastal water body heuristic,True,failure,8,44.18550086021423,1754833651.5326521,2025-08-10T15:47:31.532654
+562841,51,aquarium,water,False,,27,Adding water to aquarium fills it - aquatic environment heuristic,True,failure,9,48.10619378089905,1754833655.453303,2025-08-10T15:47:35.453304
+562841,52,geyser,water,False,,27,Geyser with more water creates hot spring - geothermal water source heuristic,True,failure,10,51.829890727996826,1754833659.177006,2025-08-10T15:47:39.177007
+562841,53,dust,water,False,,27,Dust mixed with water creates mud - particle suspension heuristic,False,failure,11,55.756531953811646,1754833663.103586,2025-08-10T15:47:43.103587
+562841,54,volcano,fire,False,,27,More fire with volcano creates eruption - volcanic intensification heuristic,True,failure,12,59.10953664779663,1754833666.456655,2025-08-10T15:47:46.456656
+562841,55,desert,fire,False,,27,Desert heat with fire creates intense heat - thermal amplification heuristic,True,failure,13,62.59133958816528,1754833669.938459,2025-08-10T15:47:49.938460
+562841,56,glass,air,False,,27,Glass with air space creates window - transparent barrier heuristic,True,failure,14,65.76593685150146,1754833673.113067,2025-08-10T15:47:53.113068
+562841,57,water,water,True,puddle,27,Large amounts of water create lake or sea - water accumulation heuristic,True,failure,15,70.01071882247925,1754833677.357908,2025-08-10T15:47:57.357909
+562841,58,puddle,puddle,True,pond,28,Multiple puddles form pond - water body expansion heuristic,True,success,1,4.732065916061401,1754833682.0900679,2025-08-10T15:48:02.090069
+562841,59,pond,pond,True,lake,29,Multiple ponds form lake - progressive water body enlargement heuristic,True,success,2,4.418405294418335,1754833686.508598,2025-08-10T15:48:06.508599
+562841,60,lake,lake,True,sea,30,Multiple lakes form sea or ocean - massive water body formation heuristic,True,success,3,3.9447269439697266,1754833690.4534578,2025-08-10T15:48:10.453460
+562841,61,sea,sea,True,ocean,31,Multiple seas form ocean - ultimate water body heuristic,True,success,4,4.246730089187622,1754833694.700813,2025-08-10T15:48:14.700831
+562841,62,air,air,True,pressure,32,Compressed air creates pressure or wind - air pressure heuristic,True,success,5,3.9783408641815186,1754833698.679258,2025-08-10T15:48:18.679259
+562841,63,fire,fire,True,energy,33,More fire creates energy or intense heat - thermal amplification heuristic,True,success,6,4.298038721084595,1754833702.977462,2025-08-10T15:48:22.977463
+562841,64,earth,earth,True,land,34,Large amounts of earth create mountain - geological accumulation heuristic,True,success,7,4.520059823989868,1754833707.4977212,2025-08-10T15:48:27.497722
+562841,65,land,land,True,continent,35,Large landmasses form continent - geographical expansion heuristic,True,success,8,4.253934621810913,1754833711.7518039,2025-08-10T15:48:31.751805
+562841,66,pressure,steam,False,,36,Steam under pressure creates powerful steam systems - pressurized steam heuristic,True,success,9,4.3282880783081055,1754833716.080273,2025-08-10T15:48:36.080276
+562841,67,energy,fire,False,,36,High energy fire creates plasma - state of matter transition heuristic,True,failure,1,8.15728211402893,1754833719.9091861,2025-08-10T15:48:39.909187
+562841,68,energy,air,True,heat,36,Energy moving air creates wind - kinetic air movement heuristic,True,failure,2,11.760071277618408,1754833723.5119948,2025-08-10T15:48:43.511996
+562841,69,heat,water,False,,37,Heat applied to water creates steam - phase transition heuristic,True,success,1,4.941540241241455,1754833728.453645,2025-08-10T15:48:48.453646
+562841,70,heat,earth,False,,37,Hot earth becomes desert - arid land formation heuristic,True,failure,1,8.707109212875366,1754833732.2192068,2025-08-10T15:48:52.219208
+562841,71,ocean,land,False,,37,Land in ocean creates island - isolated landmass heuristic,True,failure,2,12.002839088439941,1754833735.514967,2025-08-10T15:48:55.514968
+562841,72,continent,ocean,True,planet,37,Continent with ocean forms planet - global formation heuristic,True,failure,3,15.322309255599976,1754833738.834422,2025-08-10T15:48:58.834423
+562841,73,planet,planet,True,solar system,38,Multiple planets form solar system - astronomical system heuristic,True,success,1,4.913763046264648,1754833743.7483141,2025-08-10T15:49:03.748316
+562841,74,solar system,solar system,True,galaxy,39,Multiple solar systems form galaxy - cosmic structure heuristic,True,success,2,4.236583948135376,1754833747.9850209,2025-08-10T15:49:07.985022
+562841,75,galaxy,galaxy,True,galaxy cluster,40,Multiple galaxies form universe - ultimate cosmic structure heuristic,True,success,3,8.904400110244751,1754833756.8895218,2025-08-10T15:49:16.889524
+562841,76,galaxy cluster,galaxy cluster,True,universe,41,Multiple galaxy clusters form universe - ultimate cosmic assembly heuristic,True,success,4,4.206408977508545,1754833761.0960672,2025-08-10T15:49:21.096069
+562841,77,heat,sand,False,,42,Heat melts sand to create glass - thermal transformation heuristic,True,success,5,7.442846775054932,1754833768.539031,2025-08-10T15:49:28.539032
+562841,78,pressure,earth,False,,42,High pressure on earth creates diamond - geological compression heuristic,True,failure,1,13.954880952835083,1754833775.051053,2025-08-10T15:49:35.051054
+562841,79,pressure,stone,True,granite,42,High pressure on stone creates diamond - metamorphic transformation heuristic,True,failure,2,17.838281869888306,1754833778.934457,2025-08-10T15:49:38.934458
+562841,80,heat,clay,False,,43,Heat baking clay creates pottery - ceramic firing heuristic,True,success,1,5.060173749923706,1754833783.99473,2025-08-10T15:49:43.994731
+562841,81,pressure,clay,False,,43,Pressure compacts clay into brick or ceramics - compression forming heuristic,True,failure,1,8.469043016433716,1754833787.403588,2025-08-10T15:49:47.403589
+562841,82,energy,earth,False,,43,Energy moving through earth creates earthquake - seismic activity heuristic,True,failure,2,11.830204010009766,1754833790.764832,2025-08-10T15:49:50.764834
+562841,83,energy,water,False,,43,Energy from water creates hydroelectric power - water power heuristic,True,failure,3,15.57022500038147,1754833794.5047839,2025-08-10T15:49:54.504785
+562841,84,smoke,earth,False,,43,Smoke settling on earth creates smog or pollution - environmental contamination heuristic,True,failure,4,19.022042989730835,1754833797.9566169,2025-08-10T15:49:57.956618
+562841,85,mist,earth,False,,43,Mist over earth creates fog or swamp conditions - humid environment heuristic,True,failure,5,22.50957179069519,1754833801.444139,2025-08-10T15:50:01.444140
+562841,86,puddle,earth,False,,43,Puddle on earth creates swamp - wetland formation heuristic,True,failure,6,25.68574810028076,1754833804.620298,2025-08-10T15:50:04.620299
+562841,87,pond,earth,False,,43,Pond mixing with earth creates swamp - wetland ecosystem heuristic,True,failure,7,28.997742891311646,1754833807.932301,2025-08-10T15:50:07.932302
+562841,88,lake,earth,False,,43,Lake meeting earth creates shore or swamp - water-land interface heuristic,True,failure,8,32.654356956481934,1754833811.588922,2025-08-10T15:50:11.588923
+562841,89,ocean,earth,True,primordial soup,43,Ocean meeting earth creates coast or beach - shoreline formation heuristic,True,failure,9,36.61736083030701,1754833815.551957,2025-08-10T15:50:15.551958
+562841,90,primordial soup,energy,False,,44,Primordial soup with energy creates life - origin of life heuristic,True,success,1,5.461207151412964,1754833821.013269,2025-08-10T15:50:21.013271
+562841,91,primordial soup,heat,False,,44,Primordial soup with heat creates life - thermal energy for life formation heuristic,True,failure,1,9.43703818321228,1754833824.9890828,2025-08-10T15:50:24.989084
+562841,92,primordial soup,fire,False,,44,Primordial soup with fire creates life - fire as energy source for life heuristic,True,failure,2,12.918156147003174,1754833828.470251,2025-08-10T15:50:28.470252
+562841,93,primordial soup,lava,False,,44,Primordial soup with volcanic lava creates life - volcanic energy for life heuristic,True,failure,3,16.75991201400757,1754833832.311965,2025-08-10T15:50:32.311966
+562841,94,primordial soup,steam,False,,44,Primordial soup with steam creates life - hydrothermal conditions for life heuristic,True,failure,4,20.713500022888184,1754833836.265578,2025-08-10T15:50:36.265580
+562841,95,explosion,volcano,False,,44,Explosion with volcano creates eruption - volcanic explosion heuristic,True,failure,5,24.177101135253906,1754833839.7291899,2025-08-10T15:50:39.729192
+562841,96,continent,continent,False,,44,Multiple continents form supercontinent - geological merging heuristic,True,failure,6,27.583717107772827,1754833843.135784,2025-08-10T15:50:43.135785
+562841,97,dust,steam,False,,44,Dust mixed with steam creates mud - condensation on particles heuristic,True,failure,7,30.96992325782776,1754833846.522016,2025-08-10T15:50:46.522018
+562841,98,house,house,True,village,44,Multiple houses form village - settlement growth heuristic,True,failure,8,34.14911413192749,1754833849.701213,2025-08-10T15:50:49.701214
+562841,99,village,village,True,city,45,Multiple villages form town - urban expansion heuristic,True,success,1,5.338778257369995,1754833855.040102,2025-08-10T15:50:55.040104
+562841,100,city,city,False,,46,Multiple cities form metropolis - mega urban area heuristic,True,success,2,4.288920879364014,1754833859.32912,2025-08-10T15:50:59.329121
+562841,101,universe,universe,False,,46,Multiple universes form multiverse - cosmic expansion beyond single universe heuristic,True,failure,1,8.474389791488647,1754833863.514616,2025-08-10T15:51:03.514617
+562841,102,pressure,air,True,wind,46,Pressure difference in air creates wind - atmospheric pressure gradient heuristic,True,failure,2,12.186590194702148,1754833867.2268531,2025-08-10T15:51:07.226854
+562841,103,wind,sand,True,dune,47,Wind blowing sand creates sandstorm - desert weather phenomenon heuristic,True,success,1,4.488530874252319,1754833871.715534,2025-08-10T15:51:11.715535
+562841,104,wind,water,False,,48,Wind over water creates waves - water surface disturbance heuristic,True,success,2,5.083073139190674,1754833876.798699,2025-08-10T15:51:16.798700
+562841,105,wind,ocean,True,wave,48,Wind over ocean creates waves or storm - oceanic weather heuristic,True,failure,1,11.974462985992432,1754833883.6901271,2025-08-10T15:51:23.690128
+562841,106,wave,wave,False,,49,Multiple waves combine to create tsunami - massive wave formation heuristic,True,success,1,4.903387784957886,1754833888.5936131,2025-08-10T15:51:28.593614
+562841,107,wave,earth,False,,49,Waves hitting earth create erosion or beach formation - coastal shaping heuristic,True,failure,1,8.888920783996582,1754833892.579232,2025-08-10T15:51:32.579235
+562841,108,wind,dust,False,,49,Wind blowing dust creates dust storm - atmospheric dust disturbance heuristic,True,failure,2,12.971107721328735,1754833896.6613278,2025-08-10T15:51:36.661329
+562841,109,wind,fire,False,,49,Wind spreads fire to create wildfire - fire spreading heuristic,True,failure,3,17.512362957000732,1754833901.202594,2025-08-10T15:51:41.202595
+562841,110,wind,smoke,False,,49,Wind disperses smoke or creates smog - smoke movement heuristic,True,failure,4,20.799994945526123,1754833904.4902232,2025-08-10T15:51:44.490224
+562841,111,wind,mist,False,,49,Wind moving mist creates fog or cloud - atmospheric moisture movement heuristic,True,failure,5,24.075724840164185,1754833907.765971,2025-08-10T15:51:47.765972
+562841,112,dune,sand,False,,49,Dune with more sand creates bigger dune or desert - sand accumulation heuristic,True,failure,6,27.629307985305786,1754833911.31955,2025-08-10T15:51:51.319551
+562841,113,dune,dune,False,,49,Multiple dunes form desert - sand landscape formation heuristic,True,failure,7,31.14261484146118,1754833914.832835,2025-08-10T15:51:54.832836
+562841,114,energy,energy,False,,49,Concentrated energy creates power or explosion - energy amplification heuristic,True,failure,8,34.392974853515625,1754833918.083207,2025-08-10T15:51:58.083208
+562841,115,heat,heat,True,plasma,49,Concentrated heat creates fire or intense heat - thermal concentration heuristic,True,failure,9,38.08139181137085,1754833921.771637,2025-08-10T15:52:01.771638
+562841,116,pressure,pressure,False,,50,Extreme pressure creates vacuum or high pressure system - pressure concentration heuristic,True,success,1,6.203176975250244,1754833927.9749272,2025-08-10T15:52:07.974928
+562841,117,steam,steam,False,,50,Concentrated steam creates cloud or pressure - steam accumulation heuristic,True,failure,1,9.49705696105957,1754833931.2688131,2025-08-10T15:52:11.268814
+562841,118,smoke,smoke,False,,50,Concentrated smoke creates smog or thick smoke - pollution accumulation heuristic,True,failure,2,13.306887865066528,1754833935.0786371,2025-08-10T15:52:15.078638
+562841,119,mud,mud,False,,50,Large amounts of mud create swamp - wetland formation heuristic,True,failure,3,17.05921506881714,1754833938.83098,2025-08-10T15:52:18.830981
+562841,120,dust,dust,False,,50,Large amounts of dust create dust cloud - particle accumulation heuristic,True,failure,4,20.791187047958374,1754833942.5629828,2025-08-10T15:52:22.562984
+562841,121,mist,mist,False,,50,Concentrated mist creates fog or cloud - vapor concentration heuristic,True,failure,5,24.757791996002197,1754833946.5296571,2025-08-10T15:52:26.529660
+562841,122,glass,glass,True,glasses,50,Multiple pieces of glass create mirror or window - glass assembly heuristic,True,failure,6,28.00787615776062,1754833949.779674,2025-08-10T15:52:29.779676
+562841,123,lava,lava,False,,51,Large amounts of lava create volcano - molten rock accumulation heuristic,True,success,1,6.163326978683472,1754833955.943143,2025-08-10T15:52:35.943144
+562841,124,explosion,explosion,True,atomic bomb,51,Multiple explosions create bigger explosion or destruction - explosive amplification heuristic,True,failure,1,9.392124891281128,1754833959.171981,2025-08-10T15:52:39.171983
+562841,125,gunpowder,gunpowder,False,,52,More gunpowder creates bigger explosion - explosive material concentration heuristic,True,success,1,6.4190709590911865,1754833965.59117,2025-08-10T15:52:45.591171
+562841,126,geyser,geyser,False,,52,Multiple geysers create geothermal field or hot springs - geothermal concentration heuristic,True,failure,1,10.912742853164673,1754833970.084886,2025-08-10T15:52:50.084888
+562841,127,volcano,volcano,False,,52,Multiple volcanoes create mountain range or volcanic chain - geological formation heuristic,True,failure,2,14.875127077102661,1754833974.0472572,2025-08-10T15:52:54.047259
+562841,128,clay,clay,False,,52,More clay creates pottery or ceramic materials - clay accumulation heuristic,True,failure,3,18.198978662490845,1754833977.37107,2025-08-10T15:52:57.371071
+562841,129,primordial soup,primordial soup,False,,52,Concentrated primordial soup might create life or evolution - origin concentration heuristic,True,failure,4,21.565509796142578,1754833980.737601,2025-08-10T15:53:00.737602
+562841,130,wind,wind,True,tornado,52,Converging winds create storm or tornado - wind amplification heuristic,True,failure,5,24.871690034866333,1754833984.043869,2025-08-10T15:53:04.043871
+562841,131,tornado,tornado,False,,53,Multiple tornadoes create hurricane - storm system amplification heuristic,True,success,1,6.401011943817139,1754833990.4450188,2025-08-10T15:53:10.445020
+562841,132,tornado,ocean,True,hurricane,53,Tornado over ocean creates hurricane or waterspout - oceanic storm heuristic,True,failure,1,9.776741027832031,1754833993.820788,2025-08-10T15:53:13.820789
+562841,133,hurricane,hurricane,False,,54,Multiple hurricanes create superstorm - mega weather system heuristic,True,success,1,4.860525131225586,1754833998.6814442,2025-08-10T15:53:18.681445
+562841,134,wave,beach,False,,54,Waves hitting beach create surf or erosion - coastal interaction heuristic,True,failure,1,9.277552127838135,1754834003.098463,2025-08-10T15:53:23.098464
+562841,135,energy,glass,False,,54,Energy through glass creates light bulb or laser - photonic technology heuristic,True,failure,2,13.320343017578125,1754834007.141245,2025-08-10T15:53:27.141246
+562841,136,heat,glass,False,,54,Heat melts glass to create molten glass or lens - thermal glass processing heuristic,True,failure,3,16.80120015144348,1754834010.6221042,2025-08-10T15:53:30.622105
+562841,137,pressure,glass,False,,54,Pressure on glass creates crystal or diamond - compression crystallization heuristic,True,failure,4,23.895814180374146,1754834017.716786,2025-08-10T15:53:37.716791
+562841,138,city,pressure,False,,54,City with pressure creates urban stress or dense population - urban pressure heuristic,True,failure,5,27.320745944976807,1754834021.141662,2025-08-10T15:53:41.141664
+562841,139,city,energy,False,,54,City with energy creates electricity or power grid - urban infrastructure heuristic,True,failure,6,30.755356073379517,1754834024.57626,2025-08-10T15:53:44.576261
+562841,140,house,energy,False,,54,House with energy creates electricity or light - domestic power heuristic,True,failure,7,35.03883504867554,1754834028.859731,2025-08-10T15:53:48.859732
+562841,141,volcano,pressure,True,eruption,54,Volcano under pressure creates eruption or geothermal energy - volcanic pressure heuristic,True,failure,8,39.05435919761658,1754834032.875285,2025-08-10T15:53:52.875286
+562841,142,hurricane,wind,False,,55,Hurricane with more wind intensifies the storm - wind amplification heuristic,True,success,1,6.970863103866577,1754834039.846254,2025-08-10T15:53:59.846255
+562841,143,tornado,wind,False,,55,Tornado with more wind creates bigger tornado or storm - wind convergence heuristic,True,failure,1,11.789716958999634,1754834044.6651149,2025-08-10T15:54:04.665116
+562841,144,city,wind,False,,55,Wind in city creates air circulation or pollution dispersion - urban air flow heuristic,True,failure,2,17.20073127746582,1754834050.076125,2025-08-10T15:54:10.076126
+562841,145,village,wind,False,,55,Village with wind creates windmill or air flow - rural wind utilization heuristic,True,failure,3,21.99582815170288,1754834054.87123,2025-08-10T15:54:14.871231
+562841,146,house,wind,True,windmill,55,House with wind creates ventilation or windmill - wind utilization heuristic,True,failure,4,26.502713203430176,1754834059.3781278,2025-08-10T15:54:19.378129
+562841,147,windmill,wind,False,,56,Windmill with wind creates power generation - wind energy heuristic,True,success,1,9.078074216842651,1754834068.456343,2025-08-10T15:54:28.456344
+562841,148,energy,planet,False,,56,Energy on planet creates life or atmosphere - planetary energy heuristic,True,failure,1,13.649935245513916,1754834073.0282161,2025-08-10T15:54:33.028218
+562841,149,water,planet,False,,56,Water on planet creates life or ocean world - planetary water heuristic,True,failure,2,18.553986072540283,1754834077.9322681,2025-08-10T15:54:37.932270
+562841,150,air,planet,True,atmosphere,56,Air around planet creates atmosphere - planetary atmosphere heuristic,True,failure,3,23.908451080322266,1754834083.286724,2025-08-10T15:54:43.286725
+909090,1,fire,water,True,steam,4,Basic opposites attract - hot meets cold creates steam,True,none,0,,1754815739.89554,2025-08-10T10:48:59.895541
+909090,2,air,fire,True,smoke,5,"Air feeds fire, creates energy",True,success,1,2.799415111541748,1754815742.695061,2025-08-10T10:49:02.695063
+909090,3,earth,water,True,mud,6,Wet earth makes mud - basic combination rule,True,success,2,2.818883180618286,1754815745.5140202,2025-08-10T10:49:05.514021
+909090,4,earth,fire,True,lava,7,Earth heated by fire creates lava,True,success,3,2.5095608234405518,1754815748.023655,2025-08-10T10:49:08.023656
+909090,5,air,water,True,mist,8,Air and water create mist/rain,True,success,4,2.4698359966278076,1754815750.493557,2025-08-10T10:49:10.493558
+909090,6,air,earth,True,dust,9,Moving air erodes earth into dust,True,success,5,2.5334889888763428,1754815753.027117,2025-08-10T10:49:13.027118
+909090,7,lava,water,True,obsidian,10,Lava cools in water to form stone,True,success,6,2.3772737979888916,1754815755.4044852,2025-08-10T10:49:15.404486
+909090,8,lava,air,True,stone,11,Lava cooled by air creates stone,True,success,7,2.398265838623047,1754815757.8028202,2025-08-10T10:49:17.802821
+909090,9,fire,fire,True,energy,12,Double the heat creates energy,True,success,8,2.5059497356414795,1754815760.3088489,2025-08-10T10:49:20.308850
+909090,10,steam,air,False,,13,Steam in air forms clouds,True,success,9,2.5733392238616943,1754815762.882281,2025-08-10T10:49:22.882282
+909090,11,mist,air,False,,13,Mist in air creates clouds,True,failure,1,5.156304121017456,1754815765.465225,2025-08-10T10:49:25.465226
+909090,12,water,water,True,puddle,13,More water creates sea/puddle,True,failure,2,7.618507146835327,1754815767.9274502,2025-08-10T10:49:27.927451
+909090,13,puddle,water,True,pond,14,Puddle plus water makes pond,True,success,1,2.2672548294067383,1754815770.194794,2025-08-10T10:49:30.194795
+909090,14,pond,water,True,lake,15,Pond plus water makes lake,True,success,2,2.2730050086975098,1754815772.467873,2025-08-10T10:49:32.467875
+909090,15,lake,water,True,sea,16,Lake plus water makes sea,True,success,3,2.0274648666381836,1754815774.49545,2025-08-10T10:49:34.495451
+909090,16,sea,water,True,ocean,17,Sea plus water makes ocean,True,success,4,2.1626248359680176,1754815776.658144,2025-08-10T10:49:36.658145
+909090,17,earth,earth,True,land,18,More earth creates land/continent,True,success,5,2.6714141368865967,1754815779.329628,2025-08-10T10:49:39.329629
+909090,18,land,earth,True,continent,19,Land plus earth creates continent,True,success,6,2.1407840251922607,1754815781.470536,2025-08-10T10:49:41.470537
+909090,19,energy,air,True,heat,20,Energy in air creates wind,True,success,7,2.269481897354126,1754815783.7401228,2025-08-10T10:49:43.740124
+909090,20,air,air,True,pressure,21,Moving air creates pressure/wind,True,success,8,2.410452365875244,1754815786.15065,2025-08-10T10:49:46.150651
+909090,21,pressure,air,True,wind,22,Pressure plus air creates wind,True,success,9,1.983332872390747,1754815788.1340601,2025-08-10T10:49:48.134061
+909090,22,stone,fire,False,,23,Stone heated creates metal,True,success,10,2.5242297649383545,1754815790.65836,2025-08-10T10:49:50.658361
+909090,23,mud,fire,True,brick,23,Mud baked by fire creates brick,True,failure,1,4.911948919296265,1754815793.04612,2025-08-10T10:49:53.046121
+909090,24,wind,water,False,,24,Wind over water creates wave,True,success,1,3.4584290981292725,1754815796.50462,2025-08-10T10:49:56.504622
+909090,25,wind,dust,False,,24,Wind picks up dust creating sandstorm,True,failure,1,5.882610082626343,1754815798.928892,2025-08-10T10:49:58.928895
+909090,26,stone,air,True,sand,24,Stone weathered by air creates sand,True,failure,2,8.849853992462158,1754815801.896081,2025-08-10T10:50:01.896081
+909090,27,sand,fire,True,glass,25,Sand melted by fire creates glass,True,success,1,2.01682710647583,1754815803.913007,2025-08-10T10:50:03.913008
+909090,28,heat,water,False,,26,Heat applied to water creates steam,True,success,2,4.917356967926025,1754815808.8304489,2025-08-10T10:50:08.830450
+909090,29,stone,stone,True,wall,26,Stones together create wall/mountain,True,failure,1,7.437023162841797,1754815811.350163,2025-08-10T10:50:11.350165
+909090,30,wall,wall,True,house,27,Walls together create house,True,success,1,2.062954902648926,1754815813.413215,2025-08-10T10:50:13.413216
+909090,31,earth,pressure,False,,28,Earth under pressure creates coal,True,success,2,2.079054117202759,1754815815.4923542,2025-08-10T10:50:15.492356
+909090,32,energy,earth,False,,28,Energy in earth creates life,True,failure,1,5.413964033126831,1754815818.827274,2025-08-10T10:50:18.827275
+909090,33,water,earth,True,mud,28,Tried before but maybe different result - water and earth,False,failure,2,8.921056985855103,1754815822.334286,2025-08-10T10:50:22.334287
+909090,34,smoke,air,False,,28,Smoke disperses in air creating smog,True,success,1,3.083549976348877,1754815825.4179158,2025-08-10T10:50:25.417917
+909090,35,smoke,water,False,,28,Smoke meets water creates acid rain,True,failure,1,6.7665839195251465,1754815829.100956,2025-08-10T10:50:29.100958
+909090,36,dust,fire,True,gunpowder,28,Dust ignited creates gunpowder,True,failure,2,9.935764074325562,1754815832.2701492,2025-08-10T10:50:32.270150
+909090,37,mud,water,False,,29,Mud with more water creates swamp,True,success,1,2.936234951019287,1754815835.2064629,2025-08-10T10:50:35.206464
+909090,38,earth,steam,True,geyser,29,Steam heating earth creates geyser,True,failure,1,5.940805673599243,1754815838.2110589,2025-08-10T10:50:38.211060
+909090,39,pressure,earth,False,,30,Pressure compressing earth creates coal,False,success,1,3.388773202896118,1754815841.59986,2025-08-10T10:50:41.599862
+909090,40,energy,water,False,,30,Energy in water creates life/steam,True,failure,1,6.398735284805298,1754815844.6098702,2025-08-10T10:50:44.609871
+909090,41,water,lava,True,obsidian,30,Already tried but maybe different order matters,False,failure,2,9.975568294525146,1754815848.1866539,2025-08-10T10:50:48.186655
+909090,42,wind,sand,True,dune,30,Wind blowing sand creates desert,True,success,1,2.906409978866577,1754815851.093266,2025-08-10T10:50:51.093269
+909090,43,ocean,wind,True,wave,31,Wind over ocean creates wave,True,success,2,2.590113878250122,1754815853.68348,2025-08-10T10:50:53.683481
+909090,44,continent,ocean,True,planet,32,Continent and ocean create planet,True,success,3,3.1444640159606934,1754815856.828062,2025-08-10T10:50:56.828063
+909090,45,fire,stone,False,,33,Fire heating stone creates metal,False,success,4,2.727407932281494,1754815859.5555031,2025-08-10T10:50:59.555504
+909090,46,pressure,water,False,,33,Pressure on water creates ice,True,failure,1,5.388046979904175,1754815862.21621,2025-08-10T10:51:02.216212
+909090,47,land,water,False,,33,Land meets water creates swamp,True,failure,2,7.911550760269165,1754815864.7398021,2025-08-10T10:51:04.739804
+909090,48,heat,earth,False,,33,Heat applied to earth creates lava,True,failure,3,10.844071865081787,1754815867.67224,2025-08-10T10:51:07.672241
+909090,49,brick,brick,False,,33,Bricks together make wall,True,failure,4,14.069714069366455,1754815870.89786,2025-08-10T10:51:10.897861
+909090,50,steam,pressure,False,,33,Steam under pressure creates geyser,True,failure,5,16.75291681289673,1754815873.5811,2025-08-10T10:51:13.581101
+909090,51,gunpowder,fire,True,explosion,33,Gunpowder ignited creates explosion,True,failure,6,19.621850967407227,1754815876.450027,2025-08-10T10:51:16.450028
+909090,52,stone,water,False,,34,Stone worn by water creates sand,True,success,1,2.6275100708007812,1754815879.077627,2025-08-10T10:51:19.077629
+909090,53,mist,heat,False,,34,Mist heated creates steam,True,failure,1,5.262595176696777,1754815881.712715,2025-08-10T10:51:21.712715
+909090,54,glass,water,True,aquarium,34,Glass filled with water creates container,True,failure,2,7.8151538372039795,1754815884.2652988,2025-08-10T10:51:24.265300
+909090,55,wall,earth,False,,35,Wall in earth creates mountain,True,success,1,3.0532541275024414,1754815887.318644,2025-08-10T10:51:27.318645
+909090,56,earth,land,True,continent,35,Earth plus land creates continent,False,failure,1,5.962384223937988,1754815890.227703,2025-08-10T10:51:30.227704
+909090,57,heat,air,True,warmth,35,Heat in air creates energy,True,success,1,2.7161409854888916,1754815892.943933,2025-08-10T10:51:32.943934
+909090,58,sand,glass,True,hourglass,36,Sand and glass both silica - creates glass,True,success,2,2.9762659072875977,1754815895.920317,2025-08-10T10:51:35.920318
+909090,59,wave,sand,True,beach,37,Wave hitting sand creates beach,True,success,3,2.5401771068573,1754815898.46063,2025-08-10T10:51:38.460631
+909090,60,earth,pond,False,,38,Earth plus water body creates swamp,True,success,4,5.218095064163208,1754815903.6788301,2025-08-10T10:51:43.678831
+909090,61,mud,pond,False,,38,Mud plus pond creates swamp,True,failure,1,7.868190050125122,1754815906.328921,2025-08-10T10:51:46.328922
+909090,62,energy,mud,False,,38,Energy in primordial mud creates life,True,failure,2,10.755066871643066,1754815909.215778,2025-08-10T10:51:49.215779
+909090,63,warmth,water,False,,38,Warmth applied to water creates steam,True,failure,3,13.28861403465271,1754815911.7494452,2025-08-10T10:51:51.749447
+909090,64,planet,fire,True,sun,38,Planet heated by fire creates sun,True,failure,4,16.1295108795166,1754815914.590276,2025-08-10T10:51:54.590277
+909090,65,sun,water,True,rainbow,39,Sun heating water creates evaporation/cloud,True,success,1,2.8076069355010986,1754815917.398162,2025-08-10T10:51:57.398163
+909090,66,sun,earth,False,,40,Sun warming earth creates day,True,success,2,2.6017160415649414,1754815919.999968,2025-08-10T10:51:59.999969
+909090,67,explosion,stone,False,,40,Explosion breaking stone creates gravel,True,failure,1,5.375864028930664,1754815922.774106,2025-08-10T10:52:02.774107
+909090,68,sea,sand,False,,40,Sea meeting sand creates beach,True,failure,2,7.93493914604187,1754815925.333193,2025-08-10T10:52:05.333194
+909090,69,warmth,earth,False,,40,Warmth in earth helps life grow,True,failure,3,11.027430057525635,1754815928.4256902,2025-08-10T10:52:08.425691
+909090,70,house,fire,False,,40,House heated by fire creates fireplace,True,failure,4,13.595380067825317,1754815930.9936378,2025-08-10T10:52:10.993639
+909090,71,energy,pressure,False,,40,Energy plus pressure creates force,True,failure,5,16.219573974609375,1754815933.6178298,2025-08-10T10:52:13.617831
+909090,72,heat,stone,False,,40,Heat melting stone creates metal/lava,True,failure,6,19.098390102386475,1754815936.4966452,2025-08-10T10:52:16.496646
+909090,73,dust,water,False,,40,Dust mixing with water creates mud,True,failure,7,22.19172716140747,1754815939.5900002,2025-08-10T10:52:19.590001
+909090,74,wind,house,True,windmill,40,Wind hitting house creates windmill,True,failure,8,24.933130025863647,1754815942.33147,2025-08-10T10:52:22.331475
+909090,75,mist,mist,False,,41,More mist creates cloud,True,success,1,2.5817949771881104,1754815944.913363,2025-08-10T10:52:24.913364
+909090,76,steam,mist,False,,41,Steam and mist create cloud,True,failure,1,5.216996908187866,1754815947.548631,2025-08-10T10:52:27.548632
+909090,77,smoke,smoke,False,,41,More smoke creates cloud,True,failure,2,7.8588948249816895,1754815950.1905,2025-08-10T10:52:30.190502
+909090,78,smoke,mist,False,,41,Smoke and mist create smog,True,failure,3,10.432508945465088,1754815952.764066,2025-08-10T10:52:32.764067
+909090,79,dune,dune,False,,41,Multiple dunes create desert,True,failure,4,13.353395938873291,1754815955.684969,2025-08-10T10:52:35.684971
+909090,80,glass,sand,True,hourglass,41,More sand and glass - clockwork,False,failure,5,16.047086000442505,1754815958.378586,2025-08-10T10:52:38.378588
+909090,81,sun,ocean,True,salt,41,Sun over ocean creates evaporation,True,success,1,3.0244760513305664,1754815961.403178,2025-08-10T10:52:41.403180
+909090,82,heat,pressure,True,plasma,42,Heat plus pressure creates diamond,True,success,2,2.594299793243408,1754815963.9975839,2025-08-10T10:52:43.997585
+909090,83,pressure,stone,True,granite,43,Pressure on stone creates diamond,True,success,3,2.889634132385254,1754815966.887316,2025-08-10T10:52:46.887317
+909090,84,land,house,False,,44,House on land creates village,True,success,4,2.6330809593200684,1754815969.520499,2025-08-10T10:52:49.520500
+909090,85,house,house,True,village,44,Multiple houses create village,True,failure,1,5.219987869262695,1754815972.107404,2025-08-10T10:52:52.107405
+909090,86,village,village,True,city,45,Villages together create city,True,success,1,2.829005002975464,1754815974.936527,2025-08-10T10:52:54.936528
+909090,87,glass,fire,False,,46,Glass heated by fire creates lens,True,success,2,2.7829551696777344,1754815977.71975,2025-08-10T10:52:57.719752
+909090,88,glass,air,False,,46,Glass plus air creates window,True,failure,1,5.439852952957153,1754815980.3765042,2025-08-10T10:53:00.376505
+909090,89,brick,house,False,,46,Brick house creates stronger building,True,failure,2,8.355755090713501,1754815983.2923882,2025-08-10T10:53:03.292389
+909090,90,energy,planet,False,,46,Energy on planet creates life,True,failure,3,11.397032976150513,1754815986.333785,2025-08-10T10:53:06.333787
+909090,91,warmth,planet,False,,46,Warm planet supports life,True,failure,4,14.044284105300903,1754815988.980953,2025-08-10T10:53:08.980954
+909090,92,sun,planet,True,solar system,46,Sun plus planet creates solar system,True,failure,5,16.645550966262817,1754815991.582211,2025-08-10T10:53:11.582212
+909090,93,ocean,continent,True,planet,47,Ocean plus continent already tried - creates planet,False,success,1,2.8426759243011475,1754815994.432907,2025-08-10T10:53:14.432909
+909090,94,wind,ocean,True,wave,47,Wind over ocean already tried - creates wave,False,success,2,2.6702189445495605,1754815997.10318,2025-08-10T10:53:17.103181
+909090,95,beach,sun,False,,47,Sunny beach creates vacation spot,True,success,3,2.9494731426239014,1754816000.052771,2025-08-10T10:53:20.052772
+909090,96,geyser,heat,False,,47,Geyser plus heat creates hot spring,True,failure,1,6.322355031967163,1754816003.425647,2025-08-10T10:53:23.425648
+909090,97,energy,fire,False,,47,Energy plus fire creates explosion,True,failure,2,8.927130937576294,1754816006.030428,2025-08-10T10:53:26.030429
+909090,98,windmill,energy,False,,47,Windmill generates energy - electricity,True,failure,3,11.5697500705719,1754816008.67303,2025-08-10T10:53:28.673031
+909090,99,salt,water,False,,47,Salt in water creates salt water,True,failure,4,14.359396934509277,1754816011.4627042,2025-08-10T10:53:31.462706
+909090,100,wall,city,False,,47,Wall around city creates castle,True,failure,5,17.143588304519653,1754816014.246867,2025-08-10T10:53:34.246868
+909090,101,city,city,False,,47,Cities together create big city,True,failure,6,19.808356285095215,1754816016.911628,2025-08-10T10:53:36.911629
+909090,102,sand,pressure,False,,47,Sand under pressure creates sandstone,True,failure,7,22.414663076400757,1754816019.517996,2025-08-10T10:53:39.517998
+909090,103,rainbow,glass,True,prism,47,Rainbow through glass creates prism,True,failure,8,26.29698419570923,1754816023.400403,2025-08-10T10:53:43.400405
+909090,104,wave,wave,False,,48,Waves together create tsunami,True,success,1,2.6753461360931396,1754816026.07586,2025-08-10T10:53:46.075865
+909090,105,heat,water,False,,48,Heat applied to water creates steam,False,failure,1,5.341297149658203,1754816028.741735,2025-08-10T10:53:48.741737
+909090,106,warmth,mud,False,,48,Warmth in mud creates life/bacteria,True,failure,2,8.74995493888855,1754816032.150501,2025-08-10T10:53:52.150502
+909090,107,dust,dust,False,,48,More dust creates dust cloud,True,failure,3,11.872167110443115,1754816035.272692,2025-08-10T10:53:55.272693
+909090,108,pressure,pressure,False,,48,Double pressure creates black hole,True,failure,4,14.521376848220825,1754816037.921925,2025-08-10T10:53:57.921927
+909090,109,wind,wind,True,tornado,48,Stronger winds create tornado,True,failure,5,17.555388927459717,1754816040.955987,2025-08-10T10:54:00.955990
+909090,110,tornado,house,False,,49,Tornado hitting house creates destruction,True,success,1,3.245814085006714,1754816044.201931,2025-08-10T10:54:04.201932
+909090,111,tornado,water,False,,49,Tornado over water creates waterspout,True,failure,1,6.10152006149292,1754816047.057605,2025-08-10T10:54:07.057606
+909090,112,prism,sun,False,,49,Prism splitting sunlight creates spectrum,True,failure,2,10.8209810256958,1754816051.779541,2025-08-10T10:54:11.779543
+909090,113,aquarium,heat,False,,49,Heated aquarium creates tropical environment,True,failure,3,13.655575037002563,1754816054.6116831,2025-08-10T10:54:14.611684
+909090,114,explosion,air,False,,49,Explosion in air creates shockwave,True,failure,4,16.25751805305481,1754816057.2136111,2025-08-10T10:54:17.213612
+909090,115,solar system,solar system,True,galaxy,49,Multiple solar systems create galaxy,True,failure,5,18.992040872573853,1754816059.948158,2025-08-10T10:54:19.948159
+909090,116,galaxy,galaxy,True,galaxy cluster,50,Galaxies together create universe,True,success,1,3.38268780708313,1754816063.330985,2025-08-10T10:54:23.330986
+909090,117,brick,wall,False,,51,Brick wall creates stronger wall,True,success,2,2.6936490535736084,1754816066.024768,2025-08-10T10:54:26.024770
+909090,118,salt,fire,False,,51,Salt heated creates melted salt,True,failure,1,5.617201089859009,1754816068.948302,2025-08-10T10:54:28.948303
+909090,119,windmill,wind,False,,51,Windmill powered by wind creates electricity,True,failure,2,8.307808876037598,1754816071.638926,2025-08-10T10:54:31.638927
+909090,120,dune,heat,False,,51,Hot dune creates desert,True,failure,3,11.069230079650879,1754816074.400346,2025-08-10T10:54:34.400347
+909090,121,dune,sun,False,,51,Sun heating dune creates desert,True,failure,4,14.6945960521698,1754816078.025697,2025-08-10T10:54:38.025698
+909090,122,sand,sun,False,,51,Sun heating sand creates hot sand/desert,True,failure,5,17.407803058624268,1754816080.7389069,2025-08-10T10:54:40.738909
+909090,123,galaxy cluster,galaxy cluster,True,universe,51,Galaxy clusters create universe,True,failure,6,20.170515775680542,1754816083.501643,2025-08-10T10:54:43.501645
+909090,124,beach,heat,False,,52,Hot beach creates vacation spot,True,success,1,2.8019931316375732,1754816086.3037682,2025-08-10T10:54:46.303769
+909090,125,warmth,ocean,False,,52,Warm ocean creates tropical water,True,failure,1,5.728783130645752,1754816089.2305632,2025-08-10T10:54:49.230564
+909090,126,village,wall,False,,52,Walled village creates castle,True,failure,2,9.8406982421875,1754816093.342531,2025-08-10T10:54:53.342532
+909090,127,universe,energy,False,,52,Universe plus energy creates big bang,True,failure,3,12.898859024047852,1754816096.400634,2025-08-10T10:54:56.400635
+909090,128,prism,energy,False,,52,Prism focusing energy creates laser,True,failure,4,16.13149118423462,1754816099.6332412,2025-08-10T10:54:59.633242
+909090,129,gunpowder,stone,False,,52,Gunpowder in stone creates bomb,True,failure,5,19.267102003097534,1754816102.7688692,2025-08-10T10:55:02.768870
+909090,130,tornado,tornado,False,,52,Multiple tornadoes create hurricane,True,failure,6,22.121419191360474,1754816105.623171,2025-08-10T10:55:05.623172
+909090,131,energy,energy,False,,52,More energy creates power,True,failure,7,24.95649790763855,1754816108.458252,2025-08-10T10:55:08.458253
+909090,132,heat,heat,False,,52,Double heat creates intense heat,True,failure,8,27.664502143859863,1754816111.166307,2025-08-10T10:55:11.166309
+909090,133,warmth,warmth,False,,52,More warmth creates heat,True,failure,9,30.46920919418335,1754816113.970965,2025-08-10T10:55:13.970966
+909090,134,steam,steam,False,,52,More steam creates cloud,True,failure,10,33.09451508522034,1754816116.59626,2025-08-10T10:55:16.596262
+909090,135,rainbow,mist,False,,52,Rainbow through mist creates spectrum,True,failure,11,36.99023222923279,1754816120.492024,2025-08-10T10:55:20.492025
+909090,136,salt,ocean,False,,52,Salt in ocean - already have salt water,True,failure,12,40.140056133270264,1754816123.641802,2025-08-10T10:55:23.641803
+909090,137,geyser,pressure,False,,52,Geyser under pressure creates bigger eruption,True,failure,13,43.40761399269104,1754816126.909367,2025-08-10T10:55:26.909369
+909090,138,explosion,water,False,,52,Explosion underwater creates wave,True,failure,14,46.269055128097534,1754816129.770827,2025-08-10T10:55:29.770828
+909090,139,windmill,water,False,,52,Windmill by water creates watermill,True,failure,15,50.51981282234192,1754816134.0215948,2025-08-10T10:55:34.021596
+909090,140,aquarium,sun,False,,52,Sunny aquarium creates algae/life,True,failure,16,53.65345096588135,1754816137.1552,2025-08-10T10:55:37.155201
+909090,141,glass,glass,True,glasses,52,More glass creates window,True,failure,17,56.59088706970215,1754816140.092661,2025-08-10T10:55:40.092662
+909090,142,prism,prism,False,,53,Multiple prisms create complex optics,True,success,1,2.761604070663452,1754816142.854378,2025-08-10T10:55:42.854380
+909090,143,universe,universe,False,,53,Multiple universes create multiverse,True,failure,1,5.868325233459473,1754816145.9611452,2025-08-10T10:55:45.961146
+909090,144,glasses,sun,True,sunglasses,53,Glasses in sun creates sunglasses,True,failure,2,9.352288007736206,1754816149.4450948,2025-08-10T10:55:49.445096
+909090,145,wall,glass,False,,54,Glass wall creates window,True,success,1,2.501833200454712,1754816151.947045,2025-08-10T10:55:51.947046
+909090,146,house,glass,False,,54,Glass house creates greenhouse,True,failure,1,5.8472089767456055,1754816155.292425,2025-08-10T10:55:55.292426
+567821,1,fire,water,True,steam,4,Basic heuristic: fire + water = steam (opposites create transformation),True,none,0,,1754834331.84934,2025-08-10T15:58:51.849341
+567821,2,air,fire,True,smoke,5,"Heuristic rule: air feeds fire, creates energy",True,success,1,2.375533103942871,1754834334.224944,2025-08-10T15:58:54.224945
+567821,3,earth,water,True,mud,6,Common sense: earth + water = mud (wet soil),True,success,2,2.965301036834717,1754834337.190325,2025-08-10T15:58:57.190326
+567821,4,earth,fire,True,lava,7,Practical rule: heat transforms earth into lava,True,success,3,3.420164108276367,1754834340.6105611,2025-08-10T15:59:00.610562
+567821,5,air,earth,True,dust,8,Simple heuristic: moving air erodes earth into dust,True,success,4,3.016434907913208,1754834343.6270778,2025-08-10T15:59:03.627080
+567821,6,air,water,True,mist,9,Practical shortcut: air + water creates mist or rain,True,success,5,2.726694107055664,1754834346.353843,2025-08-10T15:59:06.353844
+567821,7,lava,water,True,obsidian,10,Rule of thumb: hot lava meets water = stone/rock,True,success,6,2.8682010173797607,1754834349.222124,2025-08-10T15:59:09.222125
+567821,8,lava,air,True,stone,11,Heuristic: cooling lava by air makes stone,True,success,7,2.384800910949707,1754834351.6070158,2025-08-10T15:59:11.607017
+567821,9,steam,air,False,,12,Mental shortcut: steam rises in air to form clouds,True,success,8,2.572906017303467,1754834354.1799848,2025-08-10T15:59:14.179986
+567821,10,mist,air,False,,12,Quick rule: mist + air movement = cloud,True,failure,1,5.085292100906372,1754834356.692393,2025-08-10T15:59:16.692394
+567821,11,mud,fire,True,brick,12,Practical rule: baking mud with fire hardens it into brick,True,failure,2,7.605329275131226,1754834359.212438,2025-08-10T15:59:19.212440
+567821,12,stone,stone,True,wall,13,Simple heuristic: combining stones makes bigger rock or wall,True,success,1,2.594115972518921,1754834361.8066518,2025-08-10T15:59:21.806654
+567821,13,smoke,fire,False,,14,Rule of thumb: more fire with smoke creates ash,True,success,2,2.5658230781555176,1754834364.372541,2025-08-10T15:59:24.372542
+567821,14,dust,fire,True,gunpowder,14,Common sense: burning dust creates ash,True,failure,1,4.956153154373169,1754834366.762908,2025-08-10T15:59:26.762909
+567821,15,earth,earth,True,land,15,Practical shortcut: more earth makes land or mountain,True,success,1,3.299492120742798,1754834370.0624871,2025-08-10T15:59:30.062489
+567821,16,water,water,True,puddle,16,Mental shortcut: more water makes sea or lake,True,success,2,2.53175687789917,1754834372.594377,2025-08-10T15:59:32.594379
+567821,17,puddle,water,True,pond,17,Heuristic rule: adding water to puddle makes pond,True,success,3,2.722851037979126,1754834375.3173141,2025-08-10T15:59:35.317315
+567821,18,pond,water,True,lake,18,Scaling rule: pond + more water = lake,True,success,4,3.360219717025757,1754834378.6776378,2025-08-10T15:59:38.677639
+567821,19,lake,water,True,sea,19,Progressive heuristic: lake + water = sea,True,success,5,2.560512065887451,1754834381.2382798,2025-08-10T15:59:41.238281
+567821,20,sea,water,True,ocean,20,Logical progression: sea + water = ocean,True,success,6,2.3498313426971436,1754834383.588211,2025-08-10T15:59:43.588212
+567821,21,land,land,True,continent,21,Simple rule: more land creates continent,True,success,7,2.926693916320801,1754834386.515014,2025-08-10T15:59:46.515015
+567821,22,ocean,continent,True,planet,22,Practical rule: ocean + continent = planet/world,True,success,8,4.296647071838379,1754834390.811753,2025-08-10T15:59:50.811754
+567821,23,fire,fire,True,energy,23,Heat accumulation rule: more fire = energy,True,success,9,3.8490381240844727,1754834394.6608992,2025-08-10T15:59:54.660900
+567821,24,air,air,True,pressure,24,Wind formation heuristic: air + air = wind,True,success,10,3.350768804550171,1754834398.011837,2025-08-10T15:59:58.011841
+567821,25,energy,air,True,heat,25,Physics shortcut: energy + air creates motion/wind,True,success,11,3.0054690837860107,1754834401.017411,2025-08-10T16:00:01.017412
+567821,26,stone,fire,False,,26,Crafting heuristic: heating stone makes metal,True,success,12,3.5472159385681152,1754834404.564734,2025-08-10T16:00:04.564735
+567821,27,pressure,earth,False,,26,Geological rule: pressure transforms earth into coal/diamond,True,failure,1,6.410904884338379,1754834407.428413,2025-08-10T16:00:07.428415
+567821,28,heat,water,False,,26,Temperature rule: heat + water = steam (retry basic),True,failure,2,9.506551027297974,1754834410.5240362,2025-08-10T16:00:10.524037
+567821,29,heat,earth,False,,26,Thermal rule: heat + earth = desert/sand,True,failure,3,12.742786169052124,1754834413.760295,2025-08-10T16:00:13.760296
+567821,30,pressure,stone,True,granite,26,Compression heuristic: pressure + stone = diamond/crystal,True,failure,4,16.827441930770874,1754834417.844955,2025-08-10T16:00:17.844956
+567821,31,stone,water,False,,27,Erosion rule: water wears stone into sand,True,success,1,4.859333038330078,1754834422.704392,2025-08-10T16:00:22.704393
+567821,32,stone,air,True,sand,27,Wind erosion: air + stone = sand,True,failure,1,10.836181879043579,1754834428.681246,2025-08-10T16:00:28.681247
+567821,33,sand,fire,True,glass,28,Melting rule: heat sand to make glass,True,success,1,3.6862499713897705,1754834432.367614,2025-08-10T16:00:32.367615
+567821,34,energy,water,False,,29,Physical process: energy + water = steam/vapor,True,success,2,3.8562560081481934,1754834436.224191,2025-08-10T16:00:36.224194
+567821,35,energy,earth,False,,29,Vitality rule: energy + earth = life/plant,True,failure,1,7.98419713973999,1754834440.351885,2025-08-10T16:00:40.351886
+567821,36,heat,stone,False,,29,Melting shortcut: heat stone = metal/molten rock,True,failure,2,11.431315898895264,1754834443.799007,2025-08-10T16:00:43.799008
+567821,37,planet,fire,True,sun,29,Cosmic rule: planet + fire = sun/star,True,failure,3,14.204132080078125,1754834446.57186,2025-08-10T16:00:46.571862
+567821,38,sun,water,True,rainbow,30,Weather rule: sun evaporates water into cloud,True,success,1,2.9248008728027344,1754834449.496761,2025-08-10T16:00:49.496762
+567821,39,sun,earth,False,,31,Growth heuristic: sun + earth = day/warmth for plants,True,success,2,3.1975278854370117,1754834452.69438,2025-08-10T16:00:52.694382
+567821,40,sand,water,True,beach,31,Beach rule: sand + water = beach/shore,True,failure,1,5.898998022079468,1754834455.395891,2025-08-10T16:00:55.395893
+567821,41,sand,sand,True,desert,32,Accumulation rule: sand + sand = desert,True,success,1,2.908151149749756,1754834458.304301,2025-08-10T16:00:58.304303
+567821,42,wall,wall,True,house,33,Construction rule: wall + wall = house,True,success,2,3.0401611328125,1754834461.344574,2025-08-10T16:01:01.344575
+567821,43,brick,brick,False,,34,Building shortcut: brick + brick = wall/house,True,success,3,2.896407127380371,1754834464.241066,2025-08-10T16:01:04.241067
+567821,44,house,house,True,village,34,Urban rule: house + house = village,True,failure,1,6.600651979446411,1754834467.945388,2025-08-10T16:01:07.945390
+567821,45,village,village,True,city,35,Growth heuristic: village + village = city,True,success,1,3.73868989944458,1754834471.6844952,2025-08-10T16:01:11.684500
+567821,46,gunpowder,fire,True,explosion,36,Explosive rule: gunpowder + fire = explosion,True,success,2,3.226933002471924,1754834474.9115698,2025-08-10T16:01:14.911572
+567821,47,water,air,True,mist,37,Weather rule: water + air = rain (retry for rain),False,success,3,8.375993251800537,1754834483.287627,2025-08-10T16:01:23.287630
+567821,48,steam,mist,False,,37,Cloud formation: steam + mist = cloud,True,success,4,4.0232179164886475,1754834487.310962,2025-08-10T16:01:27.310963
+567821,49,smoke,mist,False,,37,Atmospheric rule: smoke + mist = fog/cloud,True,failure,1,8.683083057403564,1754834491.9708102,2025-08-10T16:01:31.970812
+567821,50,water,dust,False,,37,Settling rule: water + dust = mud (alternative path),True,failure,2,11.817353010177612,1754834495.105118,2025-08-10T16:01:35.105119
+567821,51,heat,air,True,warmth,37,Thermal rule: heat + air = wind/breeze,True,failure,3,15.330767154693604,1754834498.61851,2025-08-10T16:01:38.618512
+567821,52,earth,warmth,False,,38,Life rule: earth + warmth = plant/seeds,True,success,1,2.8955421447753906,1754834501.5141408,2025-08-10T16:01:41.514142
+567821,53,water,warmth,False,,38,Tropical rule: water + warmth = spring/life,True,failure,1,6.105608940124512,1754834504.724222,2025-08-10T16:01:44.724224
+567821,54,energy,mud,False,,38,Life spark rule: energy + mud = life/swamp,True,failure,2,9.108948945999146,1754834507.727577,2025-08-10T16:01:47.727579
+567821,55,city,city,False,,38,Metropolitan rule: city + city = metropolis,True,failure,3,12.397461175918579,1754834511.016051,2025-08-10T16:01:51.016052
+567821,56,sand,glass,True,hourglass,38,Lens rule: sand + glass = mirror/lens,True,failure,4,15.231475114822388,1754834513.85011,2025-08-10T16:01:53.850111
+567821,57,mud,water,False,,39,Wetland rule: mud + water = swamp,True,success,1,7.715340852737427,1754834521.565572,2025-08-10T16:02:01.565574
+567821,58,earth,sun,False,,39,Growth rule: earth + sun = plant/grass,False,failure,1,17.988268852233887,1754834531.838408,2025-08-10T16:02:11.838409
+567821,59,water,sun,True,rainbow,39,Weather heuristic: water + sun = cloud/rain,False,failure,2,23.772567987442017,1754834537.622742,2025-08-10T16:02:17.622744
+567821,60,explosion,stone,False,,39,Destruction rule: explosion + stone = rubble/gravel,True,success,1,4.030919075012207,1754834541.65413,2025-08-10T16:02:21.654132
+567821,61,sea,sun,True,salt,39,Evaporation rule: sea + sun = salt/vapor,True,failure,1,8.725689172744751,1754834546.348662,2025-08-10T16:02:26.348663
+567821,62,desert,water,True,oasis,40,Oasis rule: desert + water = oasis/life,True,success,1,3.906280994415283,1754834550.255082,2025-08-10T16:02:30.255084
+567821,63,air,energy,True,heat,41,Motion rule: air + energy = wind/storm,False,success,2,5.16804313659668,1754834555.423157,2025-08-10T16:02:35.423158
+567821,64,pressure,water,False,,41,Force rule: pressure + water = geyser/fountain,True,success,3,4.216935873031616,1754834559.640186,2025-08-10T16:02:39.640187
+567821,65,pressure,air,True,wind,41,Weather rule: pressure + air = wind/storm,True,failure,1,7.488275051116943,1754834562.911541,2025-08-10T16:02:42.911542
+567821,66,wind,water,False,,42,Storm formation: wind + water = rain/storm,True,success,1,3.517989158630371,1754834566.4296162,2025-08-10T16:02:46.429617
+567821,67,wind,sand,True,dune,42,Desert weather: wind + sand = sandstorm,True,failure,1,6.130245208740234,1754834569.0435252,2025-08-10T16:02:49.043526
+567821,68,wind,fire,False,,43,Combustion rule: wind + fire = wildfire/phoenix,True,success,1,2.770504951477051,1754834571.8141272,2025-08-10T16:02:51.814128
+567821,69,energy,energy,False,,43,Power amplification: energy + energy = electricity/power,True,failure,1,5.870999813079834,1754834574.91461,2025-08-10T16:02:54.914611
+567821,70,heat,heat,True,plasma,43,Temperature rule: heat + heat = extreme heat/fire,True,failure,2,8.545645713806152,1754834577.5892851,2025-08-10T16:02:57.589286
+567821,71,water,energy,False,,44,Life rule: water + energy = life/steam,False,success,1,3.458775758743286,1754834581.0480928,2025-08-10T16:03:01.048094
+567821,72,pond,sun,False,,44,Algae rule: pond + sun = life/algae,True,failure,1,6.3169238567352295,1754834583.906314,2025-08-10T16:03:03.906315
+567821,73,ocean,sun,False,,44,Evaporation heuristic: ocean + sun = cloud/salt,True,failure,2,9.231143951416016,1754834586.820522,2025-08-10T16:03:06.820523
+567821,74,lake,sun,False,,44,Mist formation: lake + sun = mist/vapor,True,failure,3,12.327497005462646,1754834589.916896,2025-08-10T16:03:09.916897
+567821,75,steam,dust,False,,44,Condensation rule: steam + dust = cloud/fog,True,failure,4,15.174187660217285,1754834592.7636962,2025-08-10T16:03:12.763699
+567821,76,smoke,air,False,,44,Dispersion rule: smoke + air = smog/pollution,True,failure,5,18.045268058776855,1754834595.634676,2025-08-10T16:03:15.634677
+567821,77,glass,glass,True,glasses,44,Optical rule: glass + glass = glasses/lens,True,failure,6,20.75552487373352,1754834598.34496,2025-08-10T16:03:18.344961
+567821,78,glass,water,True,aquarium,45,Container rule: glass + water = bottle/vase,True,success,1,2.7479710578918457,1754834601.0930839,2025-08-10T16:03:21.093085
+567821,79,glass,fire,False,,46,Melting rule: glass + fire = molten glass/lens,True,success,2,4.198627233505249,1754834605.2918458,2025-08-10T16:03:25.291848
+567821,80,glass,house,False,,46,Architecture rule: glass + house = greenhouse/window,True,failure,1,7.7791221141815186,1754834608.87231,2025-08-10T16:03:28.872311
+567821,81,salt,water,False,,46,Solution rule: salt + water = saltwater/brine,True,failure,2,11.679497241973877,1754834612.772713,2025-08-10T16:03:32.772714
+567821,82,salt,fire,False,,46,Chemical rule: salt + fire = sodium/flame color,True,failure,3,14.822960138320923,1754834615.916162,2025-08-10T16:03:35.916164
+567821,83,brick,fire,False,,46,Kiln rule: brick + fire = pottery/ceramic,True,failure,4,17.506795167922974,1754834618.5999942,2025-08-10T16:03:38.599995
+567821,84,sun,glass,False,,46,Solar rule: sun + glass = lens/magnifying glass,True,failure,5,20.672136306762695,1754834621.7653491,2025-08-10T16:03:41.765350
+567821,85,wind,dust,False,,46,Weather rule: wind + dust = dust storm/tornado,True,failure,6,24.711100101470947,1754834625.804296,2025-08-10T16:03:45.804298
+567821,86,wind,energy,False,,46,Power rule: wind + energy = electricity/turbine,True,failure,7,27.504425287246704,1754834628.597617,2025-08-10T16:03:48.597618
+567821,87,dune,dune,False,,46,Landscape rule: dune + dune = desert/sand hills,True,failure,8,31.340198278427124,1754834632.433385,2025-08-10T16:03:52.433386
+567821,88,warmth,mud,False,,46,Life emergence: warmth + mud = life/bacteria,True,failure,9,34.22978210449219,1754834635.322992,2025-08-10T16:03:55.322994
+567821,89,puddle,warmth,False,,46,Evaporation rule: puddle + warmth = steam/mist,True,failure,10,37.35776424407959,1754834638.451009,2025-08-10T16:03:58.451011
+567821,90,land,water,False,,46,Geography rule: land + water = island/coast,True,failure,11,40.2604341506958,1754834641.353622,2025-08-10T16:04:01.353623
+567821,91,continent,fire,False,,46,Volcanic rule: continent + fire = volcano,True,failure,12,43.016884088516235,1754834644.110113,2025-08-10T16:04:04.110115
+567821,92,earth,explosion,False,,46,Geological disruption: earth + explosion = earthquake,True,failure,13,45.722007036209106,1754834646.815198,2025-08-10T16:04:06.815199
+567821,93,air,explosion,False,,46,Shock wave rule: air + explosion = sonic boom,True,failure,14,50.37866711616516,1754834651.4718778,2025-08-10T16:04:11.471879
+567821,94,planet,planet,True,solar system,46,Cosmic rule: planet + planet = solar system,True,failure,15,53.10839319229126,1754834654.201685,2025-08-10T16:04:14.201687
+567821,95,solar system,solar system,True,galaxy,47,Universal rule: solar system + solar system = galaxy,True,success,1,3.3534069061279297,1754834657.5552268,2025-08-10T16:04:17.555228
+567821,96,galaxy,galaxy,True,galaxy cluster,48,Cosmic scale: galaxy + galaxy = universe,True,success,2,3.1622352600097656,1754834660.717567,2025-08-10T16:04:20.717568
+567821,97,sun,sun,False,,49,Stellar rule: sun + sun = binary star/supernova,True,success,3,3.163691997528076,1754834663.881374,2025-08-10T16:04:23.881375
+567821,98,planet,sun,False,,49,Orbital rule: planet + sun = solar system (alternative),True,failure,1,7.213200807571411,1754834667.9308858,2025-08-10T16:04:27.930887
+567821,99,explosion,sun,True,supernova,49,Stellar explosion: explosion + sun = supernova,True,failure,2,13.474500179290771,1754834674.1921852,2025-08-10T16:04:34.192185
+567821,100,beach,sun,False,,50,Vacation rule: beach + sun = paradise/tan,True,success,1,8.480485916137695,1754834682.6728058,2025-08-10T16:04:42.672807
+567821,101,rainbow,glass,True,prism,50,Optical rule: rainbow + glass = prism/spectrum,True,failure,1,11.866787672042847,1754834686.059148,2025-08-10T16:04:46.059149
+567821,102,prism,sun,False,,51,Light dispersion: prism + sun = spectrum/light,True,success,1,2.869385004043579,1754834688.9286568,2025-08-10T16:04:48.928659
+567821,103,sea,energy,False,,51,Marine life rule: sea + energy = fish/whale,True,failure,1,9.096611976623535,1754834695.1559,2025-08-10T16:04:55.155901
+567821,104,ocean,warmth,False,,51,Life evolution: ocean + warmth = life/fish,True,failure,2,15.695022106170654,1754834701.754308,2025-08-10T16:05:01.754309
+567821,105,glasses,sun,True,sunglasses,51,Protection rule: glasses + sun = sunglasses,True,failure,3,18.53151798248291,1754834704.590774,2025-08-10T16:05:04.590775
+567821,106,city,energy,False,,52,Modern rule: city + energy = electricity/lights,True,success,1,2.8365209102630615,1754834707.42742,2025-08-10T16:05:07.427422
+567821,107,house,energy,False,,52,Power rule: house + energy = electricity/light,True,failure,1,5.539194822311401,1754834710.130101,2025-08-10T16:05:10.130102
+567821,108,wall,brick,False,,52,Building rule: wall + brick = stronger wall/building,True,failure,2,9.088645935058594,1754834713.6795478,2025-08-10T16:05:13.679549
+567821,109,wall,stone,False,,52,Construction rule: wall + stone = castle/fortress,True,failure,3,12.501721143722534,1754834717.092611,2025-08-10T16:05:17.092612
+567821,110,water,earth,True,mud,52,Life genesis: water + earth = life/plant (fundamental combo),False,failure,4,24.473862886428833,1754834729.064676,2025-08-10T16:05:29.064677
+567821,111,supernova,pressure,False,,52,Stellar collapse: supernova + pressure = black hole,True,success,1,2.6805429458618164,1754834731.745325,2025-08-10T16:05:31.745326
+567821,112,galaxy cluster,galaxy cluster,True,universe,52,Ultimate scale: galaxy cluster + galaxy cluster = universe,True,failure,1,5.910416841506958,1754834734.97522,2025-08-10T16:05:34.975221
+567821,113,desert,sun,False,,53,Heat amplification: desert + sun = extreme heat/mirage,True,success,1,2.9858109951019287,1754834737.961161,2025-08-10T16:05:37.961162
+567821,114,dune,sun,False,,53,Solar heating: dune + sun = hot sand/mirage,True,failure,1,5.856606960296631,1754834740.8319502,2025-08-10T16:05:40.831951
+567821,115,mud,sun,False,,53,Drying rule: mud + sun = clay/dry earth,True,failure,2,8.656629085540771,1754834743.631974,2025-08-10T16:05:43.631975
+567821,116,steam,pressure,True,geyser,53,Engine rule: steam + pressure = steam engine/power,True,failure,3,11.5228910446167,1754834746.498216,2025-08-10T16:05:46.498217
+567821,117,geyser,energy,False,,54,Geothermal rule: geyser + energy = geothermal power,True,success,1,3.1684112548828125,1754834749.6667671,2025-08-10T16:05:49.666769
+567821,118,stone,pressure,True,granite,54,Metamorphic rule: stone + pressure = marble/crystal,False,failure,1,6.02292013168335,1754834752.521174,2025-08-10T16:05:52.521175
+567821,119,village,water,False,,54,Settlement rule: village + water = canal/harbor,True,success,1,3.1272048950195312,1754834755.6485162,2025-08-10T16:05:55.648517
+567821,120,city,water,False,,54,Infrastructure rule: city + water = sewer/aqueduct,True,failure,1,5.827940225601196,1754834758.3492239,2025-08-10T16:05:58.349225
+567821,121,house,water,False,,54,Plumbing rule: house + water = bathroom/plumbing,True,failure,2,8.816412925720215,1754834761.3377101,2025-08-10T16:06:01.337711
+567821,122,steam,energy,False,,54,Industrial rule: steam + energy = steam engine/power,True,failure,3,12.031028032302856,1754834764.5523572,2025-08-10T16:06:04.552362
+567821,123,wind,wind,True,tornado,54,Storm formation: wind + wind = tornado/hurricane,True,failure,4,14.954819202423096,1754834767.476151,2025-08-10T16:06:07.476153
+567821,124,tornado,water,False,,55,Water spout rule: tornado + water = hurricane/waterspout,True,success,1,3.037929058074951,1754834770.514215,2025-08-10T16:06:10.514216
+567821,125,tornado,city,False,,55,Destruction rule: tornado + city = disaster/destruction,True,failure,1,5.781259059906006,1754834773.2575412,2025-08-10T16:06:13.257543
+567821,126,rainbow,prism,False,,55,Light splitting: rainbow + prism = spectrum/color,True,failure,2,8.669821977615356,1754834776.1462421,2025-08-10T16:06:16.146243
+567821,127,sunglasses,beach,False,,55,Fashion rule: sunglasses + beach = vacation/style,True,failure,3,11.958858013153076,1754834779.435117,2025-08-10T16:06:19.435118
+567821,128,aquarium,water,False,,55,Habitat rule: aquarium + water = filled aquarium/fish tank,True,failure,4,15.157227039337158,1754834782.633661,2025-08-10T16:06:22.633663
+567821,129,aquarium,ocean,False,,55,Scale rule: aquarium + ocean = sea life/marine life,True,failure,5,18.100286960601807,1754834785.576565,2025-08-10T16:06:25.576567
+567821,130,geyser,earth,False,,55,Geological rule: geyser + earth = hot spring/thermal vent,True,failure,6,21.28543496131897,1754834788.762036,2025-08-10T16:06:28.762038
+567821,131,universe,energy,False,,55,Cosmic rule: universe + energy = big bang/creation,True,failure,7,24.161431074142456,1754834791.637724,2025-08-10T16:06:31.637725
+567821,132,universe,explosion,False,,55,Origin rule: universe + explosion = big bang,True,failure,8,26.862503051757812,1754834794.338777,2025-08-10T16:06:34.338779
+847329,1,fire,water,True,steam,4,Fire + water = steam (opposites create change),True,none,0,,1754835065.279207,2025-08-10T16:11:05.279209
+847329,2,air,fire,True,smoke,5,Air feeds fire = energy,True,success,1,2.2725841999053955,1754835067.551872,2025-08-10T16:11:07.551874
+847329,3,earth,fire,True,lava,6,Earth + fire = lava (heat melts earth),True,success,2,2.3117198944091797,1754835069.8636632,2025-08-10T16:11:09.863664
+847329,4,earth,water,True,mud,7,Earth + water = mud (basic mixture),True,success,3,2.3943307399749756,1754835072.258098,2025-08-10T16:11:12.258100
+847329,5,air,water,True,mist,8,Air + water = rain (water in air),True,success,4,2.306556224822998,1754835074.564728,2025-08-10T16:11:14.564729
+847329,6,air,earth,True,dust,9,Air + earth = dust (erosion),True,success,5,2.7151927947998047,1754835077.2802272,2025-08-10T16:11:17.280230
+847329,7,steam,air,False,,10,Steam + air = cloud,True,success,6,2.46160888671875,1754835079.741902,2025-08-10T16:11:19.741903
+847329,8,lava,air,True,stone,10,Lava + air = stone (cooling),True,failure,1,4.653474807739258,1754835081.933789,2025-08-10T16:11:21.933790
+847329,9,lava,water,True,obsidian,11,Lava + water = stone (cooling),True,success,1,2.1681079864501953,1754835084.1099362,2025-08-10T16:11:24.109939
+847329,10,fire,fire,True,energy,12,Fire + fire = energy (more heat),True,success,2,2.7033276557922363,1754835086.8133729,2025-08-10T16:11:26.813375
+847329,11,mud,fire,True,brick,13,Mud + fire = brick (heating clay),True,success,3,2.0587410926818848,1754835088.8722079,2025-08-10T16:11:28.872209
+847329,12,stone,stone,True,wall,14,Stone + stone = wall (building),True,success,4,2.4290599822998047,1754835091.3013709,2025-08-10T16:11:31.301372
+847329,13,stone,fire,False,,15,Stone + fire = metal (heating rock),True,success,5,3.169095277786255,1754835094.4705338,2025-08-10T16:11:34.470535
+847329,14,energy,air,True,heat,15,Energy + air = wind (moving air),True,failure,1,5.607510089874268,1754835096.908999,2025-08-10T16:11:36.909000
+847329,15,air,air,True,pressure,16,Air + air = wind (pressure),True,success,1,3.7935678958892822,1754835100.702715,2025-08-10T16:11:40.702717
+847329,16,water,water,True,puddle,17,Water + water = lake (accumulation),True,success,2,2.787550210952759,1754835103.490331,2025-08-10T16:11:43.490332
+847329,17,earth,earth,True,land,18,Earth + earth = land (more ground),True,success,3,2.270724058151245,1754835105.761156,2025-08-10T16:11:45.761158
+847329,18,heat,stone,False,,19,Heat + stone = metal (heat refines ore),True,success,4,2.470029830932617,1754835108.231252,2025-08-10T16:11:48.231253
+847329,19,pressure,earth,False,,19,Pressure + earth = coal (compression),True,failure,1,4.908663749694824,1754835110.6699038,2025-08-10T16:11:50.669905
+847329,20,mist,mist,False,,19,Mist + mist = cloud (accumulation),True,failure,2,7.792337894439697,1754835113.55361,2025-08-10T16:11:53.553612
+847329,21,smoke,smoke,False,,19,Smoke + smoke = smog (accumulation),True,failure,3,10.086735963821411,1754835115.8479738,2025-08-10T16:11:55.847976
+847329,22,pressure,air,True,wind,19,Pressure + air = wind (high pressure creates movement),True,failure,4,12.479832887649536,1754835118.241075,2025-08-10T16:11:58.241076
+847329,23,steam,pressure,True,geyser,20,Steam + pressure = geyser (pressurized steam),True,success,1,2.2841379642486572,1754835120.5253901,2025-08-10T16:12:00.525397
+847329,24,wind,dust,False,,21,Wind + dust = sandstorm (particles in wind),True,success,2,2.5627238750457764,1754835123.088187,2025-08-10T16:12:03.088188
+847329,25,wind,water,False,,21,Wind + water = wave (moving water),True,failure,1,5.192317962646484,1754835125.7177851,2025-08-10T16:12:05.717786
+847329,26,puddle,puddle,True,pond,21,Puddle + puddle = pond (more water),True,failure,2,7.9453418254852295,1754835128.470817,2025-08-10T16:12:08.470818
+847329,27,pond,pond,True,lake,22,Pond + pond = lake (scaling up water bodies),True,success,1,2.726219892501831,1754835131.197116,2025-08-10T16:12:11.197117
+847329,28,lake,lake,True,sea,23,Lake + lake = sea (bigger water body),True,success,2,3.1480751037597656,1754835134.345312,2025-08-10T16:12:14.345313
+847329,29,sea,sea,True,ocean,24,Sea + sea = ocean (largest water body),True,success,3,2.5457608699798584,1754835136.8911738,2025-08-10T16:12:16.891175
+847329,30,land,land,True,continent,25,Land + land = continent (bigger landmass),True,success,4,2.1926791667938232,1754835139.083959,2025-08-10T16:12:19.083960
+847329,31,ocean,continent,True,planet,26,Ocean + continent = planet (land and sea),True,success,5,2.385161876678467,1754835141.469225,2025-08-10T16:12:21.469226
+847329,32,planet,fire,True,sun,27,Planet + fire = sun (burning planet),True,success,6,15.431257009506226,1754835156.900575,2025-08-10T16:12:36.900577
+847329,33,sun,planet,True,solar system,28,Sun + planet = solar system,True,success,7,3.4323630332946777,1754835160.3432698,2025-08-10T16:12:40.343274
+847329,34,sun,energy,True,solar cell,29,Sun + energy = solar energy,True,success,8,3.6018643379211426,1754835163.945229,2025-08-10T16:12:43.945230
+847329,35,earth,pressure,False,,30,Earth + pressure = coal (compressed earth),False,success,9,3.4660627841949463,1754835167.4113212,2025-08-10T16:12:47.411322
+847329,36,water,heat,False,,30,Water + heat = steam (heating water),True,failure,1,6.975400924682617,1754835170.920707,2025-08-10T16:12:50.920708
+847329,37,wind,fire,False,,30,Wind + fire = energy (wind feeds fire),True,failure,2,10.104227781295776,1754835174.049531,2025-08-10T16:12:54.049532
+847329,38,earth,energy,False,,30,Earth + energy = earthquake (energy in ground),True,failure,3,13.087132930755615,1754835177.032456,2025-08-10T16:12:57.032458
+847329,39,mud,sun,False,,30,Mud + sun = clay (dried mud),True,failure,4,15.9983069896698,1754835179.94363,2025-08-10T16:12:59.943631
+847329,40,dust,fire,True,gunpowder,30,Dust + fire = ash (burned particles),True,failure,5,19.108015775680542,1754835183.0534,2025-08-10T16:13:03.053402
+847329,41,gunpowder,fire,True,explosion,31,Gunpowder + fire = explosion,True,success,1,2.8313679695129395,1754835185.8848488,2025-08-10T16:13:05.884850
+847329,42,stone,pressure,True,granite,32,Stone + pressure = diamond (compressed carbon),True,success,2,2.866267204284668,1754835188.751245,2025-08-10T16:13:08.751246
+847329,43,steam,earth,False,,33,Steam + earth = geyser (steam from ground),True,success,3,2.9404618740081787,1754835191.691801,2025-08-10T16:13:11.691802
+847329,44,mist,sun,False,,33,Mist + sun = rainbow (light through mist),True,failure,1,6.0156409740448,1754835194.7669828,2025-08-10T16:13:14.766984
+847329,45,water,sun,True,rainbow,33,Water + sun = rainbow (light refraction),True,failure,2,9.045335054397583,1754835197.796679,2025-08-10T16:13:17.796680
+847329,46,smoke,water,False,,34,Smoke + water = fog (cooled smoke),True,success,1,3.2467029094696045,1754835201.0434701,2025-08-10T16:13:21.043471
+847329,47,brick,brick,False,,34,Brick + brick = wall (building blocks),True,failure,1,6.700265169143677,1754835204.497046,2025-08-10T16:13:24.497047
+847329,48,wall,wall,True,house,34,Wall + wall = house (enclosed space),True,failure,2,9.958078145980835,1754835207.7549078,2025-08-10T16:13:27.754909
+847329,49,house,house,True,village,35,House + house = village,True,success,1,3.879516124725342,1754835211.634687,2025-08-10T16:13:31.634690
+847329,50,village,village,True,city,36,Village + village = city,True,success,2,2.9729011058807373,1754835214.6076941,2025-08-10T16:13:34.607695
+847329,51,energy,water,False,,37,Energy + water = steam (energized water),True,success,3,3.0815889835357666,1754835217.689404,2025-08-10T16:13:37.689406
+847329,52,mud,energy,False,,37,Mud + energy = life (primordial soup),True,failure,1,6.127209901809692,1754835220.735026,2025-08-10T16:13:40.735027
+847329,53,water,energy,False,,37,Water + energy = life (energy in water creates life),False,failure,2,14.411911964416504,1754835229.019638,2025-08-10T16:13:49.019640
+847329,54,ocean,energy,False,,37,Ocean + energy = life (primordial ocean),True,failure,3,18.132812023162842,1754835232.740672,2025-08-10T16:13:52.740674
+847329,55,pond,energy,False,,37,Pond + energy = life (life in small water),True,failure,4,20.947253942489624,1754835235.5552251,2025-08-10T16:13:55.555227
+847329,56,earth,puddle,False,,37,Earth + puddle = plant (water in soil),True,failure,5,27.482135772705078,1754835242.089934,2025-08-10T16:14:02.089935
+847329,57,mud,heat,False,,37,Mud + heat = clay (dried mud),True,failure,6,30.65950894355774,1754835245.2673512,2025-08-10T16:14:05.267352
+847329,58,mud,pressure,False,,37,Mud + pressure = clay (compacted mud),True,failure,7,37.5598418712616,1754835252.167629,2025-08-10T16:14:12.167630
+847329,59,wind,earth,False,,37,Wind + earth = erosion/desert,True,failure,8,42.526920795440674,1754835257.134711,2025-08-10T16:14:17.134712
+847329,60,wind,pressure,False,,37,Wind + pressure = storm,True,failure,9,45.318063735961914,1754835259.925856,2025-08-10T16:14:19.925857
+847329,61,wind,wind,True,tornado,37,Wind + wind = storm (stronger wind),True,failure,10,48.62998676300049,1754835263.244952,2025-08-10T16:14:23.244954
+847329,62,explosion,stone,False,,38,Explosion + stone = avalanche/debris,True,success,1,3.2327802181243896,1754835266.4778361,2025-08-10T16:14:26.477837
+847329,63,energy,energy,False,,38,Energy + energy = electricity (concentrated energy),True,failure,1,6.147984027862549,1754835269.39303,2025-08-10T16:14:29.393031
+847329,64,lava,lava,False,,38,Lava + lava = volcano (more molten rock),True,failure,2,10.348375082015991,1754835273.5934222,2025-08-10T16:14:33.593423
+847329,65,lava,earth,True,volcano,38,Lava + earth = volcano (molten earth),True,failure,3,13.022892236709595,1754835276.267978,2025-08-10T16:14:36.267980
+847329,66,volcano,pressure,True,eruption,39,Volcano + pressure = eruption,True,success,1,2.9208531379699707,1754835279.18894,2025-08-10T16:14:39.188941
+847329,67,planet,planet,False,,40,Planet + planet = solar system (multiple planets),True,success,2,4.270370960235596,1754835283.459427,2025-08-10T16:14:43.459429
+847329,68,solar system,solar system,True,galaxy,40,Solar system + solar system = galaxy,True,failure,1,7.347244024276733,1754835286.536319,2025-08-10T16:14:46.536320
+847329,69,galaxy,galaxy,True,galaxy cluster,41,Galaxy + galaxy = universe,True,success,1,3.211871862411499,1754835289.74829,2025-08-10T16:14:49.748291
+847329,70,galaxy cluster,galaxy cluster,True,universe,42,Galaxy cluster + galaxy cluster = universe,True,success,2,3.860402822494507,1754835293.608803,2025-08-10T16:14:53.608804
+847329,71,dust,air,False,,43,Dust + air = sandstorm,True,success,3,3.3192551136016846,1754835296.928149,2025-08-10T16:14:56.928150
+847329,72,dust,earth,False,,43,Dust + earth = sand,True,failure,1,6.0621068477630615,1754835299.671011,2025-08-10T16:14:59.671013
+847329,73,stone,air,True,sand,43,Stone + air = sand (erosion),True,failure,2,8.81206202507019,1754835302.421109,2025-08-10T16:15:02.421110
+847329,74,sand,sand,True,desert,44,Sand + sand = desert,True,success,1,2.9948630332946777,1754835305.416128,2025-08-10T16:15:05.416129
+847329,75,sand,fire,True,glass,45,Sand + fire = glass (melting sand),True,success,2,2.8858041763305664,1754835308.302065,2025-08-10T16:15:08.302067
+847329,76,glass,energy,False,,46,Glass + energy = electricity (solar panel),True,success,3,2.9000630378723145,1754835311.2022269,2025-08-10T16:15:11.202228
+847329,77,glass,house,False,,46,Glass + house = greenhouse,True,failure,1,5.618300199508667,1754835313.920453,2025-08-10T16:15:13.920454
+847329,78,energy,stone,False,,46,Energy + stone = metal (breaking rocks),True,failure,2,9.427397012710571,1754835317.7295702,2025-08-10T16:15:17.729571
+847329,79,heat,earth,False,,46,Heat + earth = clay (heated soil),True,failure,3,12.386735200881958,1754835320.6889222,2025-08-10T16:15:20.688923
+847329,80,steam,stone,False,,46,Steam + stone = geyser (steam from rocks),True,failure,4,15.083309173583984,1754835323.385477,2025-08-10T16:15:23.385478
+847329,81,tornado,water,False,,46,Tornado + water = waterspout,True,failure,5,18.07731032371521,1754835326.379485,2025-08-10T16:15:26.379487
+847329,82,tornado,house,False,,46,Tornado + house = ruins (destruction),True,failure,6,21.12027406692505,1754835329.422427,2025-08-10T16:15:29.422428
+847329,83,pressure,water,False,,46,Pressure + water = wave,True,failure,7,28.46189522743225,1754835336.764367,2025-08-10T16:15:36.764375
+847329,84,ocean,wind,True,wave,46,Ocean + wind = wave,True,failure,8,31.30480933189392,1754835339.6070242,2025-08-10T16:15:39.607026
+847329,85,wave,sand,True,beach,47,Wave + sand = beach,True,success,1,2.7079408168792725,1754835342.315137,2025-08-10T16:15:42.315138
+847329,86,wave,stone,False,,48,Wave + stone = erosion,True,success,2,2.661123275756836,1754835344.976393,2025-08-10T16:15:44.976394
+847329,87,earth,continent,False,,48,Earth + continent = mountain (landforms),True,failure,1,8.897518157958984,1754835351.212777,2025-08-10T16:15:51.212778
+847329,88,land,volcano,False,,48,Land + volcano = mountain (elevated land),True,failure,2,12.173707008361816,1754835354.488953,2025-08-10T16:15:54.488954
+847329,89,earth,stone,False,,48,Earth + stone = mountain,True,failure,3,14.946271181106567,1754835357.261515,2025-08-10T16:15:57.261517
+847329,90,stone,land,False,,48,Stone + land = mountain,True,failure,4,17.90677309036255,1754835360.2220008,2025-08-10T16:16:00.222002
+847329,91,pressure,stone,True,granite,48,Pressure + stone = diamond (compressed carbon),False,failure,5,20.93809223175049,1754835363.2532759,2025-08-10T16:16:03.253277
+847329,92,heat,pressure,True,plasma,48,Heat + pressure = diamond,True,success,1,3.0150461196899414,1754835366.268484,2025-08-10T16:16:06.268486
+847329,93,desert,wind,True,"dune, sandstorm",49,Desert + wind = sandstorm,True,success,2,3.0158798694610596,1754835369.284498,2025-08-10T16:16:09.284499
+847329,94,sand,ocean,False,,51,Sand + ocean = beach,True,success,3,5.941986083984375,1754835375.226596,2025-08-10T16:16:15.226597
+847329,95,city,city,False,,51,City + city = metropolis,True,failure,1,8.751092910766602,1754835378.035711,2025-08-10T16:16:18.035713
+847329,96,brick,wall,False,,51,Brick + wall = house,True,failure,2,11.721156120300293,1754835381.005762,2025-08-10T16:16:21.005763
+847329,97,dust,energy,False,,51,Dust + energy = life (particles gaining energy),True,failure,3,14.638034105300903,1754835383.922681,2025-08-10T16:16:23.922683
+847329,98,lake,sun,False,,51,Lake + sun = rainbow (light on water),True,failure,4,17.906472206115723,1754835387.191205,2025-08-10T16:16:27.191207
+847329,99,mist,heat,False,,51,Mist + heat = cloud (heated water vapor),True,failure,5,21.055400848388672,1754835390.340037,2025-08-10T16:16:30.340038
+847329,100,steam,heat,False,,51,Steam + heat = cloud,True,failure,6,24.089863061904907,1754835393.374466,2025-08-10T16:16:33.374467
+847329,101,heat,heat,False,,51,Heat + heat = fire (more heat),True,failure,7,27.430766105651855,1754835396.7153769,2025-08-10T16:16:36.715378
+847329,102,glass,sand,True,hourglass,51,Glass + sand = hourglass (sand in glass),True,failure,8,30.70066499710083,1754835399.98529,2025-08-10T16:16:39.985291
+847329,103,house,glass,False,,52,House + glass = greenhouse,False,success,1,3.239809036254883,1754835403.225137,2025-08-10T16:16:43.225138
+847329,104,water,glass,True,aquarium,52,Water + glass = aquarium,True,failure,1,6.280414819717407,1754835406.265854,2025-08-10T16:16:46.265855
+847329,105,fire,glass,False,,53,Fire + glass = lens (heated glass),True,success,1,2.7843751907348633,1754835409.0503411,2025-08-10T16:16:49.050342
+847329,106,sun,glass,False,,53,Sun + glass = lens (focused light),True,failure,1,5.834754228591919,1754835412.100769,2025-08-10T16:16:52.100771
+847329,107,energy,glass,False,,53,Energy + glass = light bulb,False,failure,2,8.695428133010864,1754835414.961323,2025-08-10T16:16:54.961324
+847329,108,air,glass,False,,53,Air + glass = atmosphere (air in container),True,failure,3,12.139143943786621,1754835418.405119,2025-08-10T16:16:58.405120
+847329,109,earth,glass,False,,53,Earth + glass = terrarium,True,failure,4,15.327697992324829,1754835421.59367,2025-08-10T16:17:01.593671
+847329,110,water,fire,True,steam,53,Water + fire = steam (known combination),False,failure,5,18.474781036376953,1754835424.740669,2025-08-10T16:17:04.740670
+847329,111,solar cell,glass,False,,53,Solar cell + glass = solar panel,True,success,1,2.986496925354004,1754835427.727287,2025-08-10T16:17:07.727288
+847329,112,wall,glass,False,,53,Wall + glass = window,True,failure,1,5.856596946716309,1754835430.597373,2025-08-10T16:17:10.597375
+847329,113,ocean,heat,True,current,53,Ocean + heat = salt (evaporation),True,failure,2,9.103478908538818,1754835433.844279,2025-08-10T16:17:13.844280
+847329,114,sea,heat,False,,54,Sea + heat = salt,True,success,1,2.8957901000976562,1754835436.740361,2025-08-10T16:17:16.740363
+847329,115,water,volcano,False,,54,Water + volcano = geyser,True,failure,1,6.340909004211426,1754835440.185306,2025-08-10T16:17:20.185307
+847329,116,glass,glass,True,glasses,54,Glass + glass = lens,True,failure,2,9.328836917877197,1754835443.173273,2025-08-10T16:17:23.173275
+847329,117,wind,sand,False,,55,Wind + sand = sandstorm,True,success,1,3.0061588287353516,1754835446.1795578,2025-08-10T16:17:26.179559
+847329,118,energy,heat,False,,55,Energy + heat = electricity,True,failure,1,6.113118886947632,1754835449.286496,2025-08-10T16:17:29.286497
+847329,119,steam,energy,False,,55,Steam + energy = turbine,True,failure,2,8.840046882629395,1754835452.013435,2025-08-10T16:17:32.013437
+847329,120,wind,energy,False,,55,Wind + energy = electricity,True,failure,3,13.722283124923706,1754835456.895798,2025-08-10T16:17:36.895801
+847329,121,pressure,pressure,False,,55,Pressure + pressure = vacuum,True,failure,4,16.706543922424316,1754835459.879958,2025-08-10T16:17:39.879959
+847329,122,dust,wind,False,,55,Dust + wind = dust devil,False,failure,5,20.668506860733032,1754835463.841815,2025-08-10T16:17:43.841817
+847329,123,mud,air,False,,55,Mud + air = clay (drying mud),True,failure,6,24.52163290977478,1754835467.6951091,2025-08-10T16:17:47.695110
+847329,124,mud,wind,False,,55,Mud + wind = clay (dried by wind),True,failure,7,28.082397937774658,1754835471.2557812,2025-08-10T16:17:51.255782
+847329,125,smoke,fire,False,,55,Smoke + fire = ash,True,failure,8,30.81378698348999,1754835473.9871979,2025-08-10T16:17:53.987199
+847329,126,steam,wind,False,,55,Steam + wind = cloud,True,failure,9,34.131016969680786,1754835477.304412,2025-08-10T16:17:57.304414
+847329,127,smoke,wind,False,,55,Smoke + wind = smog,True,failure,10,37.1635959148407,1754835480.3369868,2025-08-10T16:18:00.336988
+847329,128,mist,wind,False,,55,Mist + wind = cloud,True,failure,11,40.183796882629395,1754835483.357217,2025-08-10T16:18:03.357218
+847329,129,dune,dune,False,,55,Dune + dune = desert,True,failure,12,43.35169792175293,1754835486.5251148,2025-08-10T16:18:06.525116
+847329,130,dune,wind,False,,55,Dune + wind = sandstorm,True,failure,13,46.342402935028076,1754835489.515867,2025-08-10T16:18:09.515868
+847329,131,sandstorm,tornado,False,,55,Sandstorm + tornado = dust devil,True,failure,14,49.6380980014801,1754835492.8118248,2025-08-10T16:18:12.811826
+847329,132,rainbow,glass,True,prism,55,Rainbow + glass = prism,True,failure,15,55.76113986968994,1754835498.934612,2025-08-10T16:18:18.934614
+847329,133,prism,sun,False,,56,Prism + sun = rainbow,True,success,1,5.304152011871338,1754835504.238994,2025-08-10T16:18:24.238996
+847329,134,prism,energy,False,,56,Prism + energy = laser,True,failure,1,8.826117992401123,1754835507.760849,2025-08-10T16:18:27.760850
+847329,135,aquarium,energy,False,,56,Aquarium + energy = life,True,failure,2,12.119732856750488,1754835511.0544908,2025-08-10T16:18:31.054492
+847329,136,glasses,sun,True,sunglasses,56,Glasses + sun = sunglasses,True,failure,3,16.876953125,1754835515.811904,2025-08-10T16:18:35.811905
+847329,137,sunglasses,beach,False,,57,Sunglasses + beach = vacation,True,success,1,3.2076449394226074,1754835519.019687,2025-08-10T16:18:39.019688
+847329,138,beach,sun,False,,57,Beach + sun = vacation,True,failure,1,10.159945964813232,1754835525.971968,2025-08-10T16:18:45.971970
+847329,139,steam,steam,False,,57,Steam + steam = cloud,True,failure,2,14.789798974990845,1754835530.60186,2025-08-10T16:18:50.601861
+847329,140,wave,wave,False,,57,Wave + wave = tsunami,True,failure,3,17.59700894355774,1754835533.409052,2025-08-10T16:18:53.409054
+847329,141,explosion,earth,False,,57,Explosion + earth = earthquake,True,failure,4,21.081359148025513,1754835536.893433,2025-08-10T16:18:56.893434
+847329,142,explosion,explosion,True,atomic bomb,57,Explosion + explosion = atomic bomb,True,failure,5,24.26219391822815,1754835540.0742831,2025-08-10T16:19:00.074285
+847329,143,gunpowder,gunpowder,False,,58,Gunpowder + gunpowder = dynamite,True,success,1,3.467613935470581,1754835543.542022,2025-08-10T16:19:03.542023
+847329,144,gunpowder,stone,False,,58,Gunpowder + stone = cannonball,True,failure,1,6.295019865036011,1754835546.369426,2025-08-10T16:19:06.369427
+847329,145,energy,pressure,False,,58,Energy + pressure = electricity (compressed energy),True,failure,2,114.40977787971497,1754835654.484751,2025-08-10T16:20:54.484760
+847329,146,wind,ocean,True,wave,58,Wind + ocean = hurricane,False,failure,3,117.24756383895874,1754835657.321894,2025-08-10T16:20:57.321895
+847329,147,tornado,ocean,True,hurricane,58,Tornado + ocean = hurricane,True,success,1,2.9765751361846924,1754835660.298691,2025-08-10T16:21:00.298692
+847329,148,universe,energy,False,,59,Universe + energy = big bang,True,success,2,3.3804409503936768,1754835663.679328,2025-08-10T16:21:03.679334
+847329,149,universe,explosion,False,,59,Universe + explosion = big bang,True,failure,1,6.518742084503174,1754835666.817566,2025-08-10T16:21:06.817567
+847329,150,hurricane,city,False,,59,Hurricane + city = disaster,True,failure,2,12.753444910049438,1754835673.052288,2025-08-10T16:21:13.052289

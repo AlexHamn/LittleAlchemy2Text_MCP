@@ -1,0 +1,19 @@
+[
+  {
+    "sid": "first_principles_session_001",
+    "r_typ": "first-principles",
+    "start": "2025-08-09T22:52:03.429165",
+    "start_ts": 1754772723.429166,
+    "end": "2025-08-09T23:03:43.002947",
+    "end_ts": 1754773423.0029912,
+    "tot_att": 150,
+    "succ_att": 50,
+    "elem_disc": 54,
+    "final_inv": 54,
+    "disc_rate": 0.3333333333333333,
+    "max_succ": 8,
+    "max_fail": 27,
+    "plateaus": 6,
+    "last_disc_t": 1754773287.6570802
+  }
+]

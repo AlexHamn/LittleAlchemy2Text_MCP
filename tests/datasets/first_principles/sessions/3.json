@@ -1,0 +1,19 @@
+[
+  {
+    "sid": "first-principles-alchemy-001",
+    "r_typ": "first-principles",
+    "start": "2025-08-09T23:08:06.388208",
+    "start_ts": 1754773686.3882089,
+    "end": null,
+    "end_ts": null,
+    "tot_att": 150,
+    "succ_att": 55,
+    "elem_disc": 60,
+    "final_inv": 0,
+    "disc_rate": 0.36666666666666664,
+    "max_succ": 8,
+    "max_fail": 10,
+    "plateaus": 6,
+    "last_disc_t": 1754774351.6290429
+  }
+]

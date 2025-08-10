@@ -1,0 +1,19 @@
+[
+  {
+    "sid": "123999",
+    "r_typ": "first-principles",
+    "start": "2025-08-10T10:34:17.266681",
+    "start_ts": 1754814857.2666821,
+    "end": null,
+    "end_ts": null,
+    "tot_att": 149,
+    "succ_att": 61,
+    "elem_disc": 67,
+    "final_inv": 0,
+    "disc_rate": 0.40939597315436244,
+    "max_succ": 8,
+    "max_fail": 10,
+    "plateaus": 6,
+    "last_disc_t": 1754815490.484801
+  }
+]
