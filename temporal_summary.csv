@@ -1,0 +1,6 @@
+Reasoning_Type,Overall_Success_Rate,Total_Attempts,Early_Game_Rate,Mid_Game_Rate,Late_Game_Rate,Improvement_Trend,Sessions
+Counterfactual,0.27,729,0.38,0.204,0.223,-0.157,5
+Systematic,0.38,750,0.568,0.312,0.26,-0.308,5
+Abductive,0.37,705,0.556,0.28,0.254,-0.302,5
+Heuristic,0.384,724,0.588,0.316,0.232,-0.356,5
+first-principles,0.361,750,0.54,0.356,0.188,-0.352,5

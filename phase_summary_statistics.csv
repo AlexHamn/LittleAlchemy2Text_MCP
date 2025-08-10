@@ -1,0 +1,16 @@
+,reasoning_type,phase,mean,sem,count
+0,abductive,Early,55.6,4.833,5
+1,abductive,Late,26.528,7.403,5
+2,abductive,Middle,28.0,2.828,5
+3,counterfactual,Early,38.0,4.243,5
+4,counterfactual,Late,21.559,8.241,5
+5,counterfactual,Middle,20.4,5.741,5
+6,first-principles,Early,54.0,1.673,5
+7,first-principles,Late,18.8,3.382,5
+8,first-principles,Middle,35.6,2.993,5
+9,heuristic,Early,58.8,4.224,5
+10,heuristic,Late,23.21,3.65,5
+11,heuristic,Middle,31.6,2.315,5
+12,systematic,Early,56.8,4.224,5
+13,systematic,Late,26.0,5.02,5
+14,systematic,Middle,31.2,6.248,5

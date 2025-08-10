@@ -1,0 +1,11 @@
+comparison,type1,type2,statistic,p_value,effect_size,n1,n2,median1,median2
+first-principles vs systematic,first-principles,systematic,16.0,0.5110092070684836,0.28,5,5,1.0,0.8571428571428571
+first-principles vs counterfactual,first-principles,counterfactual,14.0,0.8224559693191273,0.12,5,5,1.0,0.875
+first-principles vs heuristic,first-principles,heuristic,11.0,0.7971696931337416,0.12,5,5,1.0,1.0
+first-principles vs abductive,first-principles,abductive,17.5,0.31430466047385397,0.4,5,5,1.0,0.8333333333333334
+systematic vs counterfactual,systematic,counterfactual,10.0,0.666430033928618,0.19999999999999996,5,5,0.8571428571428571,0.875
+systematic vs heuristic,systematic,heuristic,7.0,0.2635524772829727,0.43999999999999995,5,5,0.8571428571428571,1.0
+systematic vs abductive,systematic,abductive,15.5,0.5947293361935915,0.24,5,5,0.8571428571428571,0.8333333333333334
+counterfactual vs heuristic,counterfactual,heuristic,9.0,0.4801768899060772,0.28,5,5,0.875,1.0
+counterfactual vs abductive,counterfactual,abductive,16.5,0.4491772016102902,0.31999999999999995,5,5,0.875,0.8333333333333334
+heuristic vs abductive,heuristic,abductive,16.0,0.4801768899060772,0.28,5,5,1.0,0.8333333333333334

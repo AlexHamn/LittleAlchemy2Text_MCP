@@ -1,0 +1,9 @@
+Metric,Total_Comparisons,Significant_Before_Correction,Significant_After_Correction,Correction_Impact,Strongest_Effect_Size,Most_Significant_Comparison,Lowest_Corrected_P
+disc_rate,10,1,0,1,1.5518952706381053,None,0.39703114376509563
+elem_disc,10,0,0,0,1.3248125169729503,None,0.6950681442155584
+max_succ,10,2,0,2,2.0283702113484403,None,0.12477874755859346
+max_fail,10,1,0,1,1.6162491474190062,None,0.33882646961962576
+final_inv,10,4,1,3,5.952312613202756,abductive vs systematic,0.000133254243981077
+exploration_breadth,10,0,0,0,0.6270361875933955,None,1.0
+late_game_performance,10,0,0,0,0.7522890831514318,None,1.0
+recovery_rate,10,0,0,0,1.321982354102391,None,0.6999220539907346
