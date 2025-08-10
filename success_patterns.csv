@@ -1,0 +1,6 @@
+reasoning_type,avg_success_rate,median_success_rate,std_success_rate,total_successful_combinations,total_attempts,unique_successful_combinations,unique_attempted_combinations
+counterfactual,0.18469135802469136,0.0,0.3811777927403467,197,729,80,405
+systematic,0.2688948306595365,0.0,0.43551428705334766,285,750,106,374
+abductive,0.24725609756097558,0.0,0.4233119570775496,261,705,86,328
+heuristic,0.24932203389830507,0.0,0.42473600071746664,278,724,77,295
+first-principles,0.24537313432835817,0.0,0.4231262294450734,271,750,87,335

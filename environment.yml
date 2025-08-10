@@ -4,4 +4,19 @@ channels:
   - conda-forge
 dependencies:
   - python=3.11
+  - pandas
+  - numpy
+  - matplotlib
+  - networkx
+  - plotly
+  - seaborn
+  - pip
+  - pip:
+      - gravis
+      - dash
+      - dash-cytoscape
+      - d3graph
+      - kaleido
+      - python-igraph
+      - community
 prefix: /Users/enis/miniconda3/envs/LittleAlchemy2Text
