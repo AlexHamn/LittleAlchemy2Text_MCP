@@ -1,32 +1,3 @@
-# 📊 SESSION LOGS - Session: 123676 (JSON)
-
-```json
-[
-  {
-    "sid": "123676",
-    "r_typ": "abductive",
-    "start": "2025-08-10T10:08:10.698755",
-    "start_ts": 1754813290.698756,
-    "end": null,
-    "end_ts": null,
-    "tot_att": 137,
-    "succ_att": 55,
-    "elem_disc": 60,
-    "final_inv": 0,
-    "disc_rate": 0.40145985401459855,
-    "max_succ": 10,
-    "max_fail": 14,
-    "plateaus": 5,
-    "last_disc_t": 1754813700.351918
-  }
-]
-```
-
----
-
-📊 ATTEMPT LOGS (JSON) - Session: 123676
-
-```json
 [
   {
     "sid": "123676",
@@ -2253,4 +2224,3 @@
     "_datetime": "2025-08-10T10:15:03.549903"
   }
 ]
-```

@@ -1,32 +1,3 @@
-# 📊 SESSION LOGS - Session: 789012 (JSON)
-
-```json
-[
-  {
-    "sid": "789012",
-    "r_typ": "systematic",
-    "start": "2025-08-09T22:14:38.135750",
-    "start_ts": 1754770478.135751,
-    "end": "2025-08-09T22:22:42.554530",
-    "end_ts": 1754770962.554556,
-    "tot_att": 147,
-    "succ_att": 55,
-    "elem_disc": 60,
-    "final_inv": 60,
-    "disc_rate": 0.3741496598639456,
-    "max_succ": 7,
-    "max_fail": 13,
-    "plateaus": 7,
-    "last_disc_t": 1754770902.1530821
-  }
-]
-```
-
----
-
-📊 ATTEMPT LOGS (JSON) - Session: 789012
-
-```json
 [
   {
     "sid": "789012",
@@ -2429,4 +2400,3 @@
     "_datetime": "2025-08-09T22:22:39.113504"
   }
 ]
-```

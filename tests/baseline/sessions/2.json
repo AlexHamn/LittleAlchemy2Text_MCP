@@ -1,0 +1,19 @@
+[
+  {
+    "sid": "847293",
+    "r_typ": "systematic",
+    "start": "2025-08-10T12:09:20.861493",
+    "start_ts": 1754820560.861495,
+    "end": null,
+    "end_ts": null,
+    "tot_att": 144,
+    "succ_att": 52,
+    "elem_disc": 56,
+    "final_inv": 0,
+    "disc_rate": 0.3611111111111111,
+    "max_succ": 10,
+    "max_fail": 26,
+    "plateaus": 6,
+    "last_disc_t": 1754820979.435612
+  }
+]

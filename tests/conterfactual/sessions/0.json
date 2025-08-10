@@ -1,0 +1,19 @@
+[
+  {
+    "sid": "123468",
+    "r_typ": "counterfactual",
+    "start": "2025-08-10T08:52:55.672423",
+    "start_ts": 1754808775.6724238,
+    "end": "2025-08-10T09:04:47.813556",
+    "end_ts": 1754809487.813611,
+    "tot_att": 150,
+    "succ_att": 43,
+    "elem_disc": 47,
+    "final_inv": 47,
+    "disc_rate": 0.2866666666666667,
+    "max_succ": 8,
+    "max_fail": 39,
+    "plateaus": 6,
+    "last_disc_t": 1754809315.646353
+  }
+]
