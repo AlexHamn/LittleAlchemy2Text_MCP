@@ -1,0 +1,37 @@
+COMPLETE THESIS ANALYSIS RESULTS
+==================================================
+
+1. REASONING QUALITY RANKINGS:
+
+Overall Quality:
+  1. none: 2.755
+  2. success: 2.563
+  3. failure: 2.528
+
+Success Rate:
+  1. none: 1.000
+  2. success: 0.552
+  3. failure: 0.237
+
+Novel Discoveries:
+  1. none: 1.000
+  2. success: 0.978
+  3. failure: 0.965
+
+Reasoning Depth:
+  1. none: 1.800
+  2. failure: 1.470
+  3. success: 1.459
+
+Type Adherence:
+  1. failure: 2.500
+  2. none: 2.500
+  3. success: 2.500
+
+2. NETWORK ANALYSIS RESULTS:
+         nodes  edges   density  avg_clustering  connected_components
+none       4.0    4.0  0.666667        0.583333                   1.0
+success   84.0  320.0  0.091796        0.384270                   5.0
+failure   85.0  707.0  0.198039        0.567680                   2.0
+3. CLUSTERING RESULTS:
+Exploration strategy clusters identified based on performance patterns.

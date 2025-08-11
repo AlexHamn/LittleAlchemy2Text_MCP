@@ -1,0 +1,47 @@
+STRATEGY EVOLUTION ANALYSIS REPORT
+==================================================
+Analyzed 25 sessions across 5 reasoning types
+
+OVERALL FINDINGS:
+--------------------
+
+COUNTERFACTUAL REASONING (5 sessions):
+  • Significant strategy shifts per session: 4.8
+  • Biggest strategy changes:
+    - Avg Time Between Success: increased by 172.0%
+    - Avg Inventory Size: increased by 153.5%
+    - Repeat Attempt Rate: increased by 77.5%
+
+SYSTEMATIC REASONING (5 sessions):
+  • Significant strategy shifts per session: 6.0
+  • Biggest strategy changes:
+    - Avg Inventory Size: increased by 161.5%
+    - Avg Time Between Success: increased by 100.5%
+    - Efficiency Score: decreased by 55.4%
+
+ABDUCTIVE REASONING (5 sessions):
+  • Significant strategy shifts per session: 5.0
+  • Biggest strategy changes:
+    - Repeat Attempt Rate: increased by 188.1%
+    - Avg Inventory Size: increased by 145.9%
+    - Avg Time Between Success: increased by 141.0%
+
+HEURISTIC REASONING (5 sessions):
+  • Significant strategy shifts per session: 6.0
+  • Biggest strategy changes:
+    - Avg Time Between Success: increased by 157.4%
+    - Avg Inventory Size: increased by 147.5%
+    - Repeat Attempt Rate: increased by 130.0%
+
+FIRST-PRINCIPLES REASONING (5 sessions):
+  • Significant strategy shifts per session: 6.0
+  • Biggest strategy changes:
+    - Avg Time Between Success: increased by 187.3%
+    - Avg Inventory Size: increased by 178.5%
+    - Efficiency Score: decreased by 66.0%
+
+
+KEY INSIGHTS:
+---------------
+• Most adaptive reasoning type: systematic (6.0 shifts/session)
+• Most stable reasoning type: counterfactual (4.8 shifts/session)
